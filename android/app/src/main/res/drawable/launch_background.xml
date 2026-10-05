@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tela nativa de abertura: verde-noite liso, emenda com a animação (floresta noturna) -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/lume_verde_noite" />
+</layer-list>

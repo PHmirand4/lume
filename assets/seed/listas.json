@@ -1,0 +1,59 @@
+{
+  "versao": 1,
+  "listas": {
+    "forma_vida": [
+      ["arvore", "Árvore"], ["arbusto", "Arbusto"], ["palmeira", "Palmeira"],
+      ["graminea", "Gramínea/capim"], ["trepadeira", "Trepadeira"],
+      ["herbacea", "Herbácea"], ["outra", "Outra"]
+    ],
+    "estagio": [
+      ["plantula", "Plântula"], ["jovem", "Jovem"], ["adulto", "Adulto"],
+      ["reprodutivo", "Adulto com flor/fruto"], ["misto", "Vários estágios"],
+      ["nao_informado", "Não informado"]
+    ],
+    "quantificacao_tipo": [
+      ["contagem", "Nº de indivíduos"], ["classe", "Classe de abundância"],
+      ["area", "Área ocupada (m²)"], ["cobertura", "Cobertura (%)"]
+    ],
+    "classe_abundancia": [
+      ["c1", "1 indivíduo"], ["c2", "2–5"], ["c3", "6–20"],
+      ["c4", "21–100"], ["c5", "Mais de 100 / mancha extensa"]
+    ],
+    "ambiente": [
+      ["interior_mata", "Interior da mata"], ["borda", "Borda da mata"],
+      ["clareira", "Clareira"], ["beira_trilha", "Beira de trilha"],
+      ["beira_estrada", "Beira de estrada"], ["area_aberta", "Área aberta/pasto"],
+      ["margem_rio", "Margem de rio/córrego"], ["talhao", "Talhão plantado"],
+      ["outro", "Outro"]
+    ],
+    "status_foco": [
+      ["detectado", "Detectado"], ["em_controle", "Em controle"],
+      ["controlado", "Controlado"], ["rebrotou", "Rebrotou"],
+      ["erradicado", "Erradicado"], ["descartado", "Descartado"]
+    ],
+    "metodo_manejo": [
+      ["arranquio", "Arranquio manual"], ["rocada", "Roçada/capina"],
+      ["corte_raso", "Corte rente à base"], ["anelamento", "Anelamento"],
+      ["corte_herbicida", "Corte + herbicida no toco"],
+      ["anelamento_herbicida", "Anelamento + herbicida"],
+      ["herbicida_foliar", "Herbicida foliar"],
+      ["remocao_frutos", "Remoção de frutos/sementes"], ["outro", "Outro"]
+    ],
+    "destinacao": [
+      ["deixado_secar", "Deixado no local para secar"], ["amontoado", "Amontoado no local"],
+      ["removido", "Removido da área"], ["ensacado", "Ensacado"], ["outro", "Outro"]
+    ],
+    "resultado_revisita": [
+      ["ausente", "Ausente"], ["presente_reduzido", "Presente, reduzido"],
+      ["presente_igual", "Presente, sem mudança"], ["presente_aumentou", "Presente, aumentou"],
+      ["rebrota", "Rebrota em indivíduos tratados"]
+    ],
+    "origem_coordenada": [
+      ["gps_auto", "GPS automático"], ["gps_ajustado", "Ajustado no mapa"],
+      ["estimada", "Estimada"]
+    ],
+    "condicao_tempo": [
+      ["seco", "Seco"], ["nublado", "Nublado"], ["chuva", "Chuva"]
+    ]
+  }
+}

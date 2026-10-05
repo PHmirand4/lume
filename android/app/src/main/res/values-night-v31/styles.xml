@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ (modo claro e escuro): splash do sistema verde-noite liso, sem ícone.
+         A abertura animada do Lume começa no primeiro frame do Flutter. -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowSplashScreenBackground">@color/lume_verde_noite</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_icone_vazio</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/lume_verde_noite</item>
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@color/lume_verde_noite</item>
+    </style>
+</resources>
