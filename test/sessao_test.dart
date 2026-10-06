@@ -33,4 +33,21 @@ void main() {
     await sub.cancel();
     await db.close();
   });
+
+  test('versão de apresentação: nome e função bastam e a sessão fica salva', () async {
+    final db = AppDatabase(NativeDatabase.memory());
+    final sessao = SessaoRepository(db, ConfigRepository(db));
+
+    final u = await sessao.entrarApresentacao(nome: ' Carla Souza ', funcao: 'Brigadista');
+    expect(u.nome, 'Carla Souza');
+    expect(u.funcao, 'Brigadista');
+    expect(u.perfil, Perfil.gestor, reason: 'gestão vê todas as telas na demonstração');
+
+    // Mesma pessoa de novo: reaproveita o usuário, não duplica.
+    final deNovo = await sessao.entrarApresentacao(nome: 'carla souza', funcao: 'Analista');
+    expect(deNovo.id, u.id);
+    expect(await sessao.observarUsuarioAtual().first.then((x) => x?.funcao), 'Analista');
+
+    await db.close();
+  });
 }

@@ -187,7 +187,7 @@ class _IndicadorSync extends ConsumerWidget {
       valueListenable: servico.estado,
       builder: (context, estado, _) {
         final (icone, cor, texto) = !servico.disponivel
-            ? (Icons.phone_android, LumeCores.textoSecundario, p.registros == 0 ? 'Local' : '${p.registros}')
+            ? (Icons.phone_android, LumeCores.textoSecundario, 'Local')
             : estado.rodando
                 ? (Icons.sync, LumeCores.verdeFloresta, '…')
                 : p.erros > 0

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/providers.dart';
 import '../../app/router.dart';
 import '../../app/theme.dart';
+import '../../core/apresentacao.dart';
 import '../../core/formato.dart' as fmt;
 import '../../domain/codigos.dart';
 import '../../domain/regras.dart';
@@ -73,7 +74,7 @@ class ConfiguracoesScreen extends ConsumerWidget {
                   child: Text(usuario.nome.isEmpty ? '?' : usuario.nome[0].toUpperCase()),
                 ),
                 title: Text(usuario.nome),
-                subtitle: Text('${usuario.email}\nPerfil: ${switch (usuario.perfil) {
+                subtitle: Text('${modoApresentacao ? 'Versão de apresentação' : usuario.email}\nPerfil: ${switch (usuario.perfil) {
                   Perfil.gestor => 'gestão',
                   Perfil.admin => 'administração',
                   _ => 'campo',

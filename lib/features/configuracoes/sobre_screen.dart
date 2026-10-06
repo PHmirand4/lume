@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/theme.dart';
+import '../../core/apresentacao.dart';
 import '../../data/remote/supabase_config.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../../widgets/comuns.dart';
@@ -35,7 +36,7 @@ class SobreScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
-          Text('Versão $versaoApp · ${SupabaseConfig.configurado ? 'servidor configurado' : 'modo local'}',
+          Text('Versão $versaoApp · ${modoApresentacao ? 'apresentação' : SupabaseConfig.configurado ? 'servidor configurado' : 'modo local'}',
               style: estiloMono(tamanho: 13, cor: LumeCores.textoSecundario), textAlign: TextAlign.center),
           const TituloSecao('Projeto'),
           Text(

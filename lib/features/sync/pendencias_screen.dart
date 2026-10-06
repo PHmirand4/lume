@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
+import '../../core/apresentacao.dart';
 import '../../core/formato.dart' as fmt;
 import '../../data/repositories/config_repository.dart';
 import '../../data/sync/sync_service.dart';
@@ -42,9 +43,12 @@ class PendenciasScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           children: [
             if (!servico.disponivel)
-              const Aviso(
-                'Modo local: o servidor ainda não foi configurado. Os registros ficam guardados neste aparelho '
-                'e podem ser exportados em CSV, GeoJSON ou Darwin Core.',
+              Aviso(
+                modoApresentacao
+                    ? 'Versão de apresentação: a sincronização está desligada. Os registros ficam guardados neste '
+                        'aparelho e podem ser exportados em CSV, GeoJSON ou Darwin Core.'
+                    : 'Modo local: o servidor ainda não foi configurado. Os registros ficam guardados neste aparelho '
+                        'e podem ser exportados em CSV, GeoJSON ou Darwin Core.',
                 icone: Icons.phone_android,
               )
             else if (!servico.logado)

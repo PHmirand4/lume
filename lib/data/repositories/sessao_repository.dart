@@ -84,6 +84,19 @@ class SessaoRepository {
     return (await (db.select(db.usuarios)..where((u) => u.id.equals(id))).getSingle());
   }
 
+  /// Versão de apresentação: só nome e função. Entra com perfil de gestão para
+  /// mostrar todas as telas (exportação, regras). Não há e-mail real; o
+  /// endereço gerado só identifica a pessoa no aparelho.
+  Future<Usuario> entrarApresentacao({required String nome, String? funcao}) {
+    final apelido = nome.trim().toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '.');
+    return entrarLocal(
+      nome: nome,
+      email: '$apelido@apresentacao.lume',
+      funcao: funcao,
+      perfil: Perfil.gestor,
+    );
+  }
+
   /// Modo servidor: e-mail e senha no Supabase Auth; o perfil vem da tabela `usuarios`.
   Future<Usuario> entrarServidor({required String email, required String senha}) async {
     final c = SupabaseConfig.cliente!;

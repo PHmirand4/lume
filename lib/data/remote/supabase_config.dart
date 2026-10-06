@@ -1,5 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../core/apresentacao.dart';
+
 /// Credenciais do backend, passadas na compilação:
 ///
 /// ```
@@ -15,7 +17,8 @@ abstract final class SupabaseConfig {
   static const chave = String.fromEnvironment('SUPABASE_KEY');
   static const bucketMidias = 'midias';
 
-  static bool get configurado => url.isNotEmpty && chave.isNotEmpty;
+  /// Na versão de apresentação o servidor fica desligado mesmo com as credenciais.
+  static bool get configurado => !modoApresentacao && url.isNotEmpty && chave.isNotEmpty;
 
   static Future<void> inicializar() async {
     if (!configurado) return;

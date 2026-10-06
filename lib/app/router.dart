@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/apresentacao.dart';
+import '../features/auth/identificacao_screen.dart';
 import '../features/auth/login_screen.dart';
 import '../features/configuracoes/configuracoes_screen.dart';
 import '../features/configuracoes/sobre_screen.dart';
@@ -59,7 +61,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: Rotas.login, builder: (_, _) => const LoginScreen()),
+      GoRoute(
+        path: Rotas.login,
+        // Versão de apresentação: só nome e função (ver core/apresentacao.dart).
+        builder: (_, _) => modoApresentacao ? const IdentificacaoScreen() : const LoginScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => ShellPrincipal(shell: shell),
         branches: [
