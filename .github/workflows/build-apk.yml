@@ -56,11 +56,15 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
+          # Remove quebras de linha/espaços que vêm junto ao colar o secret
+          SUPABASE_URL=$(printf '%s' "$SUPABASE_URL" | tr -d '[:space:]')
+          SUPABASE_KEY=$(printf '%s' "$SUPABASE_KEY" | tr -d '[:space:]')
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
             echo "::warning::SUPABASE_URL/SUPABASE_KEY ausentes — o APK vai rodar em modo local."
             echo '{}' > dart_defines.json
           else
-            printf '{"SUPABASE_URL":"%s","SUPABASE_KEY":"%s"}' "$SUPABASE_URL" "$SUPABASE_KEY" > dart_defines.json
+            jq -n --arg url "$SUPABASE_URL" --arg key "$SUPABASE_KEY" \
+              '{SUPABASE_URL: $url, SUPABASE_KEY: $key}' > dart_defines.json
           fi
 
       - name: Chave de assinatura
@@ -73,8 +77,10 @@ jobs:
             echo "::error::Secret ANDROID_KEYSTORE_BASE64 ausente. Sem ele, cada APK teria uma assinatura diferente e não instalaria por cima do anterior."
             exit 1
           fi
+          KEYSTORE_PASSWORD=$(printf '%s' "$KEYSTORE_PASSWORD" | tr -d '\r\n')
+          KEY_ALIAS=$(printf '%s' "$KEY_ALIAS" | tr -d '[:space:]')
           mkdir -p android/keystore
-          echo "$KEYSTORE_BASE64" | base64 --decode > android/keystore/lume-release.jks
+          printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 --decode > android/keystore/lume-release.jks
           {
             echo "storePassword=$KEYSTORE_PASSWORD"
             echo "keyPassword=$KEYSTORE_PASSWORD"
