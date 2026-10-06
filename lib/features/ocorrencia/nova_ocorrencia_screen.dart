@@ -357,10 +357,17 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
                       right: 8,
                       bottom: 8,
                       child: FilledButton.tonalIcon(
-                        style: FilledButton.styleFrom(minimumSize: const Size(48, 44), backgroundColor: Colors.white),
+                        // Cor do texto explícita: o tema deixa o texto dos FilledButton branco.
+                        style: FilledButton.styleFrom(
+                          minimumSize: const Size(48, 48),
+                          backgroundColor: Colors.white,
+                          foregroundColor: LumeCores.verdeFloresta,
+                          side: const BorderSide(color: LumeCores.verdeFloresta),
+                          elevation: 2,
+                        ),
                         onPressed: _ajustarNoMapa,
                         icon: const Icon(Icons.edit_location_alt_outlined),
-                        label: const Text('Ajustar'),
+                        label: const Text('Ajustar no mapa'),
                       ),
                     ),
                   ]),
