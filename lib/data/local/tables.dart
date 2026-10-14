@@ -54,6 +54,19 @@ class Especies extends Table with CamposSync {
   BoolColumn get naListaOficialIcmbio => boolean().nullable()();
   BoolColumn get ativa => boolean().withDefault(const Constant(true))();
   IntColumn get ordem => integer().withDefault(const Constant(0))();
+  // Catálogo nacional (Base de Dados Nacional de EEI — Instituto Hórus).
+  TextColumn get origemNativa => text().nullable()();
+  TextColumn get ambientesInvasao => text().nullable()();
+  TextColumn get impactos => text().nullable()();
+  TextColumn get controleLiteratura => text().nullable()();
+  BoolColumn get nativaBrasil => boolean().withDefault(const Constant(false))();
+  TextColumn get fonte => text().nullable()();
+  /// Quem cadastrou pelo app (nulo para as espécies do catálogo inicial).
+  TextColumn get criadoPor => text().nullable()();
+  /// Unidade em que a espécie foi cadastrada pelo app.
+  TextColumn get unidadeOrigem => text().nullable()();
+  /// `planta` ou `animal` (a lista oficial do ICMBio traz flora e fauna).
+  TextColumn get reino => text().withDefault(const Constant('planta'))();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -62,6 +75,10 @@ class Especies extends Table with CamposSync {
 @DataClassName('Foco')
 class Focos extends Table with CamposSync {
   TextColumn get id => text()();
+  /// Unidade de conservação (id do catálogo de unidades, ex.: `flona_pacotuba`).
+  TextColumn get unidadeId => text().withDefault(const Constant('flona_pacotuba'))();
+  /// Identificador do registro na planilha de origem (importação sem duplicar).
+  TextColumn get chaveExterna => text().nullable()();
   TextColumn get especieId => text().references(Especies, #id)();
   TextColumn get especieTexto => text().nullable()();
   TextColumn get codigo => text()();
@@ -112,6 +129,13 @@ class Observacoes extends Table with CamposSync {
   BoolColumn get ditado => boolean().withDefault(const Constant(false))();
   TextColumn get dispositivo => text().nullable()();
   TextColumn get versaoApp => text().nullable()();
+  // Campos da ficha de campo do ICMBio.
+  TextColumn get bloco => text().nullable()();
+  RealColumn get capCm => real().nullable()();
+  /// Isolada · mancha/reboleira · contínua/densa.
+  TextColumn get padraoOcorrencia => text().nullable()();
+  /// Fauna: avistamento, vestígio, vocalização…
+  TextColumn get evidencia => text().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -138,6 +162,8 @@ class AcoesManejo extends Table with CamposSync {
   BoolColumn get epiUtilizado => boolean().nullable()();
   TextColumn get condicaoTempo => text().nullable()();
   TextColumn get texto => text().nullable()();
+  TextColumn get bloco => text().nullable()();
+  RealColumn get capCm => real().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -146,7 +172,7 @@ class AcoesManejo extends Table with CamposSync {
 @DataClassName('Midia')
 class Midias extends Table with CamposSync {
   TextColumn get id => text()();
-  TextColumn get donoTipo => text()(); // observacao · acao_manejo
+  TextColumn get donoTipo => text()(); // observacao · acao_manejo · especie
   TextColumn get donoId => text()();
   TextColumn get tipo => text().withDefault(const Constant('foto'))();
   TextColumn get momento => text().nullable()(); // antes · depois
@@ -196,4 +222,34 @@ class ErrosSync extends Table {
 
   @override
   Set<Column> get primaryKey => {tabela, registroId};
+}
+
+/// Espécies da Lista de EEI em UC federais (ICMBio) em cada unidade. Dado de
+/// referência: vem do seed ou da importação da planilha oficial de cada ciclo.
+@DataClassName('EspecieUnidade')
+class EspeciesUnidade extends Table {
+  TextColumn get unidadeId => text()();
+  TextColumn get especieId => text().references(Especies, #id)();
+  IntColumn get ciclo => integer()();
+  TextColumn get fonte => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {unidadeId, especieId};
+}
+
+/// Priorização de uma EEI para controle numa unidade (Ferramenta de
+/// Priorização do ICMBio: 12 critérios → índice).
+@DataClassName('Priorizacao')
+class Priorizacoes extends Table with CamposSync {
+  TextColumn get id => text()();
+  TextColumn get unidadeId => text()();
+  TextColumn get especieId => text().references(Especies, #id)();
+  /// Resposta de cada critério: {"1": "alguns_locais…", …} (JSON).
+  TextColumn get respostas => text()();
+  IntColumn get indice => integer()();
+  TextColumn get usuarioId => text()();
+  TextColumn get observacao => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }

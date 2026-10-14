@@ -9,7 +9,7 @@ import 'package:intl/intl.dart' show Intl;
 import 'app/providers.dart';
 import 'app/router.dart';
 import 'app/theme.dart';
-import 'data/geo/limite_flona.dart';
+import 'data/geo/unidades.dart';
 import 'data/local/database.dart';
 import 'data/local/seed.dart';
 import 'data/remote/supabase_config.dart';
@@ -22,10 +22,10 @@ void main() {
 }
 
 class _Dependencias {
-  const _Dependencias(this.db, this.limite);
+  const _Dependencias(this.db, this.unidades);
 
   final AppDatabase db;
-  final LimiteFlona limite;
+  final CatalogoUnidades unidades;
 }
 
 Future<_Dependencias> _inicializar() async {
@@ -40,7 +40,7 @@ Future<_Dependencias> _inicializar() async {
   await SupabaseConfig.inicializar();
   final db = AppDatabase();
   await Seeder(db).executar();
-  return _Dependencias(db, await LimiteFlona.carregar());
+  return _Dependencias(db, await CatalogoUnidades.carregar());
 }
 
 /// Raiz: mostra a abertura imediatamente e monta o app quando a inicialização termina.
@@ -74,7 +74,7 @@ class _RaizLumeState extends State<RaizLume> {
               ? ProviderScope(
                   overrides: [
                     databaseProvider.overrideWithValue(deps.db),
-                    limiteFlonaProvider.overrideWithValue(deps.limite),
+                    unidadesProvider.overrideWithValue(deps.unidades),
                   ],
                   child: const LumeApp(),
                 )
@@ -86,7 +86,7 @@ class _RaizLumeState extends State<RaizLume> {
                           child: Padding(
                             padding: const EdgeInsets.all(24),
                             child: Text(
-                              'Não foi possível iniciar o Lume: $_erro',
+                              'Não foi possível iniciar o BioLume: $_erro',
                               textAlign: TextAlign.center,
                               style: const TextStyle(color: LumeCores.erro, fontSize: 16),
                             ),
@@ -119,7 +119,7 @@ class _LumeAppState extends ConsumerState<LumeApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Lume',
+      title: 'BioLume',
       debugShowCheckedModeBanner: false,
       theme: temaLume(),
       themeMode: ThemeMode.light,

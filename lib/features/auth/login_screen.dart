@@ -142,7 +142,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     contentPadding: EdgeInsets.zero,
                     controlAffinity: ListTileControlAffinity.leading,
                     title: Text(
-                      'Li e aceito o termo de uso: o Lume guarda nome, e-mail e função de quem registra, '
+                      'Li e aceito o termo de uso: o BioLume guarda nome, e-mail e função de quem registra, '
                       'e a localização registrada é a do foco, não a minha.',
                       style: t.bodySmall!.copyWith(color: LumeCores.grafite),
                     ),

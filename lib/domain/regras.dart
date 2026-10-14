@@ -175,6 +175,8 @@ List<(FocoResumo, double)> focosProximosMesmaEspecie({
   return achados;
 }
 
+const motivoForaDaLista = 'Fora da Lista oficial de EEI da unidade (possível novo registro)';
+
 /// Motivos que tornam uma detecção "precoce". Lista vazia = não é precoce.
 List<String> motivosDeteccaoPrecoce({
   required String especieId,
@@ -184,11 +186,15 @@ List<String> motivosDeteccaoPrecoce({
   int? nIndividuos,
   String? classeAbundancia,
   double? areaM2,
+  bool? naListaOficial,
 }) {
   final motivos = <String>[];
   if (especieId == especieOutra) {
     motivos.add('Possível espécie nova na Flona');
   } else {
+    // Lista de EEI em UC federais (ICMBio): espécie fora da lista da unidade
+    // é um possível novo registro, a informar à CMEEI.
+    if (naListaOficial == false) motivos.add(motivoForaDaLista);
     final mesmaEspecie = focosExistentes
         .where((f) => f.especieId == especieId && f.status != StatusFoco.descartado)
         .toList();
@@ -224,4 +230,65 @@ bool podeEditar({
   if (Perfil.podeGerir(perfil)) return true;
   final n = agora ?? DateTime.now().toUtc();
   return autorId == usuarioId && n.difference(criadoEm).inHours < 24;
+}
+
+// ---------------------------------------------------------------------------
+// Catálogo de espécies
+// ---------------------------------------------------------------------------
+
+/// Minúsculas e sem acentos, para buscas e comparação de nomes.
+String normalizarTexto(String s) {
+  const de = 'áàâãäéèêëíìîïóòôõöúùûüçñ';
+  const para = 'aaaaaeeeeiiiiooooouuuucn';
+  final b = StringBuffer();
+  for (final ch in s.toLowerCase().split('')) {
+    final i = de.indexOf(ch);
+    b.write(i >= 0 ? para[i] : ch);
+  }
+  return b.toString().replaceAll(RegExp(r'\s+'), ' ').trim();
+}
+
+/// Gênero + epíteto ("Acacia mangium Willd." → "acacia mangium").
+String binomioNormalizado(String nomeCientifico) {
+  final partes = normalizarTexto(nomeCientifico)
+      .replaceAll(RegExp(r'[^a-z\s-]'), ' ')
+      .split(' ')
+      .where((p) => p.isNotEmpty && p != 'x')
+      .toList();
+  return partes.take(2).join(' ');
+}
+
+/// Id estável de uma espécie nova: o binômio em snake_case (como o catálogo
+/// inicial), com sufixo numérico se já existir.
+String idNovaEspecie(String nomeCientifico, Set<String> existentes) {
+  final base = binomioNormalizado(nomeCientifico).replaceAll(RegExp(r'[^a-z0-9]+'), '_');
+  final id = base.isEmpty ? 'especie' : base;
+  if (!existentes.contains(id)) return id;
+  for (var n = 2;; n++) {
+    if (!existentes.contains('${id}_$n')) return '${id}_$n';
+  }
+}
+
+/// Prefixo de 3 letras para o código dos focos (ex.: jaqueira → JAQ), sem
+/// repetir os já usados no catálogo.
+String sugerirPrefixo(String nome, Set<String> usados) {
+  final letras = normalizarTexto(nome).toUpperCase().replaceAll(RegExp(r'[^A-Z]'), '');
+  final base = letras.isEmpty ? 'ESP' : letras;
+  final candidatos = <String>[
+    if (base.length >= 3) base.substring(0, 3),
+    for (var i = 1; i < base.length; i++)
+      for (var j = i + 1; j < base.length; j++) base[0] + base[i] + base[j],
+  ];
+  for (final c in candidatos) {
+    if (!usados.contains(c)) return c;
+  }
+  final raiz = '${base}XX'.substring(0, 2);
+  for (var n = 0; n < 26; n++) {
+    final c = raiz + String.fromCharCode(65 + n);
+    if (!usados.contains(c)) return c;
+  }
+  for (var n = 1;; n++) {
+    final c = '${base[0]}${n.toString().padLeft(2, '0')}';
+    if (!usados.contains(c)) return c;
+  }
 }

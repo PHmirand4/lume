@@ -7,6 +7,7 @@ import '../../app/router.dart';
 import '../../app/theme.dart';
 import '../../core/apresentacao.dart';
 import '../../core/formato.dart' as fmt;
+import '../../core/recursos.dart';
 import '../../domain/codigos.dart';
 import '../../domain/regras.dart';
 import '../../widgets/comuns.dart';
@@ -98,7 +99,7 @@ class ConfiguracoesScreen extends ConsumerWidget {
             label: const Text('Sair'),
           ),
           TituloSecao('Regras', ajuda: gestor
-              ? 'Valores iniciais a confirmar com a equipe da Flona. Toque para alterar.'
+              ? 'Valores iniciais a confirmar com a equipe da unidade. Toque para alterar.'
               : 'Só a gestão pode alterar.'),
           regra('Raio de "mesmo foco"', '${fmt.numero(regras.raioMesmoFocoM)} m',
               () => editar('Raio de "mesmo foco"', 'm', regras.raioMesmoFocoM, (v) => regras.copyWith(raioMesmoFocoM: v.toDouble()))),
@@ -125,6 +126,14 @@ class ConfiguracoesScreen extends ConsumerWidget {
           const TituloSecao('Mais'),
           ListTile(
             contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.forest_outlined),
+            title: const Text('Unidade'),
+            subtitle: Text(ref.watch(unidadeAtualProvider).nomeCurto),
+            trailing: const Text('Trocar'),
+            onTap: () => context.push(Rotas.unidade),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.sync),
             title: const Text('Sincronização'),
             onTap: () => context.push(Rotas.pendencias),
@@ -136,10 +145,18 @@ class ConfiguracoesScreen extends ConsumerWidget {
               title: const Text('Exportar e relatório'),
               onTap: () => context.push(Rotas.exportar),
             ),
+          if (gestor)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.upload_file),
+              title: const Text('Importar planilha'),
+              subtitle: Text(importacaoPlanilhasAtiva ? 'Lista oficial do ICMBio ou registros de campo' : 'Em preparação'),
+              onTap: () => context.push(Rotas.importar),
+            ),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.info_outline),
-            title: const Text('Sobre o Lume e licenças'),
+            title: const Text('Sobre o BioLume e licenças'),
             onTap: () => context.push(Rotas.sobre),
           ),
         ],

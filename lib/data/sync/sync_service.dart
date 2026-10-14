@@ -137,7 +137,7 @@ class SyncService {
   Stream<Pendencias> observarPendencias() async* {
     yield await pendencias();
     await for (final _ in db.tableUpdates(TableUpdateQuery.onAllTables(
-        [db.focos, db.observacoes, db.acoesManejo, db.midias, db.errosSync]))) {
+        [db.especies, db.focos, db.observacoes, db.acoesManejo, db.midias, db.priorizacoes, db.errosSync]))) {
       yield await pendencias();
     }
   }
@@ -150,10 +150,12 @@ class SyncService {
       return r.read<int>('n');
     }
 
-    final registros = await contar('focos') +
+    final registros = await contar('especies') +
+        await contar('focos') +
         await contar('observacoes') +
         await contar('acoes_manejo') +
-        await contar('midias');
+        await contar('midias') +
+        await contar('priorizacoes');
     final fotos = (await db
             .customSelect("SELECT COUNT(*) AS n FROM midias "
                 "WHERE upload_status != 'enviado' AND caminho_local IS NOT NULL AND deleted = 0")
@@ -212,10 +214,13 @@ class SyncService {
 
   Future<int> _push(SupabaseClient c) async {
     var total = 0;
+    // Espécies antes dos focos (chave estrangeira): as cadastradas ou editadas no app.
+    total += await _pushTabela(c, 'especies', db.especies);
     total += await _pushTabela(c, 'focos', db.focos);
     total += await _pushTabela(c, 'observacoes', db.observacoes);
     total += await _pushTabela(c, 'acoes_manejo', db.acoesManejo);
     total += await _pushTabela(c, 'midias', db.midias);
+    total += await _pushTabela(c, 'priorizacoes', db.priorizacoes);
     return total;
   }
 
@@ -448,6 +453,15 @@ class SyncService {
       if (_localVence(local?.syncStatus, local?.updatedAt, remoto.updatedAt)) continue;
       await db.into(db.midias).insertOnConflictUpdate(remoto);
       if (local?.caminhoLocal == null) await _baixarFoto(c, remoto);
+    }
+
+    for (final r in await buscar('priorizacoes')) {
+      final remoto = Priorizacao.fromJson(paraLocal(r, padroes), serializer: _serializador);
+      final local =
+          await (db.select(db.priorizacoes)..where((p) => p.id.equals(remoto.id))).getSingleOrNull();
+      if (_localVence(local?.syncStatus, local?.updatedAt, remoto.updatedAt)) continue;
+      await db.into(db.priorizacoes).insertOnConflictUpdate(remoto);
+      recebidos++;
     }
 
     // Status derivado: recalcula com as observações e manejos recebidos.

@@ -51,3 +51,6 @@ app.*.map.json
 supabase/.env.local
 supabase/.temp/
 dart_defines.json
+
+# Documentos originais da equipe (PDFs e planilhas do ICMBio; fonte dos seeds)
+arquivos/

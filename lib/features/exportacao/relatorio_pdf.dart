@@ -5,7 +5,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../core/formato.dart' as fmt;
-import '../../data/geo/limite_flona.dart';
+import '../../data/geo/unidades.dart';
 import '../../data/repositories/catalogo_repository.dart';
 import '../../domain/codigos.dart';
 import 'dados_exportacao.dart';
@@ -30,7 +30,6 @@ const _corStatus = {
 Future<Uint8List> gerarRelatorioPdf({
   required DadosExportacao d,
   required Vocabulario vocab,
-  required LimiteFlona limite,
   required String responsavel,
   String observacoesGestor = '',
 }) async {
@@ -128,7 +127,8 @@ Future<Uint8List> gerarRelatorioPdf({
   }
   final esforcoTotal = d.manejos.fold<double>(0, (s, m) => s + m.nPessoas * m.horas);
 
-  final doc = pw.Document(title: 'Relatório Lume — Flona de Pacotuba', author: responsavel, creator: 'Lume');
+  final u = d.unidade;
+  final doc = pw.Document(title: 'Relatório BioLume — ${u.nomeCurto}', author: responsavel, creator: 'BioLume');
   doc.addPage(pw.MultiPage(
     theme: tema,
     pageFormat: PdfPageFormat.a4,
@@ -138,7 +138,7 @@ Future<Uint8List> gerarRelatorioPdf({
         : pw.Container(
             alignment: pw.Alignment.centerRight,
             margin: const pw.EdgeInsets.only(bottom: 8),
-            child: pw.Text('Lume · Relatório de EEI · Flona de Pacotuba · $periodo',
+            child: pw.Text('BioLume · Relatório de EEI · ${u.nomeCurto} · $periodo',
                 style: const pw.TextStyle(fontSize: 8, color: _cinza)),
           ),
     footer: (c) => pw.Container(
@@ -151,7 +151,7 @@ Future<Uint8List> gerarRelatorioPdf({
         padding: const pw.EdgeInsets.all(14),
         decoration: const pw.BoxDecoration(color: _verdeNoite),
         child: pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-          pw.Text('LUME', style: pw.TextStyle(font: titulo, fontSize: 22, color: PdfColors.white)),
+          pw.Text('BIOLUME', style: pw.TextStyle(font: titulo, fontSize: 22, color: PdfColors.white)),
           pw.SizedBox(height: 2),
           pw.Text('Relatório de monitoramento e manejo de espécies exóticas invasoras',
               style: const pw.TextStyle(fontSize: 11, color: PdfColors.white)),
@@ -160,7 +160,7 @@ Future<Uint8List> gerarRelatorioPdf({
       pw.SizedBox(height: 10),
       pw.Table(columnWidths: const {0: pw.FixedColumnWidth(120)}, children: [
         for (final (k, v) in [
-          ('Unidade de conservação', 'Floresta Nacional de Pacotuba (ICMBio) — Cachoeiro de Itapemirim/ES'),
+          ('Unidade de conservação', '${u.nome} (ICMBio) — ${u.uf} · ${u.bioma}'),
           ('Período', periodo),
           ('Responsável', responsavel),
           ('Gerado em', fmt.dataHora(agora.toUtc())),
@@ -228,7 +228,7 @@ Future<Uint8List> gerarRelatorioPdf({
         decoration: pw.BoxDecoration(border: pw.Border.all(color: _borda)),
         child: pw.CustomPaint(
           size: const PdfPoint(523, 300),
-          painter: (canvas, size) => _desenharMapa(canvas, size, limite, d),
+          painter: (canvas, size) => _desenharMapa(canvas, size, u, d),
         ),
       ),
       pw.SizedBox(height: 4),
@@ -262,15 +262,15 @@ Future<Uint8List> gerarRelatorioPdf({
           ],
       ]),
       pw.SizedBox(height: 12),
-      pw.Text('Gerado pelo Lume (ferramenta de apoio, não oficial do ICMBio).',
+      pw.Text('Gerado pelo BioLume (ferramenta de apoio, não oficial do ICMBio).',
           style: pw.TextStyle(fontSize: 8, color: _cinza, font: mono)),
     ],
   ));
   return doc.save();
 }
 
-/// Desenha o limite da Flona e os focos (projeção equirretangular local).
-void _desenharMapa(PdfGraphics g, PdfPoint size, LimiteFlona limite, DadosExportacao d) {
+/// Desenha o limite da unidade e os focos (projeção equirretangular local).
+void _desenharMapa(PdfGraphics g, PdfPoint size, Unidade limite, DadosExportacao d) {
   final b = limite.limites;
   var sul = b.sul, norte = b.norte, oeste = b.oeste, leste = b.leste;
   for (final f in d.focos) {
@@ -289,26 +289,30 @@ void _desenharMapa(PdfGraphics g, PdfPoint size, LimiteFlona limite, DadosExport
   PdfPoint pt(double lat, double lon) => PdfPoint(dx + (lon - oeste) * kx * escala, dy + (lat - sul) * escala);
 
   // Limite
-  final primeiro = pt(limite.anel.first.lat, limite.anel.first.lon);
-  g.moveTo(primeiro.x, primeiro.y);
-  for (final p in limite.anel.skip(1)) {
-    final q = pt(p.lat, p.lon);
-    g.lineTo(q.x, q.y);
+  for (final anel in limite.contornos) {
+    final primeiro = pt(anel.first.lat, anel.first.lon);
+    g.moveTo(primeiro.x, primeiro.y);
+    for (final p in anel.skip(1)) {
+      final q = pt(p.lat, p.lon);
+      g.lineTo(q.x, q.y);
+    }
+    g.closePath();
   }
   g
-    ..closePath()
     ..setFillColor(const PdfColor.fromInt(0x1438613F))
     ..setStrokeColor(_verde)
     ..setLineWidth(1.2)
     ..fillPath(evenOdd: false);
-  g.moveTo(primeiro.x, primeiro.y);
-  for (final p in limite.anel.skip(1)) {
-    final q = pt(p.lat, p.lon);
-    g.lineTo(q.x, q.y);
+  for (final anel in limite.contornos) {
+    final primeiro = pt(anel.first.lat, anel.first.lon);
+    g.moveTo(primeiro.x, primeiro.y);
+    for (final p in anel.skip(1)) {
+      final q = pt(p.lat, p.lon);
+      g.lineTo(q.x, q.y);
+    }
+    g.closePath();
   }
-  g
-    ..closePath()
-    ..strokePath();
+  g.strokePath();
 
   // Focos
   for (final f in d.focos) {

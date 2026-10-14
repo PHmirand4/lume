@@ -12,6 +12,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/formato.dart' as fmt;
+import '../../data/repositories/catalogo_repository.dart';
 import '../../domain/codigos.dart';
 import '../../widgets/comuns.dart';
 import '../../widgets/marcador_status.dart';
@@ -40,6 +41,7 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
   bool _geojson = true;
   bool _kml = false;
   bool _dwc = true;
+  bool _novos = true;
   bool _anonimizar = true;
   bool _pdf = true;
   final _obsGestor = TextEditingController();
@@ -79,19 +81,20 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
     try {
       final db = ref.read(databaseProvider);
       final vocab = await ref.read(catalogoRepoProvider).vocabulario();
-      final d = await DadosExportacao.coletar(db, _filtro);
+      final unidade = ref.read(unidadeAtualProvider);
+      final d = await DadosExportacao.coletar(db, _filtro, unidade);
       final usuario = ref.read(usuarioAtualProvider).value;
       final responsavel = usuario == null ? '—' : '${usuario.nome}${usuario.funcao == null ? '' : ' (${usuario.funcao})'}';
 
       if (soVisualizarPdf) {
         final bytes = await gerarRelatorioPdf(
-            d: d, vocab: vocab, limite: ref.read(limiteFlonaProvider), responsavel: responsavel, observacoesGestor: _obsGestor.text);
-        await Printing.layoutPdf(onLayout: (_) async => bytes, name: 'relatorio_lume.pdf');
+            d: d, vocab: vocab, responsavel: responsavel, observacoesGestor: _obsGestor.text);
+        await Printing.layoutPdf(onLayout: (_) async => bytes, name: 'relatorio_biolume.pdf');
         return;
       }
 
       final carimbo = DateFormat('yyyyMMdd_HHmm').format(DateTime.now());
-      final pasta = Directory(p.join((await getTemporaryDirectory()).path, 'lume_export_$carimbo'));
+      final pasta = Directory(p.join((await getTemporaryDirectory()).path, 'biolume_export_$carimbo'));
       await pasta.create(recursive: true);
       final arquivos = <XFile>[];
       Future<void> gravar(String nome, String conteudo) async {
@@ -108,9 +111,13 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
       if (_geojson) await gravar('focos_$carimbo.geojson', geoJsonFocos(d, vocab));
       if (_kml) await gravar('focos_$carimbo.kml', kmlFocos(d, vocab));
       if (_dwc) await gravar('darwin_core_$carimbo.csv', csvDarwinCore(d, vocab, anonimizar: _anonimizar));
+      if (_novos) {
+        final lista = await ref.read(catalogoRepoProvider).observarListaOficial(unidade.id).first;
+        await gravar('novos_registros_cmeei_$carimbo.csv', csvNovosRegistros(d, vocab, lista));
+      }
       if (_pdf) {
         final bytes = await gerarRelatorioPdf(
-            d: d, vocab: vocab, limite: ref.read(limiteFlonaProvider), responsavel: responsavel, observacoesGestor: _obsGestor.text);
+            d: d, vocab: vocab, responsavel: responsavel, observacoesGestor: _obsGestor.text);
         final f = File(p.join(pasta.path, 'relatorio_$carimbo.pdf'));
         await f.writeAsBytes(bytes, flush: true);
         arquivos.add(XFile(f.path, name: 'relatorio_$carimbo.pdf', mimeType: 'application/pdf'));
@@ -121,7 +128,7 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
       }
       await SharePlus.instance.share(ShareParams(
         files: arquivos,
-        subject: 'Lume — dados de EEI da Flona de Pacotuba',
+        subject: 'BioLume — dados de EEI da ${unidade.nomeCurto}',
         text: '${d.focos.length} focos, ${d.observacoes.length} observações e ${d.manejos.length} manejos.',
       ));
     } catch (e) {
@@ -174,7 +181,7 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
             decoration: const InputDecoration(labelText: 'Espécie'),
             items: [
               const DropdownMenuItem(value: null, child: Text('Todas')),
-              for (final e in especies) DropdownMenuItem(value: e.id, child: Text(e.nomesPopulares.first)),
+              for (final e in especies) DropdownMenuItem(value: e.id, child: Text(e.nomeComum)),
             ],
             onChanged: (v) => setState(() => _especie = v),
           ),
@@ -230,6 +237,13 @@ class _ExportarScreenState extends ConsumerState<ExportarScreen> {
               title: const Text('Anonimizar quem registrou'),
               subtitle: const Text('recordedBy vira um código (LGPD)'),
             ),
+          CheckboxListTile(
+            contentPadding: EdgeInsets.zero,
+            value: _novos,
+            onChanged: (v) => setState(() => _novos = v!),
+            title: const Text('Informe de novos registros (CMEEI)'),
+            subtitle: const Text('Espécies registradas fora da Lista oficial de EEI da unidade'),
+          ),
           CheckboxListTile(
             contentPadding: EdgeInsets.zero,
             value: _pdf,

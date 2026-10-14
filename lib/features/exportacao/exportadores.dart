@@ -39,7 +39,7 @@ String csvFocos(DadosExportacao d, Vocabulario v) => _csv([
       ],
       for (final f in d.focos)
         [
-          f.foco.codigo, f.foco.id, f.especie.nomeCientifico, f.especie.nomesPopulares.first, f.foco.especieTexto ?? '',
+          f.foco.codigo, f.foco.id, f.especie.nomeCientifico, f.especie.nomeComum, f.foco.especieTexto ?? '',
           f.especie.familia ?? '', _c(f.foco.lat), _c(f.foco.lon), _n(f.foco.precisaoM), f.foco.origemCoordenada,
           f.foco.ambiente ?? '', f.foco.status, f.foco.statusManual ? 'sim' : 'nao',
           f.foco.deteccaoPrecoce ? 'sim' : 'nao', f.foco.motivosPrecoce.join('; '), f.foco.foraDoLimite ? 'sim' : 'nao',
@@ -102,7 +102,7 @@ String geoJsonFocos(DadosExportacao d, Vocabulario v) => const JsonEncoder.withI
               'codigo': f.foco.codigo,
               'id': f.foco.id,
               'nome_cientifico': f.especie.nomeCientifico,
-              'nome_popular': f.especie.nomesPopulares.first,
+              'nome_popular': f.especie.nomeComum,
               'especie_texto': f.foco.especieTexto,
               'status': f.foco.status,
               'status_rotulo': v.rotulo(Listas.statusFoco, f.foco.status),
@@ -137,7 +137,7 @@ String kmlFocos(DadosExportacao d, Vocabulario v) {
   final b = StringBuffer()
     ..writeln('<?xml version="1.0" encoding="UTF-8"?>')
     ..writeln('<kml xmlns="http://www.opengis.net/kml/2.2"><Document>')
-    ..writeln('<name>Focos de EEI — Flona de Pacotuba</name>');
+    ..writeln('<name>Focos de EEI — ${_xml(d.unidade.nomeCurto)}</name>');
   _corKml.forEach((s, cor) => b.writeln(
       '<Style id="$s"><IconStyle><color>$cor</color><scale>1.1</scale>'
       '<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>'));
@@ -194,7 +194,7 @@ String csvDarwinCore(DadosExportacao d, Vocabulario v, {required bool anonimizar
           isoLocal(o.dataHora),
           anonimizar ? _codigoAnonimo(o.usuarioId) : d.nomeUsuario(o.usuarioId),
           f.foco.especieId == especieOutra ? (f.foco.especieTexto ?? '') : f.especie.nomeCientifico,
-          f.foco.especieId == especieOutra ? '' : f.especie.nomesPopulares.first,
+          f.foco.especieId == especieOutra ? '' : f.especie.nomeComum,
           f.especie.familia ?? '',
           'Plantae',
           _c(o.lat),
@@ -210,9 +210,9 @@ String csvDarwinCore(DadosExportacao d, Vocabulario v, {required bool anonimizar
           'introduced',
           'invasive',
           f.foco.codigo,
-          'Floresta Nacional de Pacotuba',
-          'Cachoeiro de Itapemirim',
-          'Espírito Santo',
+          d.unidade.nome,
+          d.unidade.id == 'flona_pacotuba' ? 'Cachoeiro de Itapemirim' : '',
+          estadosPorUf(d.unidade.uf),
           'BR',
           o.texto ?? '',
           midias(o),
@@ -220,3 +220,45 @@ String csvDarwinCore(DadosExportacao d, Vocabulario v, {required bool anonimizar
   ]);
 }
 
+
+const _estados = {
+  'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas', 'BA': 'Bahia', 'CE': 'Ceará',
+  'DF': 'Distrito Federal', 'ES': 'Espírito Santo', 'GO': 'Goiás', 'MA': 'Maranhão', 'MT': 'Mato Grosso',
+  'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais', 'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná',
+  'PE': 'Pernambuco', 'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
+  'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima', 'SC': 'Santa Catarina', 'SP': 'São Paulo',
+  'SE': 'Sergipe', 'TO': 'Tocantins',
+};
+
+/// "AM/RR" → "Amazonas | Roraima" (separador do Darwin Core para vários valores).
+String estadosPorUf(String uf) => uf.split('/').map((u) => _estados[u.trim()] ?? u).join(' | ');
+
+/// Informe de novos registros para a CMEEI (Roteiro de atualização da Lista
+/// de EEI em UC federais): focos de espécies que não constam na lista oficial
+/// da unidade, com o essencial para validar o registro (espécie, UC, data,
+/// coordenadas, observador e se há foto).
+String csvNovosRegistros(DadosExportacao d, Vocabulario v, Set<String> listaOficial) => _csv([
+      [
+        'Unidade de Conservação Federal', 'CNUC', 'A espécie do registro é animal ou planta?', 'Grupo', 'Espécie',
+        'Nome popular', 'Data do registro', 'Latitude', 'Longitude', 'Precisão (m)', 'Observador', 'Código do foco',
+        'Nº de fotos', 'Observação',
+      ],
+      for (final f in d.focos)
+        if (!listaOficial.contains(f.foco.especieId))
+          [
+            d.unidade.nome,
+            d.unidade.cnuc,
+            f.especie.animal ? 'Animal' : 'Planta',
+            v.rotulo(Listas.formaVida, f.especie.formaVida),
+            f.foco.especieId == especieOutra ? (f.foco.especieTexto ?? '') : f.especie.binomio,
+            f.foco.especieId == especieOutra ? '' : f.especie.nomeComum,
+            isoLocal(f.foco.primeiraDeteccaoEm),
+            _c(f.foco.lat),
+            _c(f.foco.lon),
+            _n(f.foco.precisaoM),
+            d.nomeUsuario(f.foco.criadoPor),
+            f.foco.codigo,
+            d.observacoes.where((o) => o.focoId == f.foco.id).fold<int>(0, (s, o) => s + d.fotosDe(o.id)),
+            d.observacoes.where((o) => o.focoId == f.foco.id && o.texto != null).map((o) => o.texto).join(' | '),
+          ],
+    ]);

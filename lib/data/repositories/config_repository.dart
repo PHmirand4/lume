@@ -15,6 +15,7 @@ class ConfigRepository {
   static const fotosSoWifi = 'fotos_so_wifi';
   static const termoAceito = 'termo_aceito';
   static const corMapaPor = 'mapa_cor_por';
+  static const unidadeAtual = 'unidade_atual_id';
 
   Future<String?> ler(String chave) async =>
       (await (db.select(db.configs)..where((c) => c.chave.equals(chave))).getSingleOrNull())

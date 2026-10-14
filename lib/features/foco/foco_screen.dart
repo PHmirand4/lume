@@ -13,8 +13,8 @@ import '../../data/repositories/foco_repository.dart';
 import '../../domain/codigos.dart';
 import '../../domain/regras.dart';
 import '../../widgets/comuns.dart';
-import '../../widgets/marcador_status.dart';
 import '../../widgets/mapa_lume.dart';
+import '../../widgets/marcador_status.dart';
 import '../mapa/ajuste_posicao_screen.dart';
 
 /// T05 — Ficha do foco: código, espécie, status, mapa, fotos e linha do tempo.
@@ -78,7 +78,7 @@ class FocoScreen extends ConsumerWidget {
               ],
               if (f.foraDoLimite) ...[
                 const SizedBox(height: 10),
-                const Aviso('Fora do limite da Flona (possível zona de amortecimento).', tipo: TipoAviso.alerta),
+                const Aviso('Fora do limite da unidade (possível zona de amortecimento).', tipo: TipoAviso.alerta),
               ],
             ]),
           ),
@@ -187,6 +187,10 @@ class _ItemTimeline extends ConsumerWidget {
             if (obs.coberturaPct != null) 'Cobertura: ${obs.coberturaPct}%',
             if (obs.estagio != null) 'Estágio: ${vocab.rotulo(Listas.estagio, obs.estagio)}',
             if (obs.ambiente != null) 'Ambiente: ${vocab.rotulo(Listas.ambiente, obs.ambiente)}',
+            if (obs.padraoOcorrencia != null) 'Ocorrência: ${vocab.rotulo(Listas.padraoOcorrencia, obs.padraoOcorrencia)}',
+            if (obs.evidencia != null) 'Evidência: ${vocab.rotulo(Listas.evidencia, obs.evidencia)}',
+            if (obs.bloco != null) 'Bloco ${obs.bloco}',
+            if (obs.capCm != null) 'CAP: ${fmt.numero(obs.capCm!)} cm',
             'GPS ${fmt.precisao(obs.precisaoM)}',
             if (obs.texto != null) '“${obs.texto}”${obs.ditado ? ' (ditado)' : ''}',
           ],
@@ -203,6 +207,8 @@ class _ItemTimeline extends ConsumerWidget {
                   '${acao.herbicidaVolumeL == null ? '' : ' · ${fmt.numero(acao.herbicidaVolumeL!)} L'}',
             if (acao.nIndividuosTratados != null) '${acao.nIndividuosTratados} indivíduos tratados',
             if (acao.areaTratadaM2 != null) '${fmt.numero(acao.areaTratadaM2!)} m² tratados',
+            if (acao.bloco != null) 'Bloco ${acao.bloco}',
+            if (acao.capCm != null) 'CAP: ${fmt.numero(acao.capCm!)} cm',
             'Esforço: ${acao.nPessoas} × ${fmt.numero(acao.horas)} h = ${fmt.numero(acao.nPessoas * acao.horas)} pessoa·hora',
             if (acao.destinacao != null) 'Destinação: ${vocab.rotulo(Listas.destinacao, acao.destinacao)}',
             'Responsável: ${acao.responsavel}',

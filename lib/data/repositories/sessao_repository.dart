@@ -91,7 +91,7 @@ class SessaoRepository {
     final apelido = nome.trim().toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '.');
     return entrarLocal(
       nome: nome,
-      email: '$apelido@apresentacao.lume',
+      email: '$apelido@apresentacao.biolume',
       funcao: funcao,
       perfil: Perfil.gestor,
     );
@@ -106,7 +106,7 @@ class SessaoRepository {
       final perfil = await c.from('usuarios').select().eq('id', uid).maybeSingle();
       if (perfil == null) {
         await c.auth.signOut();
-        throw FalhaLogin('Usuário sem cadastro no Lume. Peça ao administrador para liberar o acesso.');
+        throw FalhaLogin('Usuário sem cadastro no BioLume. Peça ao administrador para liberar o acesso.');
       }
       if (perfil['ativo'] == false) {
         await c.auth.signOut();

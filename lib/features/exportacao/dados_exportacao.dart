@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../data/geo/unidades.dart';
 import '../../data/local/database.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../lista/lista_focos_screen.dart';
@@ -15,7 +16,10 @@ class DadosExportacao {
     required this.usuarios,
     required this.de,
     required this.ate,
+    required this.unidade,
   });
+
+  final Unidade unidade;
 
   final List<FocoComEspecie> focos;
   final List<Observacao> observacoes;
@@ -31,11 +35,11 @@ class DadosExportacao {
 
   String nomeUsuario(String id) => usuarios[id]?.nome ?? id.substring(0, 8);
 
-  static Future<DadosExportacao> coletar(AppDatabase db, FiltroFocos filtro) async {
+  static Future<DadosExportacao> coletar(AppDatabase db, FiltroFocos filtro, Unidade unidade) async {
     final linhas = await (db.select(db.focos).join([
       innerJoin(db.especies, db.especies.id.equalsExp(db.focos.especieId)),
     ])
-          ..where(db.focos.deleted.equals(false))
+          ..where(db.focos.deleted.equals(false) & db.focos.unidadeId.equals(unidade.id))
           ..orderBy([OrderingTerm.asc(db.focos.codigo)]))
         .get();
     final focos = [
@@ -76,6 +80,7 @@ class DadosExportacao {
       usuarios: usuarios,
       de: filtro.de,
       ate: filtro.ate,
+      unidade: unidade,
     );
   }
 }

@@ -33,8 +33,7 @@ class _AjustePosicaoScreenState extends ConsumerState<AjustePosicaoScreen> {
   @override
   void initState() {
     super.initState();
-    final ref0 = ref.read(limiteFlonaProvider);
-    final b = ref0.limites;
+    final b = ref.read(unidadeAtualProvider).limites;
     _centro = widget.inicial ?? LatLng((b.sul + b.norte) / 2, (b.oeste + b.leste) / 2);
   }
 

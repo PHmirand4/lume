@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart' hide isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lume/data/geo/limite_flona.dart';
+import 'package:lume/data/geo/unidades.dart';
 import 'package:lume/data/local/database.dart';
 import 'package:lume/data/local/seed.dart';
 import 'package:lume/data/repositories/catalogo_repository.dart';
@@ -31,6 +31,11 @@ Map<String, Set<String>> colunasDoServidor() {
     }
     tabelas[m.group(1)!] = cols;
   }
+  // Colunas acrescentadas em migrações posteriores.
+  final alter = RegExp(r'alter table public\.(\w+) add column if not exists ([a-z_0-9]+) ');
+  for (final m in alter.allMatches(sql)) {
+    tabelas.putIfAbsent(m.group(1)!, () => {}).add(m.group(2)!);
+  }
   return tabelas;
 }
 
@@ -47,7 +52,7 @@ void main() {
   setUp(() async {
     db = AppDatabase(NativeDatabase.memory());
     await Seeder(db).executar();
-    repo = FocoRepository(db, CatalogoRepository(db), await LimiteFlona.carregar());
+    repo = FocoRepository(db, CatalogoRepository(db), await CatalogoUnidades.carregar());
     sync = SyncService(db, ConfigRepository(db), repo);
   });
 
@@ -55,6 +60,7 @@ void main() {
 
   Future<String> criarCenario() async {
     final r = await repo.registrarDeteccao(
+      unidadeId: CatalogoUnidades.padrao,
       especieId: 'artocarpus_heterophyllus',
       usuarioId: '11111111-1111-4111-8111-111111111111',
       dados: DadosObservacao(
@@ -101,12 +107,24 @@ void main() {
 
   test('todo campo enviado existe na tabela do Supabase, e os obrigatórios vão preenchidos', () async {
     await criarCenario();
+    await db.into(db.priorizacoes).insert(PriorizacoesCompanion.insert(
+          id: '22222222-2222-4222-8222-222222222222',
+          unidadeId: 'flona_pacotuba',
+          especieId: 'acacia_mangium',
+          respostas: '{"1": "desconhecido"}',
+          indice: 0,
+          usuarioId: '11111111-1111-4111-8111-111111111111',
+          createdAt: DateTime.utc(2026, 10, 14),
+          updatedAt: DateTime.utc(2026, 10, 14),
+        ));
     final servidor = colunasDoServidor();
     final amostras = <String, Map<String, dynamic>>{
+      'especies': (await (db.select(db.especies)..limit(1)).getSingle()).toJson(serializer: serializadorSync),
       'focos': (await db.select(db.focos).getSingle()).toJson(serializer: serializadorSync),
       'observacoes': (await db.select(db.observacoes).getSingle()).toJson(serializer: serializadorSync),
       'acoes_manejo': (await db.select(db.acoesManejo).getSingle()).toJson(serializer: serializadorSync),
       'midias': (await db.select(db.midias).getSingle()).toJson(serializer: serializadorSync),
+      'priorizacoes': (await db.select(db.priorizacoes).getSingle()).toJson(serializer: serializadorSync),
     };
     for (final MapEntry(key: tabela, value: local) in amostras.entries) {
       final remoto = paraRemoto(local);

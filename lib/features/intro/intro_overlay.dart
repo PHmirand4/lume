@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../app/theme.dart';
 import 'intro_painter.dart';
 
-/// Abertura do Lume: vaga-lumes na floresta noturna se juntam e acendem o
+/// Abertura do BioLume: vaga-lumes na floresta noturna se juntam e acendem o
 /// marcador do mapa; a luz se abre e revela o app que já carregou por baixo.
 ///
 /// Começa no primeiro frame do app, enquanto o banco inicializa por baixo.
@@ -65,7 +65,7 @@ class _IntroOverlayState extends State<IntroOverlay> with SingleTickerProviderSt
   void initState() {
     super.initState();
     // Carrega o SVG do marcador já no início, para não travar quando ele aparece.
-    const marcador = SvgAssetLoader('assets/branding/lume-marcador.svg');
+    const marcador = SvgAssetLoader('assets/branding/biolume-simbolo.svg');
     svg.cache.putIfAbsent(marcador.cacheKey(null), () => marcador.loadBytes(null));
     _c.addListener(_aoAvancar);
     _c.addStatusListener((s) {
@@ -176,7 +176,7 @@ class _IntroOverlayState extends State<IntroOverlay> with SingleTickerProviderSt
                 behavior: HitTestBehavior.opaque,
                 onTap: _pular,
                 child: Semantics(
-                  label: 'Lume. Ilumine o que ameaça a floresta. Toque para pular a abertura.',
+                  label: 'BioLume. Ilumine o que ameaça a floresta. Toque para pular a abertura.',
                   button: true,
                   // Fica acima do Navigator: precisa do próprio Material para o texto.
                   child: Material(
@@ -247,7 +247,7 @@ class _IntroOverlayState extends State<IntroOverlay> with SingleTickerProviderSt
         child: Transform.scale(
           scale: 0.55 + 0.45 * entrada,
           alignment: Alignment.bottomCenter,
-          child: SvgPicture.asset('assets/branding/lume-marcador.svg', fit: BoxFit.contain),
+          child: SvgPicture.asset('assets/branding/biolume-simbolo.svg', fit: BoxFit.contain),
         ),
       ),
     );
@@ -256,7 +256,7 @@ class _IntroOverlayState extends State<IntroOverlay> with SingleTickerProviderSt
   Widget _texto(double t, Size size) {
     final topo = _centro.dy + _larguraMarcador * 270 / 197 / 2 + 34;
     final slogan = FasesIntro.slogan.transform(t);
-    const letras = ['L', 'U', 'M', 'E'];
+    const letras = ['B', 'I', 'O', 'L', 'U', 'M', 'E'];
     return Positioned(
       left: 0,
       right: 0,
@@ -281,9 +281,9 @@ class _IntroOverlayState extends State<IntroOverlay> with SingleTickerProviderSt
                           style: TextStyle(
                             fontFamily: LumeFontes.titulo,
                             fontWeight: FontWeight.w800,
-                            fontSize: 46,
+                            fontSize: 34,
                             height: 1,
-                            letterSpacing: 4 + 10 * (1 - p),
+                            letterSpacing: 3 + 8 * (1 - p),
                             color: Colors.white,
                             shadows: [Shadow(color: LumeCores.mentaClara.withValues(alpha: 0.6 * p), blurRadius: 18)],
                           ),
@@ -344,15 +344,15 @@ class _Marca extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      SvgPicture.asset('assets/branding/lume-marcador.svg', height: 140),
+      SvgPicture.asset('assets/branding/biolume-simbolo.svg', height: 140),
       const SizedBox(height: 24),
       Text(
-        'LUME',
+        'BIOLUME',
         style: TextStyle(
           fontFamily: LumeFontes.titulo,
           fontWeight: FontWeight.w800,
-          fontSize: 44,
-          letterSpacing: 4,
+          fontSize: 34,
+          letterSpacing: 3,
           color: cor,
         ),
       ),

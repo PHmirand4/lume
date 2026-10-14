@@ -5,12 +5,13 @@ import 'package:go_router/go_router.dart';
 import '../../app/providers.dart';
 import '../../app/router.dart';
 import '../../app/theme.dart';
-import '../../core/fotos.dart';
 import '../../core/formato.dart' as fmt;
+import '../../core/fotos.dart';
 import '../../core/geo.dart';
 import '../../core/gps.dart';
 import '../../data/local/database.dart';
 import '../../data/remote/supabase_config.dart';
+import '../../data/repositories/catalogo_repository.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../../domain/codigos.dart';
 import '../../widgets/comuns.dart';
@@ -38,6 +39,10 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
   final _qtd = QuantidadeValor();
   String? _estagio;
   String? _ambiente;
+  String? _padrao;
+  String? _evidencia;
+  final _bloco = TextEditingController();
+  final _cap = TextEditingController();
   List<FotoCapturada> _fotos = [];
   final _obs = TextEditingController();
   final _descricaoOutra = TextEditingController();
@@ -65,6 +70,8 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
     _gps.dispose();
     _obs.dispose();
     _descricaoOutra.dispose();
+    _bloco.dispose();
+    _cap.dispose();
     super.dispose();
   }
 
@@ -98,7 +105,7 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
     if (_especie == null) return 'Escolha a espécie.';
     if (_especie!.id == especieOutra) {
       if (_fotos.isEmpty) return '"Outra espécie" precisa de ao menos 1 foto.';
-      if (_descricaoOutra.text.trim().isEmpty) return 'Descreva a planta ("Outra espécie").';
+      if (_descricaoOutra.text.trim().isEmpty) return 'Descreva a espécie ("Outra espécie").';
     }
     if (!_qtd.preenchida) return 'Informe a quantidade (contagem, classe, área ou cobertura).';
     return null;
@@ -131,8 +138,12 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
       classeAbundancia: _qtd.tipo == 'classe' ? _qtd.classe : null,
       areaM2: _qtd.tipo == 'area' ? _qtd.area : null,
       coberturaPct: _qtd.tipo == 'cobertura' ? _qtd.cobertura : null,
-      estagio: _estagio,
+      estagio: _especie!.animal ? null : _estagio,
       ambiente: _ambiente,
+      bloco: _bloco.text.trim().isEmpty ? null : _bloco.text.trim(),
+      capCm: _especie!.animal ? null : fmt.lerNumero(_cap.text),
+      padraoOcorrencia: _especie!.animal ? null : _padrao,
+      evidencia: _especie!.animal ? _evidencia : null,
       texto: _obs.text.trim().isEmpty ? null : _obs.text.trim(),
       ditado: _ditado,
       fotos: _fotos,
@@ -140,7 +151,9 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
 
     try {
       // RN07: foco da mesma espécie por perto? Pergunta se é o mesmo.
-      final proximos = await repo.focosProximos(especieId: _especie!.id, posicao: pos, cfg: regras);
+      final unidadeId = ref.read(unidadeAtualProvider).id;
+      final proximos =
+          await repo.focosProximos(unidadeId: unidadeId, especieId: _especie!.id, posicao: pos, cfg: regras);
       FocoComEspecie? mesmo;
       if (proximos.isNotEmpty && mounted) {
         final escolha = await mostrarDialogoMesmoFoco(context, ref, proximos);
@@ -160,6 +173,7 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
         mensagem = 'Registrado como revisita de ${mesmo.foco.codigo}.';
       } else {
         final r = await repo.registrarDeteccao(
+          unidadeId: unidadeId,
           especieId: _especie!.id,
           especieTexto: _especie!.id == especieOutra ? _descricaoOutra.text.trim() : null,
           usuarioId: usuario.id,
@@ -279,7 +293,7 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
   Widget _formulario(BuildContext context) {
     final vocab = ref.watch(vocabProvider);
     final regras = ref.watch(regrasAtuaisProvider);
-    final limite = ref.watch(limiteFlonaProvider);
+    final unidade = ref.watch(unidadeAtualProvider);
     final t = Theme.of(context).textTheme;
     final e = _especie!;
     final outra = e.id == especieOutra;
@@ -295,18 +309,18 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
               foregroundColor: outra ? LumeCores.laranjaTexto : LumeCores.verdeFloresta,
               child: Icon(iconeFormaVida(e.formaVida)),
             ),
-            title: Text(capitalizar(e.nomesPopulares.first)),
+            title: Text(capitalizar(e.nomeComum)),
             subtitle: outra ? null : Text(e.nomeCientifico, style: const TextStyle(fontStyle: FontStyle.italic)),
             trailing: TextButton(onPressed: () => setState(() => _especie = null), child: const Text('Trocar')),
           ),
         ),
         if (outra) ...[
-          const TituloSecao('Descreva a planta', obrigatorio: true),
+          const TituloSecao('Descreva a espécie', obrigatorio: true),
           TextField(
             controller: _descricaoOutra,
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              hintText: 'Nome, se souber, ou como ela é (folha, flor, porte)',
+              hintText: 'Nome, se souber, ou como é (planta: folha, flor, porte; animal: tamanho, cor)',
               errorText: _tentouSalvar && _descricaoOutra.text.trim().isEmpty ? 'Obrigatório' : null,
             ),
             onChanged: (_) => setState(() {}),
@@ -326,9 +340,10 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
                 tipo: TipoAviso.alerta,
               ));
             }
-            if (p != null && !limite.contem(GeoPonto(p.lat, p.lon))) {
-              avisos.add(const Aviso(
-                'Este ponto fica fora do limite da Flona (pode ser zona de amortecimento). Dá para salvar mesmo assim.',
+            if (p != null && !unidade.contem(GeoPonto(p.lat, p.lon))) {
+              avisos.add(Aviso(
+                'Este ponto fica fora do limite da ${unidade.nomeCurto} (pode ser zona de amortecimento). '
+                'Dá para salvar mesmo assim.',
                 tipo: TipoAviso.alerta,
               ));
             }
@@ -380,16 +395,53 @@ class _NovaOcorrenciaScreenState extends ConsumerState<NovaOcorrenciaScreen> {
 
         // Quantidade
         TituloSecao('Quantidade', obrigatorio: _tentouSalvar && !_qtd.preenchida),
-        CampoQuantidade(valor: _qtd, vocab: vocab, aoMudar: () => setState(() {})),
+        CampoQuantidade(valor: _qtd, vocab: vocab, soContagem: e.animal, aoMudar: () => setState(() {})),
 
-        // Estágio e ambiente
-        const TituloSecao('Estágio'),
-        OpcoesVocabulario(
-          vocab: vocab,
-          lista: Listas.estagio,
-          valor: _estagio,
-          aoMudar: (v) => setState(() => _estagio = v),
-        ),
+        if (e.animal) ...[
+          const TituloSecao('Evidência', ajuda: 'Como a presença foi constatada (foto ajuda a validar o registro).'),
+          OpcoesVocabulario(
+            vocab: vocab,
+            lista: Listas.evidencia,
+            valor: _evidencia,
+            aoMudar: (v) => setState(() => _evidencia = v),
+          ),
+        ] else ...[
+          // Estágio (fase da ficha: árvore/arbusto ou regenerante) e padrão de ocorrência
+          const TituloSecao('Estágio'),
+          OpcoesVocabulario(
+            vocab: vocab,
+            lista: Listas.estagio,
+            valor: _estagio,
+            aoMudar: (v) => setState(() => _estagio = v),
+          ),
+          const TituloSecao('Ocorrência'),
+          OpcoesVocabulario(
+            vocab: vocab,
+            lista: Listas.padraoOcorrencia,
+            valor: _padrao,
+            aoMudar: (v) => setState(() => _padrao = v),
+          ),
+        ],
+        const TituloSecao('Ficha de campo', ajuda: 'Opcional: como na ficha de papel do ICMBio.'),
+        Row(children: [
+          Expanded(
+            child: TextField(
+              controller: _bloco,
+              textCapitalization: TextCapitalization.characters,
+              decoration: const InputDecoration(labelText: 'Bloco'),
+            ),
+          ),
+          if (!e.animal && formasComCap.contains(e.formaVida)) ...[
+            const SizedBox(width: 10),
+            Expanded(
+              child: TextField(
+                controller: _cap,
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'CAP', suffixText: 'cm', helperText: 'Circunferência a 1,30 m'),
+              ),
+            ),
+          ],
+        ]),
         const TituloSecao('Ambiente'),
         OpcoesVocabulario(
           vocab: vocab,

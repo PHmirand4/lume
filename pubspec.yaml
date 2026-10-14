@@ -1,5 +1,5 @@
 name: lume
-description: "Lume — App de Monitoramento de Espécies Exóticas Invasoras da Flona de Pacotuba"
+description: "BioLume — monitoramento de espécies exóticas invasoras nas Florestas Nacionais (ICMBio)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.0+1
+version: 2.0.0+2
 
 environment:
   sdk: ^3.13.5
@@ -58,6 +58,9 @@ dependencies:
   url_launcher: ^6.3.3
   flutter_localizations:
     sdk: flutter
+  file_picker: ^13.1.0
+  archive: ^4.5.2
+  xml: ^7.0.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +75,7 @@ dev_dependencies:
   drift_dev: ^2.35.1
   build_runner: ^2.16.1
   flutter_launcher_icons: ^0.14.4
+  sqlite3: ^3.7.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -115,8 +119,8 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: false
-  image_path: "lume-logo-kit/png/app/icone-app-1024.png"
+  image_path: "biolume-logo-kit/png/app/icone-app-1024.png"
   min_sdk_android: 24
   adaptive_icon_background: "#F7F4E5"
-  adaptive_icon_foreground: "lume-logo-kit/png/android/adaptive-foreground-1024.png"
-  adaptive_icon_monochrome: "lume-logo-kit/png/android/adaptive-monochrome-1024.png"
+  adaptive_icon_foreground: "biolume-logo-kit/png/android/adaptive-foreground-1024.png"
+  adaptive_icon_monochrome: "biolume-logo-kit/png/android/adaptive-monochrome-1024.png"

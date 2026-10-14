@@ -2,7 +2,9 @@
 
 > **Documento de contexto e definição do produto (v0.3 — 03/10/2026)**
 > Projeto de Inovação da equipe de robótica do SESI Cachoeiro de Itapemirim — FIRST LEGO League, temporada BIOGLOW (2026/2027).
-> Nome do app: **Lume** — slogan "Ilumine o que ameaça a floresta." Identidade visual na seção 16.1 (kit em `lume-logo-kit/`).
+> Nome do app: **BioLume** (até a v0.3, Lume) — slogan "Ilumine o que ameaça a floresta." Identidade visual em `biolume-logo-kit/`.
+>
+> **Atualização v2 (14/10/2026, reunião com a equipe):** o app passa a ser nacional, para as Florestas Nacionais do ICMBio (começando pelas 68 do arquivo oficial de limites), com Pacotuba como MVP e público-alvo inicial. Ao abrir, a pessoa escolhe a unidade; mapa, focos e relatórios são de cada unidade, e o acesso por unidade virá com o login no servidor. O catálogo de espécies passa a ser nacional (Base de Dados Nacional de EEI — Instituto Hórus), com foto e quantidade de ocorrências por espécie, e a equipe pode cadastrar espécies novas. Planilhas que a equipe já tem serão importadas (tela pronta, ativação após receber os arquivos). Prioridade: APK; depois, PWA para iPhone. Onde este documento disser "a Flona", leia "a unidade escolhida".
 >
 > Este arquivo é a fonte de verdade do projeto. Use-o como contexto para desenvolvimento (inclusive com assistentes de IA). Itens marcados com **[A CONFIRMAR]** dependem das respostas da equipe da Flona (questionário e entrevista).
 
@@ -1035,7 +1037,7 @@ Inspirado no roteiro de relatório técnico do Guia do ICMBio.
 | D1 | Supabase ou Firebase | Arquitetura | Recomendado: Supabase (seção 15.1) |
 | D2 | Raio "mesmo foco" e limites de detecção precoce | Regras | Valores iniciais configuráveis; validar com a Flona |
 | D3 | Critério de "erradicado" | Status | N = 3 revisitas / 12 meses inicial; validar |
-| D4 | Nome do app | Comunicação | **Decidido:** Lume, com a identidade do `lume-logo-kit` (seção 16.1) |
+| D4 | Nome do app | Comunicação | **Decidido (14/10/2026):** BioLume, com a identidade do `biolume-logo-kit` |
 
 ---
 
@@ -1115,6 +1117,8 @@ Pesquisa feita em 02/10/2026.
 
 ### Histórico
 - **v0.3 (03/10/2026):** identidade visual trocada pela do `lume-logo-kit` (§16.1). Primeira versão funcional do app (MVP F01–F18) implementada; ver `README.md`.
+- **v0.5 (14/10/2026):** documentos da equipe em `arquivos/` (Lista de EEI em UC federais 2025, Ferramenta e Manual de Priorização, Roteiro de atualização da lista, ficha de campo de *Syzygium*). O app passa a usar a lista oficial por Flona (flora e fauna; espécie fora da lista = possível novo registro, com informe para a CMEEI), a importar a planilha oficial a cada ciclo, a registrar fauna (com tipo de evidência), os campos da ficha (bloco, CAP, regenerante, tipo de ocorrência, faixas de cobertura, anelamento profundo, roçadeira) e a priorização de EEI (12 critérios, índice). Achado: jaqueira, açaí e sabiá, manejados em Pacotuba (Costa et al., 2024), não constam na lista oficial 2025 da Flona — candidatos a informe de novo registro.
+- **v0.4 (14/10/2026):** app renomeado para **BioLume** (novo kit em `biolume-logo-kit/`, mesmas cores). Escopo nacional: escolha entre as Florestas Nacionais (limites oficiais do ICMBio), focos por unidade, catálogo nacional de EEI (Instituto Hórus) com fotos, contagem de ocorrências e cadastro de espécie nova; importação de planilhas preparada (desligada até receber as planilhas da equipe).
 - **v0.2 (02/10/2026):** nome Lume e identidade inicial.
 
 *Documento vivo. Atualize a versão e a data no topo a cada revisão (ex.: v0.2 após as respostas do questionário).*

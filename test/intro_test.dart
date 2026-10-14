@@ -69,10 +69,10 @@ void main() {
   testWidgets('movimento reduzido mostra a marca parada e some rápido', (tester) async {
     await tester.pumpWidget(app(reduzido: true));
     await tester.pump();
-    expect(find.text('LUME'), findsOneWidget);
+    expect(find.text('BIOLUME'), findsOneWidget);
     await avancar(tester, const Duration(milliseconds: 1500));
     await tester.pumpAndSettle();
-    expect(find.text('LUME'), findsNothing);
+    expect(find.text('BIOLUME'), findsNothing);
   });
 }
 

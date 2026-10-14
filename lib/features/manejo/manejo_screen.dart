@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
 import '../../app/theme.dart';
-import '../../core/fotos.dart';
 import '../../core/formato.dart' as fmt;
+import '../../core/fotos.dart';
+import '../../data/repositories/catalogo_repository.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../../domain/codigos.dart';
 import '../../domain/regras.dart';
@@ -33,6 +34,8 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
   final _area = TextEditingController();
   final _responsavel = TextEditingController();
   final _obs = TextEditingController();
+  final _bloco = TextEditingController();
+  final _cap = TextEditingController();
   int _pessoas = 1;
   double _horas = 1;
   String? _destinacao;
@@ -51,7 +54,7 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
 
   @override
   void dispose() {
-    for (final c in [_metodoTexto, _produto, _concentracao, _volume, _individuos, _area, _responsavel, _obs]) {
+    for (final c in [_metodoTexto, _produto, _concentracao, _volume, _individuos, _area, _responsavel, _obs, _bloco, _cap]) {
       c.dispose();
     }
     super.dispose();
@@ -101,6 +104,8 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
               condicaoTempo: _tempo,
               texto: _obs.text.trim().isEmpty ? null : _obs.text.trim(),
               fotos: [..._antes, ..._depois],
+              bloco: _bloco.text.trim().isEmpty ? null : _bloco.text.trim(),
+              capCm: fmt.lerNumero(_cap.text),
             ),
           );
       _antes = [];
@@ -144,11 +149,12 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
           children: [
             if (foco?.especie.controleCitado != null) ...[
               const SizedBox(height: 12),
-              Aviso('Controle já usado na Flona para esta espécie: ${foco!.especie.controleCitado}'),
+              Aviso('Controle já usado pela equipe nesta espécie: ${foco!.especie.controleCitado}'),
             ],
             TituloSecao('Método', obrigatorio: _tentou && _metodo == null),
             Wrap(spacing: 8, runSpacing: 8, children: [
-              for (final v in vocab.itens(Listas.metodoManejo))
+              for (final v in vocab.itens(Listas.metodoManejo).where((v) =>
+                  v.codigo == 'outro' || MetodoManejo.fauna.contains(v.codigo) == (foco?.especie.animal ?? false)))
                 ChoiceChip(
                   label: Text(v.rotulo),
                   avatar: sugeridos.contains(v.codigo) ? const Icon(Icons.star_outline, size: 18) : null,
@@ -162,7 +168,7 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
             ],
             if (_quimico) ...[
               const TituloSecao('Herbicida', obrigatorio: true,
-                  ajuda: 'O Lume só registra o que foi usado; não recomenda produto nem dose.'),
+                  ajuda: 'O BioLume só registra o que foi usado; não recomenda produto nem dose.'),
               TextField(
                 controller: _produto,
                 decoration: InputDecoration(
@@ -214,6 +220,26 @@ class _ManejoScreenState extends ConsumerState<ManejoScreen> {
                   decoration: const InputDecoration(labelText: 'Área', suffixText: 'm²'),
                 ),
               ),
+            ]),
+            const SizedBox(height: 10),
+            Row(children: [
+              Expanded(
+                child: TextField(
+                  controller: _bloco,
+                  textCapitalization: TextCapitalization.characters,
+                  decoration: const InputDecoration(labelText: 'Bloco'),
+                ),
+              ),
+              if (foco != null && !foco.especie.animal && formasComCap.contains(foco.especie.formaVida)) ...[
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: _cap,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(labelText: 'CAP', suffixText: 'cm'),
+                  ),
+                ),
+              ],
             ]),
             const TituloSecao('Equipe e tempo', ajuda: 'Esforço = pessoas × horas'),
             _Contador(

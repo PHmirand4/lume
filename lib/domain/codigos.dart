@@ -33,13 +33,17 @@ abstract final class ResultadoRevisita {
 }
 
 abstract final class MetodoManejo {
-  static const quimicos = {'corte_herbicida', 'anelamento_herbicida', 'herbicida_foliar'};
+  static const quimicos = {'corte_herbicida', 'anelamento_herbicida', 'herbicida_foliar', 'rocada_herbicida'};
+
+  /// Métodos que só fazem sentido para fauna.
+  static const fauna = {'captura'};
 }
 
 abstract final class OrigemCoordenada {
   static const gpsAuto = 'gps_auto';
   static const gpsAjustado = 'gps_ajustado';
   static const estimada = 'estimada';
+  static const importada = 'importada';
 }
 
 abstract final class SyncStatus {
@@ -68,6 +72,16 @@ abstract final class Listas {
   static const resultadoRevisita = 'resultado_revisita';
   static const origemCoordenada = 'origem_coordenada';
   static const condicaoTempo = 'condicao_tempo';
+  static const padraoOcorrencia = 'padrao_ocorrencia';
+  static const evidencia = 'evidencia';
 }
 
 const especieOutra = 'outra';
+
+abstract final class Reino {
+  static const planta = 'planta';
+  static const animal = 'animal';
+}
+
+/// Formas de vida em que faz sentido medir o CAP (circunferência à altura do peito).
+const formasComCap = {'arvore', 'arbusto', 'palmeira'};

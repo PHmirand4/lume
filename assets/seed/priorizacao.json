@@ -1,0 +1,327 @@
+{
+ "versao": 1,
+ "fonte": "Ferramenta de Priorização de EEI pela UC v1 e Manual para Priorização de EEI (ICMBio/CMEEI, 2025)",
+ "criterios": [
+  {
+   "id": 1,
+   "titulo": "Ocupação da espécie na UC",
+   "ajuda": "Quanto menor a população e menor área de invasão, maiores as chances de sucesso no manejo, com maiores chances de erradicação. Por isso, a biologia da invasão indica como situação prioritária para o manejo. Não há número/tamanho mágico para todas as espécies. Essa avaliação é subjetiva de acordo com a percepção da equipe gestora quanto ao grau de invasão da espécie na UC.",
+   "opcoes": [
+    {
+     "codigo": "unico_local_invasao_pontual_populacao_pe",
+     "rotulo": "Único local (invasão pontual, população pequena)",
+     "pontos": 6
+    },
+    {
+     "codigo": "alguns_locais_invasao_dispersa_populacao",
+     "rotulo": "Alguns locais (invasão dispersa, população maior)",
+     "pontos": 4
+    },
+    {
+     "codigo": "distribuida_em_toda_uc_ou_zona_de_intere",
+     "rotulo": "Distribuída em toda UC ou zona de interesse (invasão amplamente dispersa, população grande)",
+     "pontos": 2
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Ocupação na UC"
+  },
+  {
+   "id": 2,
+   "titulo": "Dificuldade de manejo",
+   "ajuda": "Dificuldade de manejo: Considerar questões como métodos disponíveis, custos, disponibilidade de recurso, biologia da espécie, aceitação pública...",
+   "opcoes": [
+    {
+     "codigo": "baixa_dificuldade",
+     "rotulo": "Baixa dificuldade",
+     "pontos": 2
+    },
+    {
+     "codigo": "alta_dificuldade",
+     "rotulo": "Alta dificuldade",
+     "pontos": 1
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Dificuldade de manejo"
+  },
+  {
+   "id": 3,
+   "titulo": "Sucesso de manejo",
+   "ajuda": "Sucesso de manejo: considerar se é possível erradicar ou controlar a população da EEI na UC. A erradicação corresponde à aplicação de medidas de manejo que levam à remoção total da população de uma EEI em determinada área, enquanto o controle refere-se à redução de sua abundância e/ou densidade, minimizando seu crescimento populacional, dispersão e impactos.",
+   "opcoes": [
+    {
+     "codigo": "grande_chance_de_erradicacao",
+     "rotulo": "Grande chance de erradicação",
+     "pontos": 3
+    },
+    {
+     "codigo": "pouca_chance_de_erradicacao_mas_grande_c",
+     "rotulo": "Pouca chance de erradicação, mas grande chance de controle",
+     "pontos": 2
+    },
+    {
+     "codigo": "pouca_chance_de_controle",
+     "rotulo": "Pouca chance de controle",
+     "pontos": 1
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Sucesso de manejo"
+  },
+  {
+   "id": 4,
+   "titulo": "Impacto em população de espécie nativa constante em listas de espécies ameaçadas de extinção (Nacional e/ou Estadual)",
+   "ajuda": "A espécie nativa, cuja ocorrência foi registrada na UC, deve estar incluída em lista oficial de espécies ameaçadas de extinção (nacional, estadual ou ambas). Inferido por bibliografia: considerar quando há bases de dados, artigos, produtos de PAN e demais publicações que registraram impacto da EEI em espécie nativa ameaçada de extinção com ocorrência na UC. Ex.: Artigo cita que coral-sol reduz a cobertura de ocupação de Mussismilia braziliensis (espécie classificada como VU pela lista nacional) por competição Observado na UC: considerar quando foi observado na UC o impacto da EEI em espécie nativa ameaçada de extinção. Publicações resultantes de estudos/observações de impacto de EEI em espécie nativa ameaçada de extinção na UC devem ser considerados nesse item. Ex.: Foi observado o coral-sol substituindo Mussismilia braziliensis (espécie classificada como VU pela lista nacional) por competição na UC Desconhecido: quando não há nenhuma informação em bibliografia ou observada na UC sobre impactos da EEI em espécie nativa ameaçada de extinção presente na UC. Sem impacto: há informação bibliográfica confirmando que a espécie não causa impacto em espécie nativa ameaçada de extinção presente na UC",
+   "opcoes": [
+    {
+     "codigo": "inferido_por_bibliografia_e_observado_na",
+     "rotulo": "Inferido por bibliografia e Observado na UC",
+     "pontos": 4
+    },
+    {
+     "codigo": "observado_na_uc",
+     "rotulo": "Observado na UC",
+     "pontos": 3
+    },
+    {
+     "codigo": "inferido_por_bibliografia",
+     "rotulo": "Inferido por bibliografia",
+     "pontos": 2
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    },
+    {
+     "codigo": "sem_impacto_observado_ou_inferido",
+     "rotulo": "Sem impacto observado ou inferido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Impacto em espécie ameaçada"
+  },
+  {
+   "id": 5,
+   "titulo": "Impacto em população de espécie nativa não constante em listas de espécies ameaçadas de extinção (Nacional e/ou Estadual)",
+   "ajuda": "A espécie nativa, cuja ocorrência foi registrada na UC, não deve estar incluída em lista oficial de espécies ameaçadas de extinção (nacional, estadual ou ambas). Inferido por bibliografia: considerar quando há bases de dados, artigos e demais publicações que registraram impacto da EEI em espécie nativa não ameaçada de extinção com ocorrência na UC. Ex.: Artigo cita que cães predam tatu-galinha (espécie não-ameaçada) Observado na UC: considerar quando foi observado na UC o impacto da EEI em espécie nativa não ameaçada de extinção. Publicações resultantes de estudos/observações de impacto de EEI em espécie nativa não ameaçada de extinção na UC devem ser considerados nesse item. Ex.: É observada predação de tatu-galinha (espécie não ameaçada) por cães na UC Desconhecido: quando não há nenhuma informação em bibliografia ou observada na UC sobre impactos da EEI em espécie nativa não ameaçada de extinção na UC. Sem impacto: há informação bibliográfica confirmando que a espécie não causa impacto em espécie nativa não ameaçada de extinção presente na UC.",
+   "opcoes": [
+    {
+     "codigo": "inferido_por_bibliografia_e_observado_na",
+     "rotulo": "Inferido por bibliografia e Observado na UC",
+     "pontos": 3
+    },
+    {
+     "codigo": "observado_na_uc",
+     "rotulo": "Observado na UC",
+     "pontos": 2
+    },
+    {
+     "codigo": "inferido_por_bibliografia",
+     "rotulo": "Inferido por bibliografia",
+     "pontos": 1
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    },
+    {
+     "codigo": "sem_impacto_observado_ou_inferido",
+     "rotulo": "Sem impacto observado ou inferido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Impacto em espécie nativa não ameaçada"
+  },
+  {
+   "id": 6,
+   "titulo": "Impacto em ambiente/área sensível na UC",
+   "ajuda": "Ambiente/área sensível: ambiente definido como objeto especial de conservação e proteção na UC conforme instrumentos de gestão e planejamento da UC, como decreto de criação, plano de manejo da UC e SAMGe, além de pesquisas realizadas na UC. Inferido por bibliografia: considerar quando há bases de dados, artigos e demais publicações que registraram impacto da EEI em ambiente/área sensível na UC. Ex.: artigo informa que javali pode destruir nascentes Observado na UC: considerar quando foi observado na UC o impacto da EEI em ambiente/área sensível na UC. Publicações resultantes de estudos/observações de impacto de EEI em ambiente/área sensível na UC devem ser considerados nesse item. Ex.: Foi observada nascente destruída por javali na UC, sendo esse um ambiente considerado sensível pela UC Desconhecido: quando não há nenhuma informação em bibliografia ou observada na UC sobre impactos da EEI em ambiente/área sensível na UC. Sem impacto: há informação bibliográfica confirmando que a espécie não causa impacto em ambiente/área sensível na UC.",
+   "opcoes": [
+    {
+     "codigo": "inferido_por_bibliografia_e_observado_na",
+     "rotulo": "Inferido por bibliografia e Observado na UC",
+     "pontos": 4
+    },
+    {
+     "codigo": "observado_na_uc",
+     "rotulo": "Observado na UC",
+     "pontos": 3
+    },
+    {
+     "codigo": "inferido_por_bibliografia",
+     "rotulo": "Inferido por bibliografia",
+     "pontos": 2
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    },
+    {
+     "codigo": "sem_impacto_observado_ou_inferido",
+     "rotulo": "Sem impacto observado ou inferido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Impacto em ambiente sensível"
+  },
+  {
+   "id": 7,
+   "titulo": "Impacto em outro ambiente/área na UC (não sensível)",
+   "ajuda": "Outro ambiente/área: ambiente/área não definido como objeto especial de conservação e proteção na UC conforme instrumentos de gestão e planejamento da UC, como decreto de criação, plano de manejo da UC, SAMGe e outros. Contudo, impactos nesses ambientes/áreas também devem ser considerados. Inferido por bibliografia: considerar quando há bases de dados, artigos e demais publicações que registraram impacto da EEI em outro ambiente/área na UC. Ex.: artigo informa que braquiária pode alterar estrutura da vegetação em campo rupestre Observado na UC: considerar quando foi observado na UC o impacto da EEI em outro ambiente/área na UC (ex.: Plano de Manejo, SAMGE, etc). Publicações resultantes de estudos/observações de impacto de EEI em outro ambiente/área na UC devem ser considerados nesse item. Ex.: Foi observada que braquiária altera a estrutura da vegetação em campo rupestre na UC Desconhecido: quando não há nenhuma informação em bibliografia ou observada na UC sobre impactos da EEI em outro ambiente/área na UC. Sem impacto: há informação bibliográfica confirmando que a espécie não causa impacto em outro ambiente/área na UC.",
+   "opcoes": [
+    {
+     "codigo": "inferido_por_bibliografia_e_observado_na",
+     "rotulo": "Inferido por bibliografia e Observado na UC",
+     "pontos": 3
+    },
+    {
+     "codigo": "observado_na_uc",
+     "rotulo": "Observado na UC",
+     "pontos": 2
+    },
+    {
+     "codigo": "inferido_por_bibliografia",
+     "rotulo": "Inferido por bibliografia",
+     "pontos": 1
+    },
+    {
+     "codigo": "desconhecido",
+     "rotulo": "Desconhecido",
+     "pontos": 0
+    },
+    {
+     "codigo": "sem_impacto_observado_ou_inferido",
+     "rotulo": "Sem impacto observado ou inferido",
+     "pontos": 0
+    }
+   ],
+   "curto": "Impacto em outro ambiente"
+  },
+  {
+   "id": 8,
+   "titulo": "Indicação de combate à EEI no Plano de Manejo da UC",
+   "ajuda": "Indicação de combate no Plano de Manejo: Diretriz ou previsão para o manejo da EEI no Plano de Manejo da UC, podendo ser objetivo, norma, atividade ou outros",
+   "opcoes": [
+    {
+     "codigo": "sim",
+     "rotulo": "Sim",
+     "pontos": 2
+    },
+    {
+     "codigo": "nao",
+     "rotulo": "Não",
+     "pontos": 0
+    },
+    {
+     "codigo": "a_uc_nao_tem_plano_de_manejo_ou_a_public",
+     "rotulo": "A UC não tem plano de manejo ou a publicação do plano é anterior a introdução da EEI na UC",
+     "pontos": 0
+    }
+   ],
+   "curto": "Plano de Manejo"
+  },
+  {
+   "id": 9,
+   "titulo": "Indicação de combate à EEI no Plano Específico de Prevenção, Erradicação, Controle e Monitoramento de EEI da UC",
+   "ajuda": "Indicação de combate no Plano Específico de Prevenção, Erradicação, Controle e Monitoramento de EEI da UC: Diretriz ou previsão para o manejo da EEI no Plano Específico de Prevenção, Erradicação, Controle e Monitoramento de EEI da UC, podendo ser objetivo, norma, atividade ou outros. ATENÇÃO1: O Plano Específico é o documento de planejamento complementar ao Plano de Manejo da UC de acordo com a área temática, conforme a IN ICMBio 07/2017. Não deve ser confundido com Projeto de Manejo que é o documento técnico operacional necessário para emissão de autorização de manejo de EEI em UC, conforme IN ICMBio 06/2019. ATENÇÃO2: Consulte os Planos Específicos publicados AQUI",
+   "opcoes": [
+    {
+     "codigo": "sim",
+     "rotulo": "Sim",
+     "pontos": 2
+    },
+    {
+     "codigo": "nao",
+     "rotulo": "Não",
+     "pontos": 0
+    },
+    {
+     "codigo": "a_uc_nao_tem_plano_especifico_ou_a_publi",
+     "rotulo": "A UC não tem plano específico ou a publicação do plano é anterior à introdução da EEI na UC",
+     "pontos": 0
+    }
+   ],
+   "curto": "Plano Específico de EEI"
+  },
+  {
+   "id": 10,
+   "titulo": "Indicação de combate à EEI em outros instrumentos institucionais (ex.: PAN, PMIF, PUP, etc)",
+   "ajuda": "Indicação de combate de EEI em outros instrumentos institucionais: Diretriz ou previsão para o manejo da EEI em outros instrumentos institucionais, por exemplo, PAN (Plano de Ação Nacional para Conservação de Espécies Ameaçadas de Extinção), PMIF (Plano de Manejo Integrado do Fogo), PUP (Plano de Uso Público), etc. Ex.: PAN Aves Marinhas possui a ação \"controlar população de roedores na Ilha do Meio, Ilha do Chapéu e Ilha Rata em Fernando de Noronha\" / PMIF da Rebio do Lago Piratuba indica \"Manejo de búfalos asselvajados\" ATENÇÃO1: Caso haja previsão em mais de um instrumento, indicar a quantidade de instrumentos. Ex.: Há indicação de de controle de roedores em um PAN e no PUP da UC, indicar que há previsão em dois instrumentos. ATENÇÃO2: Aqui não se considera o Plano de Manejo da UC ou Plano de EEI, pois já foram considerados nas questões anteriores",
+   "opcoes": [
+    {
+     "codigo": "sim_em_tres_ou_mais_instrumentos",
+     "rotulo": "Sim, em três ou mais instrumentos",
+     "pontos": 3
+    },
+    {
+     "codigo": "sim_em_dois_instrumentos",
+     "rotulo": "Sim, em dois instrumentos",
+     "pontos": 2
+    },
+    {
+     "codigo": "sim_em_um_instrumento",
+     "rotulo": "Sim, em um instrumento",
+     "pontos": 1
+    },
+    {
+     "codigo": "nao",
+     "rotulo": "Não",
+     "pontos": 0
+    }
+   ],
+   "curto": "Outros instrumentos (PAN, PMIF, PUP…)"
+  },
+  {
+   "id": 11,
+   "titulo": "Há instituição parceira que já atua/ou pode atuar no combate à EEI",
+   "ajuda": "Instituição parceira que atua no combate à EEI: Instituição parceira que já atua diretamente no manejo da EEI ou em outras atividades que contribuem para o combate da EEI na UC. Ex.: Universidade realiza pesquisas para buscar métodos efetivos de controle da EEI na UC Instituição parceira que pode atuar no combate à EEI: Instituição parceira com potencial de atuar diretamente no manejo da EEI ou em outras atividades que contribuem para o combate da EEI na UC. Ex.: ONG atua na castração de cães e gatos no município no entorno da UC e poderia ajudar na captura dos animais dentro da UC / OnG realiza o manejo de EEI na UC",
+   "opcoes": [
+    {
+     "codigo": "sim",
+     "rotulo": "Sim",
+     "pontos": 2
+    },
+    {
+     "codigo": "nao",
+     "rotulo": "Não",
+     "pontos": 0
+    }
+   ],
+   "curto": "Instituição parceira"
+  },
+  {
+   "id": 12,
+   "titulo": "A equipe gestora já atua ou possui experiência no combate a esta EEI ou EEI equivalente",
+   "ajuda": "Atuação ou experiência no combate: A equipe já realiza o manejo dessa espécie (com autorização conforme IN ICMBio 06/2019) ou há experiência no seu combate. Ex.: servidor da UC fazia o manejo da EEI na UC em que era lotado anteriormente / servidor da UC foi capacitado no manejo da EEI EEI equivalente: Espécie pertence a um grupo de EEI cuja equipe possui atuação ou experiência no seu combate, especialmente no método de manejo. Ex.: a EEI analisada é uma gramínea africana, e a equipe já realiza o manejo de outra gramínea africana",
+   "opcoes": [
+    {
+     "codigo": "sim",
+     "rotulo": "Sim",
+     "pontos": 2
+    },
+    {
+     "codigo": "nao",
+     "rotulo": "Não",
+     "pontos": 0
+    }
+   ],
+   "curto": "Experiência da equipe"
+  }
+ ]
+}

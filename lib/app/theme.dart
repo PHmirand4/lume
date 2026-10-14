@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../domain/codigos.dart';
 
-/// Cores da marca (lume-logo-kit) e cores funcionais do app.
+/// Cores da marca (biolume-logo-kit) e cores funcionais do app.
 abstract final class LumeCores {
   // Marca
   static const verdeFloresta = Color(0xFF38613F); // principal: botões, links, aba ativa, logotipo

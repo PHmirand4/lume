@@ -22,6 +22,7 @@ class HomeScreen extends ConsumerWidget {
     final focos = ref.watch(focosProvider).value ?? const <FocoComEspecie>[];
     final usuario = ref.watch(usuarioAtualProvider).value;
     final regras = ref.watch(regrasAtuaisProvider);
+    final unidade = ref.watch(unidadeAtualProvider);
     final t = Theme.of(context).textTheme;
 
     final ativos = focos.where((f) => StatusFoco.ativos.contains(f.foco.status)).toList();
@@ -47,8 +48,12 @@ class HomeScreen extends ConsumerWidget {
               }
             },
             itemBuilder: (_) => [
-              if (usuario != null && Perfil.podeGerir(usuario.perfil))
+              const PopupMenuItem(value: Rotas.unidade, child: ListTile(leading: Icon(Icons.swap_horiz), title: Text('Trocar de unidade'))),
+              if (usuario != null && Perfil.podeGerir(usuario.perfil)) ...[
                 const PopupMenuItem(value: Rotas.exportar, child: ListTile(leading: Icon(Icons.ios_share), title: Text('Exportar e relatório'))),
+                const PopupMenuItem(value: Rotas.priorizacao, child: ListTile(leading: Icon(Icons.leaderboard_outlined), title: Text('Priorização de EEI'))),
+                const PopupMenuItem(value: Rotas.importar, child: ListTile(leading: Icon(Icons.upload_file), title: Text('Importar planilha'))),
+              ],
               const PopupMenuItem(value: Rotas.pendencias, child: ListTile(leading: Icon(Icons.sync), title: Text('Sincronização'))),
               const PopupMenuItem(value: Rotas.configuracoes, child: ListTile(leading: Icon(Icons.settings_outlined), title: Text('Configurações'))),
               const PopupMenuItem(value: Rotas.sobre, child: ListTile(leading: Icon(Icons.info_outline), title: Text('Sobre'))),
@@ -62,11 +67,23 @@ class HomeScreen extends ConsumerWidget {
         padding: const EdgeInsets.only(bottom: 24),
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
-            child: Text(
-              usuario == null ? '' : 'Olá, ${usuario.nome.split(' ').first}',
-              style: t.bodyMedium!.copyWith(color: LumeCores.textoSecundario),
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 4, 8, 0),
+            child: Row(children: [
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  if (usuario != null)
+                    Text('Olá, ${usuario.nome.split(' ').first}',
+                        style: t.bodyMedium!.copyWith(color: LumeCores.textoSecundario)),
+                  Text(unidade.nomeCurto, style: t.titleLarge),
+                  Text('${unidade.uf} · ${unidade.bioma}', style: t.bodySmall),
+                ]),
+              ),
+              TextButton.icon(
+                onPressed: () => context.push(Rotas.unidade),
+                icon: const Icon(Icons.swap_horiz),
+                label: const Text('Trocar'),
+              ),
+            ]),
           ),
           // Prévia do mapa
           Padding(

@@ -1,4 +1,4 @@
-/// Versão de apresentação (demonstração para a Flona).
+/// Versão de apresentação (demonstração para as Flonas).
 ///
 /// Com `true`: o login por e-mail e senha fica desligado e, depois da abertura,
 /// o app pede só nome e função; a sessão fica salva no aparelho e nada é

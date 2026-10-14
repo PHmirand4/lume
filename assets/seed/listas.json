@@ -1,59 +1,64 @@
 {
-  "versao": 1,
+  "versao": 3,
   "listas": {
     "forma_vida": [
       ["arvore", "Árvore"], ["arbusto", "Arbusto"], ["palmeira", "Palmeira"],
-      ["graminea", "Gramínea/capim"], ["trepadeira", "Trepadeira"],
-      ["herbacea", "Herbácea"], ["outra", "Outra"]
+      ["graminea", "Gramínea/capim"], ["trepadeira", "Trepadeira"], ["herbacea", "Herbácea"],
+      ["aquatica", "Planta aquática"], ["pteridofita", "Samambaia/pteridófita"], ["suculenta", "Suculenta/cacto"],
+      ["bambu", "Bambu"], ["mamifero", "Mamífero"], ["ave", "Ave"],
+      ["peixe", "Peixe"], ["reptil", "Réptil"], ["anfibio", "Anfíbio"],
+      ["invertebrado", "Invertebrado"], ["outra", "Outra"]
     ],
     "estagio": [
-      ["plantula", "Plântula"], ["jovem", "Jovem"], ["adulto", "Adulto"],
-      ["reprodutivo", "Adulto com flor/fruto"], ["misto", "Vários estágios"],
+      ["plantula", "Plântula"], ["jovem", "Jovem"], ["regenerante", "Regenerante"],
+      ["adulto", "Adulto"], ["reprodutivo", "Adulto com flor/fruto"], ["misto", "Vários estágios"],
       ["nao_informado", "Não informado"]
     ],
     "quantificacao_tipo": [
-      ["contagem", "Nº de indivíduos"], ["classe", "Classe de abundância"],
-      ["area", "Área ocupada (m²)"], ["cobertura", "Cobertura (%)"]
+      ["contagem", "Nº de indivíduos"], ["classe", "Classe de abundância"], ["area", "Área ocupada (m²)"],
+      ["cobertura", "Cobertura (%)"]
     ],
     "classe_abundancia": [
       ["c1", "1 indivíduo"], ["c2", "2–5"], ["c3", "6–20"],
       ["c4", "21–100"], ["c5", "Mais de 100 / mancha extensa"]
     ],
     "ambiente": [
-      ["interior_mata", "Interior da mata"], ["borda", "Borda da mata"],
-      ["clareira", "Clareira"], ["beira_trilha", "Beira de trilha"],
-      ["beira_estrada", "Beira de estrada"], ["area_aberta", "Área aberta/pasto"],
-      ["margem_rio", "Margem de rio/córrego"], ["talhao", "Talhão plantado"],
-      ["outro", "Outro"]
+      ["interior_mata", "Interior da mata"], ["borda", "Borda da mata"], ["clareira", "Clareira"],
+      ["beira_trilha", "Beira de trilha"], ["beira_estrada", "Beira de estrada"], ["area_aberta", "Área aberta/pasto"],
+      ["margem_rio", "Margem de rio/córrego"], ["talhao", "Talhão plantado"], ["outro", "Outro"]
     ],
     "status_foco": [
-      ["detectado", "Detectado"], ["em_controle", "Em controle"],
-      ["controlado", "Controlado"], ["rebrotou", "Rebrotou"],
-      ["erradicado", "Erradicado"], ["descartado", "Descartado"]
+      ["detectado", "Detectado"], ["em_controle", "Em controle"], ["controlado", "Controlado"],
+      ["rebrotou", "Rebrotou"], ["erradicado", "Erradicado"], ["descartado", "Descartado"]
     ],
     "metodo_manejo": [
-      ["arranquio", "Arranquio manual"], ["rocada", "Roçada/capina"],
-      ["corte_raso", "Corte rente à base"], ["anelamento", "Anelamento"],
-      ["corte_herbicida", "Corte + herbicida no toco"],
-      ["anelamento_herbicida", "Anelamento + herbicida"],
-      ["herbicida_foliar", "Herbicida foliar"],
-      ["remocao_frutos", "Remoção de frutos/sementes"], ["outro", "Outro"]
+      ["arranquio", "Arranquio manual"], ["rocada", "Roçada/capina"], ["corte_raso", "Corte rente à base"],
+      ["anelamento", "Anelamento"], ["anelamento_profundo", "Anelamento profundo e perfurações"], ["corte_herbicida", "Corte + herbicida no toco"],
+      ["anelamento_herbicida", "Anelamento + herbicida"], ["herbicida_foliar", "Herbicida foliar"], ["remocao_frutos", "Remoção de frutos/sementes"],
+      ["rocadeira", "Roçadeira/trator"], ["rocada_herbicida", "Roçada + herbicida"], ["captura", "Captura/remoção (fauna)"],
+      ["outro", "Outro"]
     ],
     "destinacao": [
-      ["deixado_secar", "Deixado no local para secar"], ["amontoado", "Amontoado no local"],
-      ["removido", "Removido da área"], ["ensacado", "Ensacado"], ["outro", "Outro"]
+      ["deixado_secar", "Deixado no local para secar"], ["amontoado", "Amontoado no local"], ["removido", "Removido da área"],
+      ["ensacado", "Ensacado"], ["outro", "Outro"]
     ],
     "resultado_revisita": [
-      ["ausente", "Ausente"], ["presente_reduzido", "Presente, reduzido"],
-      ["presente_igual", "Presente, sem mudança"], ["presente_aumentou", "Presente, aumentou"],
-      ["rebrota", "Rebrota em indivíduos tratados"]
+      ["ausente", "Ausente"], ["presente_reduzido", "Presente, reduzido"], ["presente_igual", "Presente, sem mudança"],
+      ["presente_aumentou", "Presente, aumentou"], ["rebrota", "Rebrota em indivíduos tratados"]
     ],
     "origem_coordenada": [
-      ["gps_auto", "GPS automático"], ["gps_ajustado", "Ajustado no mapa"],
-      ["estimada", "Estimada"]
+      ["gps_auto", "GPS automático"], ["gps_ajustado", "Ajustado no mapa"], ["estimada", "Estimada"],
+      ["importada", "Importada de planilha"]
     ],
     "condicao_tempo": [
       ["seco", "Seco"], ["nublado", "Nublado"], ["chuva", "Chuva"]
+    ],
+    "padrao_ocorrencia": [
+      ["isolada", "Isolada"], ["mancha", "Mancha/reboleira"], ["continua", "Contínua/densa"]
+    ],
+    "evidencia": [
+      ["avistamento", "Avistamento"], ["vestigio", "Vestígio (pegada, fezes, toca)"], ["vocalizacao", "Vocalização/canto"],
+      ["armadilha_fotografica", "Armadilha fotográfica"], ["captura", "Captura"], ["carcaca", "Carcaça"]
     ]
   }
 }

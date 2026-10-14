@@ -7,7 +7,7 @@ import '../app/theme.dart';
 import '../data/local/database.dart';
 import '../data/repositories/catalogo_repository.dart';
 
-/// Logotipo da marca (lume-logo-kit).
+/// Logotipo da marca (biolume-logo-kit).
 class LogoLume extends StatelessWidget {
   const LogoLume({super.key, this.altura = 40, this.variante = VarianteLogo.horizontal});
 
@@ -17,14 +17,13 @@ class LogoLume extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SvgPicture.asset(
         switch (variante) {
-          VarianteLogo.horizontal => 'assets/branding/lume-logo-horizontal.svg',
-          VarianteLogo.semSlogan => 'assets/branding/lume-logo-horizontal-sem-slogan.svg',
-          VarianteLogo.branco => 'assets/branding/lume-logo-horizontal-branco.svg',
-          VarianteLogo.simbolo => 'assets/branding/lume-simbolo.svg',
-          VarianteLogo.marcador => 'assets/branding/lume-marcador.svg',
+          VarianteLogo.horizontal => 'assets/branding/biolume-logo-horizontal.svg',
+          VarianteLogo.semSlogan => 'assets/branding/biolume-logo-horizontal-sem-slogan.svg',
+          VarianteLogo.branco => 'assets/branding/biolume-logo-horizontal-branco.svg',
+          VarianteLogo.simbolo || VarianteLogo.marcador => 'assets/branding/biolume-simbolo.svg',
         },
         height: altura,
-        semanticsLabel: 'Lume',
+        semanticsLabel: 'BioLume',
       );
 }
 
@@ -178,7 +177,7 @@ void abrirFoto(BuildContext context, String caminho) {
   ));
 }
 
-/// Ícone por forma de vida (até termos fotos de referência da Flona).
+/// Ícone por forma de vida (quando a espécie ainda não tem foto).
 IconData iconeFormaVida(String forma) => switch (forma) {
       'arvore' => Icons.park_outlined,
       'arbusto' => Icons.grass,
@@ -186,8 +185,73 @@ IconData iconeFormaVida(String forma) => switch (forma) {
       'graminea' => Icons.grass_outlined,
       'trepadeira' => Icons.local_florist_outlined,
       'herbacea' => Icons.eco_outlined,
+      'aquatica' => Icons.water_drop_outlined,
+      'pteridofita' => Icons.spa_outlined,
+      'suculenta' => Icons.filter_vintage_outlined,
+      'bambu' => Icons.grass,
+      'mamifero' => Icons.pets_outlined,
+      'ave' => Icons.flutter_dash,
+      'peixe' => Icons.set_meal_outlined,
+      'reptil' => Icons.bug_report_outlined,
+      'anfibio' => Icons.water_outlined,
+      'invertebrado' => Icons.pest_control_outlined,
       _ => Icons.help_outline,
     };
+
+/// Foto redonda da espécie (ou o ícone da forma de vida, sem foto).
+class AvatarEspecie extends StatelessWidget {
+  const AvatarEspecie({super.key, required this.especie, this.foto, this.raio = 24});
+
+  final Especie especie;
+  final String? foto;
+  final double raio;
+
+  @override
+  Widget build(BuildContext context) {
+    final icone = CircleAvatar(
+      radius: raio,
+      backgroundColor: especie.id == 'outra' ? const Color(0xFFFFF0E6) : LumeCores.nevoa,
+      foregroundColor: especie.id == 'outra' ? LumeCores.laranjaTexto : LumeCores.verdeFloresta,
+      child: Icon(iconeFormaVida(especie.formaVida), size: raio),
+    );
+    if (foto == null) return icone;
+    return ClipOval(
+      child: Image.file(
+        File(foto!),
+        width: raio * 2,
+        height: raio * 2,
+        fit: BoxFit.cover,
+        cacheWidth: (raio * 6).round(),
+        errorBuilder: (_, _, _) => icone,
+      ),
+    );
+  }
+}
+
+/// Selo "Lista oficial ICMBio" (ou "Fora da lista oficial", em laranja).
+class SeloListaOficial extends StatelessWidget {
+  const SeloListaOficial({super.key, this.fora = false});
+
+  final bool fora;
+
+  @override
+  Widget build(BuildContext context) {
+    final cor = fora ? LumeCores.laranjaTexto : LumeCores.verdeFloresta;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: fora ? const Color(0xFFFFF0E6) : LumeCores.selecao,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(fora ? Icons.new_releases_outlined : Icons.verified_outlined, size: 13, color: cor),
+        const SizedBox(width: 4),
+        Text(fora ? 'Fora da lista oficial' : 'Lista oficial ICMBio',
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: cor)),
+      ]),
+    );
+  }
+}
 
 /// Aviso em caixa (informação, alerta ou erro).
 class Aviso extends StatelessWidget {

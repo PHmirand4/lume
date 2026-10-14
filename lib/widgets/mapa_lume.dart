@@ -13,8 +13,8 @@ const pacoteApp = 'app.lume.pacotuba';
 
 LatLng latLng(double lat, double lon) => LatLng(lat, lon);
 
-/// Mapa base do Lume: camada de fundo (OpenStreetMap com cache do que já foi
-/// visto), limite oficial da Flona e focos.
+/// Mapa base do BioLume: camada de fundo (OpenStreetMap com cache do que já
+/// foi visto), limite oficial da unidade escolhida e focos.
 ///
 /// Mapa offline completo (MBTiles próprio) é a decisão em aberto da §14.4: sem
 /// conexão, o app mostra o limite e os focos sobre fundo neutro, mais os blocos
@@ -53,9 +53,8 @@ class MapaLume extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final limite = ref.watch(limiteFlonaProvider);
-    final anel = [for (final p in limite.anel) LatLng(p.lat, p.lon)];
-    final b = limite.limites;
+    final unidade = ref.watch(unidadeAtualProvider);
+    final b = unidade.limites;
     final limitesFlona = LatLngBounds(LatLng(b.sul, b.oeste), LatLng(b.norte, b.leste));
 
     // Focos precoces e selecionado por cima.
@@ -74,7 +73,7 @@ class MapaLume extends ConsumerWidget {
         initialCameraFit: (enquadrarFlona && centro == null)
             ? CameraFit.bounds(bounds: limitesFlona, padding: const EdgeInsets.all(24))
             : null,
-        minZoom: 10,
+        minZoom: 5,
         maxZoom: 19,
         interactionOptions: InteractionOptions(
           flags: interativo ? InteractiveFlag.all & ~InteractiveFlag.rotate : InteractiveFlag.none,
@@ -88,12 +87,13 @@ class MapaLume extends ConsumerWidget {
           maxNativeZoom: 19,
         ),
         PolygonLayer(polygons: [
-          Polygon(
-            points: anel,
-            color: LumeCores.verdeFloresta.withValues(alpha: 0.07),
-            borderColor: LumeCores.verdeFloresta,
-            borderStrokeWidth: 2.5,
-          ),
+          for (final anel in unidade.contornos)
+            Polygon(
+              points: [for (final p in anel) LatLng(p.lat, p.lon)],
+              color: LumeCores.verdeFloresta.withValues(alpha: 0.07),
+              borderColor: LumeCores.verdeFloresta,
+              borderStrokeWidth: 2.5,
+            ),
         ]),
         if (posicaoAtual != null && precisaoAtualM != null)
           CircleLayer(circles: [

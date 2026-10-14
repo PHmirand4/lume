@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../app/providers.dart';
 import '../../app/theme.dart';
 import '../../core/formato.dart' as fmt;
+import '../../data/repositories/catalogo_repository.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../../domain/codigos.dart';
 import '../../widgets/comuns.dart';
@@ -130,11 +131,11 @@ class _ListaFocosScreenState extends ConsumerState<ListaFocosScreen> {
               _MenuChip(
                 rotulo: _filtro.especie == null
                     ? 'Espécie'
-                    : especies.where((e) => e.id == _filtro.especie).firstOrNull?.nomesPopulares.first ?? 'Espécie',
+                    : especies.where((e) => e.id == _filtro.especie).firstOrNull?.nomeComum ?? 'Espécie',
                 ativo: _filtro.especie != null,
                 opcoes: [
                   (null, 'Todas'),
-                  for (final e in especies) (e.id, e.nomesPopulares.first),
+                  for (final e in especies) (e.id, e.nomeComum),
                 ],
                 aoEscolher: (v) => setState(() => _filtro = _filtro.copyWith(especie: () => v)),
               ),

@@ -13,7 +13,7 @@
     <uses-feature android:name="android.hardware.sensor.compass" android:required="false"/>
 
     <application
-        android:label="Lume"
+        android:label="BioLume"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

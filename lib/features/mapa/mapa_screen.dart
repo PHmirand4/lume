@@ -10,6 +10,7 @@ import '../../app/providers.dart';
 import '../../app/router.dart';
 import '../../app/theme.dart';
 import '../../core/gps.dart';
+import '../../data/repositories/catalogo_repository.dart';
 import '../../data/repositories/foco_repository.dart';
 import '../../domain/codigos.dart';
 import '../../widgets/comuns.dart';
@@ -17,7 +18,7 @@ import '../../widgets/foco_tile.dart';
 import '../../widgets/mapa_lume.dart';
 import '../../widgets/marcador_status.dart';
 
-/// T08 — Mapa: limite da Flona, focos por status, filtros e minha posição.
+/// T08 — Mapa: limite da unidade, focos por status, filtros e minha posição.
 class MapaScreen extends ConsumerStatefulWidget {
   const MapaScreen({super.key});
 
@@ -108,7 +109,7 @@ class _MapaScreenState extends ConsumerState<MapaScreen> {
                           items: [
                             const DropdownMenuItem(value: null, child: Text('Todas as espécies')),
                             for (final e in especies)
-                              DropdownMenuItem(value: e.id, child: Text(e.nomesPopulares.first, overflow: TextOverflow.ellipsis)),
+                              DropdownMenuItem(value: e.id, child: Text(e.nomeComum, overflow: TextOverflow.ellipsis)),
                           ],
                           onChanged: (v) => setState(() {
                             _especie = v;
@@ -165,11 +166,11 @@ class _MapaScreenState extends ConsumerState<MapaScreen> {
           child: Column(children: [
             FloatingActionButton.small(
               heroTag: 'flona',
-              tooltip: 'Ver a Flona inteira',
+              tooltip: 'Ver a unidade inteira',
               backgroundColor: Colors.white,
               foregroundColor: LumeCores.verdeFloresta,
               onPressed: () {
-                final b = ref.read(limiteFlonaProvider).limites;
+                final b = ref.read(unidadeAtualProvider).limites;
                 _mapa.fitCamera(CameraFit.bounds(
                   bounds: LatLngBounds(LatLng(b.sul, b.oeste), LatLng(b.norte, b.leste)),
                   padding: const EdgeInsets.all(32),

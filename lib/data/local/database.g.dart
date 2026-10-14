@@ -944,6 +944,106 @@ class $EspeciesTable extends Especies with TableInfo<$EspeciesTable, Especie> {
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
+  static const VerificationMeta _origemNativaMeta = const VerificationMeta(
+    'origemNativa',
+  );
+  @override
+  late final GeneratedColumn<String> origemNativa = GeneratedColumn<String>(
+    'origem_nativa',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _ambientesInvasaoMeta = const VerificationMeta(
+    'ambientesInvasao',
+  );
+  @override
+  late final GeneratedColumn<String> ambientesInvasao = GeneratedColumn<String>(
+    'ambientes_invasao',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _impactosMeta = const VerificationMeta(
+    'impactos',
+  );
+  @override
+  late final GeneratedColumn<String> impactos = GeneratedColumn<String>(
+    'impactos',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _controleLiteraturaMeta =
+      const VerificationMeta('controleLiteratura');
+  @override
+  late final GeneratedColumn<String> controleLiteratura =
+      GeneratedColumn<String>(
+        'controle_literatura',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _nativaBrasilMeta = const VerificationMeta(
+    'nativaBrasil',
+  );
+  @override
+  late final GeneratedColumn<bool> nativaBrasil = GeneratedColumn<bool>(
+    'nativa_brasil',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("nativa_brasil" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _fonteMeta = const VerificationMeta('fonte');
+  @override
+  late final GeneratedColumn<String> fonte = GeneratedColumn<String>(
+    'fonte',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _criadoPorMeta = const VerificationMeta(
+    'criadoPor',
+  );
+  @override
+  late final GeneratedColumn<String> criadoPor = GeneratedColumn<String>(
+    'criado_por',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unidadeOrigemMeta = const VerificationMeta(
+    'unidadeOrigem',
+  );
+  @override
+  late final GeneratedColumn<String> unidadeOrigem = GeneratedColumn<String>(
+    'unidade_origem',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _reinoMeta = const VerificationMeta('reino');
+  @override
+  late final GeneratedColumn<String> reino = GeneratedColumn<String>(
+    'reino',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('planta'),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     createdAt,
@@ -967,6 +1067,15 @@ class $EspeciesTable extends Especies with TableInfo<$EspeciesTable, Especie> {
     naListaOficialIcmbio,
     ativa,
     ordem,
+    origemNativa,
+    ambientesInvasao,
+    impactos,
+    controleLiteratura,
+    nativaBrasil,
+    fonte,
+    criadoPor,
+    unidadeOrigem,
+    reino,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1115,6 +1224,75 @@ class $EspeciesTable extends Especies with TableInfo<$EspeciesTable, Especie> {
         ordem.isAcceptableOrUnknown(data['ordem']!, _ordemMeta),
       );
     }
+    if (data.containsKey('origem_nativa')) {
+      context.handle(
+        _origemNativaMeta,
+        origemNativa.isAcceptableOrUnknown(
+          data['origem_nativa']!,
+          _origemNativaMeta,
+        ),
+      );
+    }
+    if (data.containsKey('ambientes_invasao')) {
+      context.handle(
+        _ambientesInvasaoMeta,
+        ambientesInvasao.isAcceptableOrUnknown(
+          data['ambientes_invasao']!,
+          _ambientesInvasaoMeta,
+        ),
+      );
+    }
+    if (data.containsKey('impactos')) {
+      context.handle(
+        _impactosMeta,
+        impactos.isAcceptableOrUnknown(data['impactos']!, _impactosMeta),
+      );
+    }
+    if (data.containsKey('controle_literatura')) {
+      context.handle(
+        _controleLiteraturaMeta,
+        controleLiteratura.isAcceptableOrUnknown(
+          data['controle_literatura']!,
+          _controleLiteraturaMeta,
+        ),
+      );
+    }
+    if (data.containsKey('nativa_brasil')) {
+      context.handle(
+        _nativaBrasilMeta,
+        nativaBrasil.isAcceptableOrUnknown(
+          data['nativa_brasil']!,
+          _nativaBrasilMeta,
+        ),
+      );
+    }
+    if (data.containsKey('fonte')) {
+      context.handle(
+        _fonteMeta,
+        fonte.isAcceptableOrUnknown(data['fonte']!, _fonteMeta),
+      );
+    }
+    if (data.containsKey('criado_por')) {
+      context.handle(
+        _criadoPorMeta,
+        criadoPor.isAcceptableOrUnknown(data['criado_por']!, _criadoPorMeta),
+      );
+    }
+    if (data.containsKey('unidade_origem')) {
+      context.handle(
+        _unidadeOrigemMeta,
+        unidadeOrigem.isAcceptableOrUnknown(
+          data['unidade_origem']!,
+          _unidadeOrigemMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reino')) {
+      context.handle(
+        _reinoMeta,
+        reino.isAcceptableOrUnknown(data['reino']!, _reinoMeta),
+      );
+    }
     return context;
   }
 
@@ -1214,6 +1392,42 @@ class $EspeciesTable extends Especies with TableInfo<$EspeciesTable, Especie> {
         DriftSqlType.int,
         data['${effectivePrefix}ordem'],
       )!,
+      origemNativa: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}origem_nativa'],
+      ),
+      ambientesInvasao: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ambientes_invasao'],
+      ),
+      impactos: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}impactos'],
+      ),
+      controleLiteratura: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}controle_literatura'],
+      ),
+      nativaBrasil: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}nativa_brasil'],
+      )!,
+      fonte: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fonte'],
+      ),
+      criadoPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}criado_por'],
+      ),
+      unidadeOrigem: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unidade_origem'],
+      ),
+      reino: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reino'],
+      )!,
     );
   }
 
@@ -1252,6 +1466,21 @@ class Especie extends DataClass implements Insertable<Especie> {
   final bool? naListaOficialIcmbio;
   final bool ativa;
   final int ordem;
+  final String? origemNativa;
+  final String? ambientesInvasao;
+  final String? impactos;
+  final String? controleLiteratura;
+  final bool nativaBrasil;
+  final String? fonte;
+
+  /// Quem cadastrou pelo app (nulo para as espécies do catálogo inicial).
+  final String? criadoPor;
+
+  /// Unidade em que a espécie foi cadastrada pelo app.
+  final String? unidadeOrigem;
+
+  /// `planta` ou `animal` (a lista oficial do ICMBio traz flora e fauna).
+  final String reino;
   const Especie({
     required this.createdAt,
     required this.updatedAt,
@@ -1274,6 +1503,15 @@ class Especie extends DataClass implements Insertable<Especie> {
     this.naListaOficialIcmbio,
     required this.ativa,
     required this.ordem,
+    this.origemNativa,
+    this.ambientesInvasao,
+    this.impactos,
+    this.controleLiteratura,
+    required this.nativaBrasil,
+    this.fonte,
+    this.criadoPor,
+    this.unidadeOrigem,
+    required this.reino,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1325,6 +1563,29 @@ class Especie extends DataClass implements Insertable<Especie> {
     }
     map['ativa'] = Variable<bool>(ativa);
     map['ordem'] = Variable<int>(ordem);
+    if (!nullToAbsent || origemNativa != null) {
+      map['origem_nativa'] = Variable<String>(origemNativa);
+    }
+    if (!nullToAbsent || ambientesInvasao != null) {
+      map['ambientes_invasao'] = Variable<String>(ambientesInvasao);
+    }
+    if (!nullToAbsent || impactos != null) {
+      map['impactos'] = Variable<String>(impactos);
+    }
+    if (!nullToAbsent || controleLiteratura != null) {
+      map['controle_literatura'] = Variable<String>(controleLiteratura);
+    }
+    map['nativa_brasil'] = Variable<bool>(nativaBrasil);
+    if (!nullToAbsent || fonte != null) {
+      map['fonte'] = Variable<String>(fonte);
+    }
+    if (!nullToAbsent || criadoPor != null) {
+      map['criado_por'] = Variable<String>(criadoPor);
+    }
+    if (!nullToAbsent || unidadeOrigem != null) {
+      map['unidade_origem'] = Variable<String>(unidadeOrigem);
+    }
+    map['reino'] = Variable<String>(reino);
     return map;
   }
 
@@ -1365,6 +1626,29 @@ class Especie extends DataClass implements Insertable<Especie> {
           : Value(naListaOficialIcmbio),
       ativa: Value(ativa),
       ordem: Value(ordem),
+      origemNativa: origemNativa == null && nullToAbsent
+          ? const Value.absent()
+          : Value(origemNativa),
+      ambientesInvasao: ambientesInvasao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ambientesInvasao),
+      impactos: impactos == null && nullToAbsent
+          ? const Value.absent()
+          : Value(impactos),
+      controleLiteratura: controleLiteratura == null && nullToAbsent
+          ? const Value.absent()
+          : Value(controleLiteratura),
+      nativaBrasil: Value(nativaBrasil),
+      fonte: fonte == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fonte),
+      criadoPor: criadoPor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(criadoPor),
+      unidadeOrigem: unidadeOrigem == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unidadeOrigem),
+      reino: Value(reino),
     );
   }
 
@@ -1403,6 +1687,17 @@ class Especie extends DataClass implements Insertable<Especie> {
       ),
       ativa: serializer.fromJson<bool>(json['ativa']),
       ordem: serializer.fromJson<int>(json['ordem']),
+      origemNativa: serializer.fromJson<String?>(json['origemNativa']),
+      ambientesInvasao: serializer.fromJson<String?>(json['ambientesInvasao']),
+      impactos: serializer.fromJson<String?>(json['impactos']),
+      controleLiteratura: serializer.fromJson<String?>(
+        json['controleLiteratura'],
+      ),
+      nativaBrasil: serializer.fromJson<bool>(json['nativaBrasil']),
+      fonte: serializer.fromJson<String?>(json['fonte']),
+      criadoPor: serializer.fromJson<String?>(json['criadoPor']),
+      unidadeOrigem: serializer.fromJson<String?>(json['unidadeOrigem']),
+      reino: serializer.fromJson<String>(json['reino']),
     );
   }
   @override
@@ -1432,6 +1727,15 @@ class Especie extends DataClass implements Insertable<Especie> {
       'naListaOficialIcmbio': serializer.toJson<bool?>(naListaOficialIcmbio),
       'ativa': serializer.toJson<bool>(ativa),
       'ordem': serializer.toJson<int>(ordem),
+      'origemNativa': serializer.toJson<String?>(origemNativa),
+      'ambientesInvasao': serializer.toJson<String?>(ambientesInvasao),
+      'impactos': serializer.toJson<String?>(impactos),
+      'controleLiteratura': serializer.toJson<String?>(controleLiteratura),
+      'nativaBrasil': serializer.toJson<bool>(nativaBrasil),
+      'fonte': serializer.toJson<String?>(fonte),
+      'criadoPor': serializer.toJson<String?>(criadoPor),
+      'unidadeOrigem': serializer.toJson<String?>(unidadeOrigem),
+      'reino': serializer.toJson<String>(reino),
     };
   }
 
@@ -1457,6 +1761,15 @@ class Especie extends DataClass implements Insertable<Especie> {
     Value<bool?> naListaOficialIcmbio = const Value.absent(),
     bool? ativa,
     int? ordem,
+    Value<String?> origemNativa = const Value.absent(),
+    Value<String?> ambientesInvasao = const Value.absent(),
+    Value<String?> impactos = const Value.absent(),
+    Value<String?> controleLiteratura = const Value.absent(),
+    bool? nativaBrasil,
+    Value<String?> fonte = const Value.absent(),
+    Value<String?> criadoPor = const Value.absent(),
+    Value<String?> unidadeOrigem = const Value.absent(),
+    String? reino,
   }) => Especie(
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -1487,6 +1800,21 @@ class Especie extends DataClass implements Insertable<Especie> {
         : this.naListaOficialIcmbio,
     ativa: ativa ?? this.ativa,
     ordem: ordem ?? this.ordem,
+    origemNativa: origemNativa.present ? origemNativa.value : this.origemNativa,
+    ambientesInvasao: ambientesInvasao.present
+        ? ambientesInvasao.value
+        : this.ambientesInvasao,
+    impactos: impactos.present ? impactos.value : this.impactos,
+    controleLiteratura: controleLiteratura.present
+        ? controleLiteratura.value
+        : this.controleLiteratura,
+    nativaBrasil: nativaBrasil ?? this.nativaBrasil,
+    fonte: fonte.present ? fonte.value : this.fonte,
+    criadoPor: criadoPor.present ? criadoPor.value : this.criadoPor,
+    unidadeOrigem: unidadeOrigem.present
+        ? unidadeOrigem.value
+        : this.unidadeOrigem,
+    reino: reino ?? this.reino,
   );
   Especie copyWithCompanion(EspeciesCompanion data) {
     return Especie(
@@ -1533,6 +1861,25 @@ class Especie extends DataClass implements Insertable<Especie> {
           : this.naListaOficialIcmbio,
       ativa: data.ativa.present ? data.ativa.value : this.ativa,
       ordem: data.ordem.present ? data.ordem.value : this.ordem,
+      origemNativa: data.origemNativa.present
+          ? data.origemNativa.value
+          : this.origemNativa,
+      ambientesInvasao: data.ambientesInvasao.present
+          ? data.ambientesInvasao.value
+          : this.ambientesInvasao,
+      impactos: data.impactos.present ? data.impactos.value : this.impactos,
+      controleLiteratura: data.controleLiteratura.present
+          ? data.controleLiteratura.value
+          : this.controleLiteratura,
+      nativaBrasil: data.nativaBrasil.present
+          ? data.nativaBrasil.value
+          : this.nativaBrasil,
+      fonte: data.fonte.present ? data.fonte.value : this.fonte,
+      criadoPor: data.criadoPor.present ? data.criadoPor.value : this.criadoPor,
+      unidadeOrigem: data.unidadeOrigem.present
+          ? data.unidadeOrigem.value
+          : this.unidadeOrigem,
+      reino: data.reino.present ? data.reino.value : this.reino,
     );
   }
 
@@ -1559,7 +1906,16 @@ class Especie extends DataClass implements Insertable<Especie> {
           ..write('prioridade: $prioridade, ')
           ..write('naListaOficialIcmbio: $naListaOficialIcmbio, ')
           ..write('ativa: $ativa, ')
-          ..write('ordem: $ordem')
+          ..write('ordem: $ordem, ')
+          ..write('origemNativa: $origemNativa, ')
+          ..write('ambientesInvasao: $ambientesInvasao, ')
+          ..write('impactos: $impactos, ')
+          ..write('controleLiteratura: $controleLiteratura, ')
+          ..write('nativaBrasil: $nativaBrasil, ')
+          ..write('fonte: $fonte, ')
+          ..write('criadoPor: $criadoPor, ')
+          ..write('unidadeOrigem: $unidadeOrigem, ')
+          ..write('reino: $reino')
           ..write(')'))
         .toString();
   }
@@ -1587,6 +1943,15 @@ class Especie extends DataClass implements Insertable<Especie> {
     naListaOficialIcmbio,
     ativa,
     ordem,
+    origemNativa,
+    ambientesInvasao,
+    impactos,
+    controleLiteratura,
+    nativaBrasil,
+    fonte,
+    criadoPor,
+    unidadeOrigem,
+    reino,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -1612,7 +1977,16 @@ class Especie extends DataClass implements Insertable<Especie> {
           other.prioridade == this.prioridade &&
           other.naListaOficialIcmbio == this.naListaOficialIcmbio &&
           other.ativa == this.ativa &&
-          other.ordem == this.ordem);
+          other.ordem == this.ordem &&
+          other.origemNativa == this.origemNativa &&
+          other.ambientesInvasao == this.ambientesInvasao &&
+          other.impactos == this.impactos &&
+          other.controleLiteratura == this.controleLiteratura &&
+          other.nativaBrasil == this.nativaBrasil &&
+          other.fonte == this.fonte &&
+          other.criadoPor == this.criadoPor &&
+          other.unidadeOrigem == this.unidadeOrigem &&
+          other.reino == this.reino);
 }
 
 class EspeciesCompanion extends UpdateCompanion<Especie> {
@@ -1637,6 +2011,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
   final Value<bool?> naListaOficialIcmbio;
   final Value<bool> ativa;
   final Value<int> ordem;
+  final Value<String?> origemNativa;
+  final Value<String?> ambientesInvasao;
+  final Value<String?> impactos;
+  final Value<String?> controleLiteratura;
+  final Value<bool> nativaBrasil;
+  final Value<String?> fonte;
+  final Value<String?> criadoPor;
+  final Value<String?> unidadeOrigem;
+  final Value<String> reino;
   final Value<int> rowid;
   const EspeciesCompanion({
     this.createdAt = const Value.absent(),
@@ -1660,6 +2043,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
     this.naListaOficialIcmbio = const Value.absent(),
     this.ativa = const Value.absent(),
     this.ordem = const Value.absent(),
+    this.origemNativa = const Value.absent(),
+    this.ambientesInvasao = const Value.absent(),
+    this.impactos = const Value.absent(),
+    this.controleLiteratura = const Value.absent(),
+    this.nativaBrasil = const Value.absent(),
+    this.fonte = const Value.absent(),
+    this.criadoPor = const Value.absent(),
+    this.unidadeOrigem = const Value.absent(),
+    this.reino = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   EspeciesCompanion.insert({
@@ -1684,6 +2076,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
     this.naListaOficialIcmbio = const Value.absent(),
     this.ativa = const Value.absent(),
     this.ordem = const Value.absent(),
+    this.origemNativa = const Value.absent(),
+    this.ambientesInvasao = const Value.absent(),
+    this.impactos = const Value.absent(),
+    this.controleLiteratura = const Value.absent(),
+    this.nativaBrasil = const Value.absent(),
+    this.fonte = const Value.absent(),
+    this.criadoPor = const Value.absent(),
+    this.unidadeOrigem = const Value.absent(),
+    this.reino = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : createdAt = Value(createdAt),
        updatedAt = Value(updatedAt),
@@ -1716,6 +2117,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
     Expression<bool>? naListaOficialIcmbio,
     Expression<bool>? ativa,
     Expression<int>? ordem,
+    Expression<String>? origemNativa,
+    Expression<String>? ambientesInvasao,
+    Expression<String>? impactos,
+    Expression<String>? controleLiteratura,
+    Expression<bool>? nativaBrasil,
+    Expression<String>? fonte,
+    Expression<String>? criadoPor,
+    Expression<String>? unidadeOrigem,
+    Expression<String>? reino,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1742,6 +2152,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
         'na_lista_oficial_icmbio': naListaOficialIcmbio,
       if (ativa != null) 'ativa': ativa,
       if (ordem != null) 'ordem': ordem,
+      if (origemNativa != null) 'origem_nativa': origemNativa,
+      if (ambientesInvasao != null) 'ambientes_invasao': ambientesInvasao,
+      if (impactos != null) 'impactos': impactos,
+      if (controleLiteratura != null) 'controle_literatura': controleLiteratura,
+      if (nativaBrasil != null) 'nativa_brasil': nativaBrasil,
+      if (fonte != null) 'fonte': fonte,
+      if (criadoPor != null) 'criado_por': criadoPor,
+      if (unidadeOrigem != null) 'unidade_origem': unidadeOrigem,
+      if (reino != null) 'reino': reino,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1768,6 +2187,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
     Value<bool?>? naListaOficialIcmbio,
     Value<bool>? ativa,
     Value<int>? ordem,
+    Value<String?>? origemNativa,
+    Value<String?>? ambientesInvasao,
+    Value<String?>? impactos,
+    Value<String?>? controleLiteratura,
+    Value<bool>? nativaBrasil,
+    Value<String?>? fonte,
+    Value<String?>? criadoPor,
+    Value<String?>? unidadeOrigem,
+    Value<String>? reino,
     Value<int>? rowid,
   }) {
     return EspeciesCompanion(
@@ -1793,6 +2221,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
       naListaOficialIcmbio: naListaOficialIcmbio ?? this.naListaOficialIcmbio,
       ativa: ativa ?? this.ativa,
       ordem: ordem ?? this.ordem,
+      origemNativa: origemNativa ?? this.origemNativa,
+      ambientesInvasao: ambientesInvasao ?? this.ambientesInvasao,
+      impactos: impactos ?? this.impactos,
+      controleLiteratura: controleLiteratura ?? this.controleLiteratura,
+      nativaBrasil: nativaBrasil ?? this.nativaBrasil,
+      fonte: fonte ?? this.fonte,
+      criadoPor: criadoPor ?? this.criadoPor,
+      unidadeOrigem: unidadeOrigem ?? this.unidadeOrigem,
+      reino: reino ?? this.reino,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1873,6 +2310,33 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
     if (ordem.present) {
       map['ordem'] = Variable<int>(ordem.value);
     }
+    if (origemNativa.present) {
+      map['origem_nativa'] = Variable<String>(origemNativa.value);
+    }
+    if (ambientesInvasao.present) {
+      map['ambientes_invasao'] = Variable<String>(ambientesInvasao.value);
+    }
+    if (impactos.present) {
+      map['impactos'] = Variable<String>(impactos.value);
+    }
+    if (controleLiteratura.present) {
+      map['controle_literatura'] = Variable<String>(controleLiteratura.value);
+    }
+    if (nativaBrasil.present) {
+      map['nativa_brasil'] = Variable<bool>(nativaBrasil.value);
+    }
+    if (fonte.present) {
+      map['fonte'] = Variable<String>(fonte.value);
+    }
+    if (criadoPor.present) {
+      map['criado_por'] = Variable<String>(criadoPor.value);
+    }
+    if (unidadeOrigem.present) {
+      map['unidade_origem'] = Variable<String>(unidadeOrigem.value);
+    }
+    if (reino.present) {
+      map['reino'] = Variable<String>(reino.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1903,6 +2367,15 @@ class EspeciesCompanion extends UpdateCompanion<Especie> {
           ..write('naListaOficialIcmbio: $naListaOficialIcmbio, ')
           ..write('ativa: $ativa, ')
           ..write('ordem: $ordem, ')
+          ..write('origemNativa: $origemNativa, ')
+          ..write('ambientesInvasao: $ambientesInvasao, ')
+          ..write('impactos: $impactos, ')
+          ..write('controleLiteratura: $controleLiteratura, ')
+          ..write('nativaBrasil: $nativaBrasil, ')
+          ..write('fonte: $fonte, ')
+          ..write('criadoPor: $criadoPor, ')
+          ..write('unidadeOrigem: $unidadeOrigem, ')
+          ..write('reino: $reino, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1995,6 +2468,29 @@ class $FocosTable extends Focos with TableInfo<$FocosTable, Foco> {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unidadeIdMeta = const VerificationMeta(
+    'unidadeId',
+  );
+  @override
+  late final GeneratedColumn<String> unidadeId = GeneratedColumn<String>(
+    'unidade_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('flona_pacotuba'),
+  );
+  static const VerificationMeta _chaveExternaMeta = const VerificationMeta(
+    'chaveExterna',
+  );
+  @override
+  late final GeneratedColumn<String> chaveExterna = GeneratedColumn<String>(
+    'chave_externa',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _especieIdMeta = const VerificationMeta(
     'especieId',
@@ -2232,6 +2728,8 @@ class $FocosTable extends Focos with TableInfo<$FocosTable, Foco> {
     syncStatus,
     version,
     id,
+    unidadeId,
+    chaveExterna,
     especieId,
     especieTexto,
     codigo,
@@ -2312,6 +2810,21 @@ class $FocosTable extends Focos with TableInfo<$FocosTable, Foco> {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
+    }
+    if (data.containsKey('unidade_id')) {
+      context.handle(
+        _unidadeIdMeta,
+        unidadeId.isAcceptableOrUnknown(data['unidade_id']!, _unidadeIdMeta),
+      );
+    }
+    if (data.containsKey('chave_externa')) {
+      context.handle(
+        _chaveExternaMeta,
+        chaveExterna.isAcceptableOrUnknown(
+          data['chave_externa']!,
+          _chaveExternaMeta,
+        ),
+      );
     }
     if (data.containsKey('especie_id')) {
       context.handle(
@@ -2512,6 +3025,14 @@ class $FocosTable extends Focos with TableInfo<$FocosTable, Foco> {
         DriftSqlType.string,
         data['${effectivePrefix}id'],
       )!,
+      unidadeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unidade_id'],
+      )!,
+      chaveExterna: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}chave_externa'],
+      ),
       especieId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}especie_id'],
@@ -2614,6 +3135,12 @@ class Foco extends DataClass implements Insertable<Foco> {
   final String syncStatus;
   final int version;
   final String id;
+
+  /// Unidade de conservação (id do catálogo de unidades, ex.: `flona_pacotuba`).
+  final String unidadeId;
+
+  /// Identificador do registro na planilha de origem (importação sem duplicar).
+  final String? chaveExterna;
   final String especieId;
   final String? especieTexto;
   final String codigo;
@@ -2642,6 +3169,8 @@ class Foco extends DataClass implements Insertable<Foco> {
     required this.syncStatus,
     required this.version,
     required this.id,
+    required this.unidadeId,
+    this.chaveExterna,
     required this.especieId,
     this.especieTexto,
     required this.codigo,
@@ -2675,6 +3204,10 @@ class Foco extends DataClass implements Insertable<Foco> {
     map['sync_status'] = Variable<String>(syncStatus);
     map['version'] = Variable<int>(version);
     map['id'] = Variable<String>(id);
+    map['unidade_id'] = Variable<String>(unidadeId);
+    if (!nullToAbsent || chaveExterna != null) {
+      map['chave_externa'] = Variable<String>(chaveExterna);
+    }
     map['especie_id'] = Variable<String>(especieId);
     if (!nullToAbsent || especieTexto != null) {
       map['especie_texto'] = Variable<String>(especieTexto);
@@ -2727,6 +3260,10 @@ class Foco extends DataClass implements Insertable<Foco> {
       syncStatus: Value(syncStatus),
       version: Value(version),
       id: Value(id),
+      unidadeId: Value(unidadeId),
+      chaveExterna: chaveExterna == null && nullToAbsent
+          ? const Value.absent()
+          : Value(chaveExterna),
       especieId: Value(especieId),
       especieTexto: especieTexto == null && nullToAbsent
           ? const Value.absent()
@@ -2775,6 +3312,8 @@ class Foco extends DataClass implements Insertable<Foco> {
       syncStatus: serializer.fromJson<String>(json['syncStatus']),
       version: serializer.fromJson<int>(json['version']),
       id: serializer.fromJson<String>(json['id']),
+      unidadeId: serializer.fromJson<String>(json['unidadeId']),
+      chaveExterna: serializer.fromJson<String?>(json['chaveExterna']),
       especieId: serializer.fromJson<String>(json['especieId']),
       especieTexto: serializer.fromJson<String?>(json['especieTexto']),
       codigo: serializer.fromJson<String>(json['codigo']),
@@ -2814,6 +3353,8 @@ class Foco extends DataClass implements Insertable<Foco> {
       'syncStatus': serializer.toJson<String>(syncStatus),
       'version': serializer.toJson<int>(version),
       'id': serializer.toJson<String>(id),
+      'unidadeId': serializer.toJson<String>(unidadeId),
+      'chaveExterna': serializer.toJson<String?>(chaveExterna),
       'especieId': serializer.toJson<String>(especieId),
       'especieTexto': serializer.toJson<String?>(especieTexto),
       'codigo': serializer.toJson<String>(codigo),
@@ -2845,6 +3386,8 @@ class Foco extends DataClass implements Insertable<Foco> {
     String? syncStatus,
     int? version,
     String? id,
+    String? unidadeId,
+    Value<String?> chaveExterna = const Value.absent(),
     String? especieId,
     Value<String?> especieTexto = const Value.absent(),
     String? codigo,
@@ -2875,6 +3418,8 @@ class Foco extends DataClass implements Insertable<Foco> {
     syncStatus: syncStatus ?? this.syncStatus,
     version: version ?? this.version,
     id: id ?? this.id,
+    unidadeId: unidadeId ?? this.unidadeId,
+    chaveExterna: chaveExterna.present ? chaveExterna.value : this.chaveExterna,
     especieId: especieId ?? this.especieId,
     especieTexto: especieTexto.present ? especieTexto.value : this.especieTexto,
     codigo: codigo ?? this.codigo,
@@ -2915,6 +3460,10 @@ class Foco extends DataClass implements Insertable<Foco> {
           : this.syncStatus,
       version: data.version.present ? data.version.value : this.version,
       id: data.id.present ? data.id.value : this.id,
+      unidadeId: data.unidadeId.present ? data.unidadeId.value : this.unidadeId,
+      chaveExterna: data.chaveExterna.present
+          ? data.chaveExterna.value
+          : this.chaveExterna,
       especieId: data.especieId.present ? data.especieId.value : this.especieId,
       especieTexto: data.especieTexto.present
           ? data.especieTexto.value
@@ -2970,6 +3519,8 @@ class Foco extends DataClass implements Insertable<Foco> {
           ..write('syncStatus: $syncStatus, ')
           ..write('version: $version, ')
           ..write('id: $id, ')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('chaveExterna: $chaveExterna, ')
           ..write('especieId: $especieId, ')
           ..write('especieTexto: $especieTexto, ')
           ..write('codigo: $codigo, ')
@@ -3003,6 +3554,8 @@ class Foco extends DataClass implements Insertable<Foco> {
     syncStatus,
     version,
     id,
+    unidadeId,
+    chaveExterna,
     especieId,
     especieTexto,
     codigo,
@@ -3035,6 +3588,8 @@ class Foco extends DataClass implements Insertable<Foco> {
           other.syncStatus == this.syncStatus &&
           other.version == this.version &&
           other.id == this.id &&
+          other.unidadeId == this.unidadeId &&
+          other.chaveExterna == this.chaveExterna &&
           other.especieId == this.especieId &&
           other.especieTexto == this.especieTexto &&
           other.codigo == this.codigo &&
@@ -3065,6 +3620,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
   final Value<String> syncStatus;
   final Value<int> version;
   final Value<String> id;
+  final Value<String> unidadeId;
+  final Value<String?> chaveExterna;
   final Value<String> especieId;
   final Value<String?> especieTexto;
   final Value<String> codigo;
@@ -3094,6 +3651,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
     this.syncStatus = const Value.absent(),
     this.version = const Value.absent(),
     this.id = const Value.absent(),
+    this.unidadeId = const Value.absent(),
+    this.chaveExterna = const Value.absent(),
     this.especieId = const Value.absent(),
     this.especieTexto = const Value.absent(),
     this.codigo = const Value.absent(),
@@ -3124,6 +3683,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
     this.syncStatus = const Value.absent(),
     this.version = const Value.absent(),
     required String id,
+    this.unidadeId = const Value.absent(),
+    this.chaveExterna = const Value.absent(),
     required String especieId,
     this.especieTexto = const Value.absent(),
     required String codigo,
@@ -3165,6 +3726,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
     Expression<String>? syncStatus,
     Expression<int>? version,
     Expression<String>? id,
+    Expression<String>? unidadeId,
+    Expression<String>? chaveExterna,
     Expression<String>? especieId,
     Expression<String>? especieTexto,
     Expression<String>? codigo,
@@ -3195,6 +3758,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
       if (syncStatus != null) 'sync_status': syncStatus,
       if (version != null) 'version': version,
       if (id != null) 'id': id,
+      if (unidadeId != null) 'unidade_id': unidadeId,
+      if (chaveExterna != null) 'chave_externa': chaveExterna,
       if (especieId != null) 'especie_id': especieId,
       if (especieTexto != null) 'especie_texto': especieTexto,
       if (codigo != null) 'codigo': codigo,
@@ -3228,6 +3793,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
     Value<String>? syncStatus,
     Value<int>? version,
     Value<String>? id,
+    Value<String>? unidadeId,
+    Value<String?>? chaveExterna,
     Value<String>? especieId,
     Value<String?>? especieTexto,
     Value<String>? codigo,
@@ -3258,6 +3825,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
       syncStatus: syncStatus ?? this.syncStatus,
       version: version ?? this.version,
       id: id ?? this.id,
+      unidadeId: unidadeId ?? this.unidadeId,
+      chaveExterna: chaveExterna ?? this.chaveExterna,
       especieId: especieId ?? this.especieId,
       especieTexto: especieTexto ?? this.especieTexto,
       codigo: codigo ?? this.codigo,
@@ -3305,6 +3874,12 @@ class FocosCompanion extends UpdateCompanion<Foco> {
     }
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (unidadeId.present) {
+      map['unidade_id'] = Variable<String>(unidadeId.value);
+    }
+    if (chaveExterna.present) {
+      map['chave_externa'] = Variable<String>(chaveExterna.value);
     }
     if (especieId.present) {
       map['especie_id'] = Variable<String>(especieId.value);
@@ -3386,6 +3961,8 @@ class FocosCompanion extends UpdateCompanion<Foco> {
           ..write('syncStatus: $syncStatus, ')
           ..write('version: $version, ')
           ..write('id: $id, ')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('chaveExterna: $chaveExterna, ')
           ..write('especieId: $especieId, ')
           ..write('especieTexto: $especieTexto, ')
           ..write('codigo: $codigo, ')
@@ -3736,6 +4313,46 @@ class $ObservacoesTable extends Observacoes
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _blocoMeta = const VerificationMeta('bloco');
+  @override
+  late final GeneratedColumn<String> bloco = GeneratedColumn<String>(
+    'bloco',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _capCmMeta = const VerificationMeta('capCm');
+  @override
+  late final GeneratedColumn<double> capCm = GeneratedColumn<double>(
+    'cap_cm',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _padraoOcorrenciaMeta = const VerificationMeta(
+    'padraoOcorrencia',
+  );
+  @override
+  late final GeneratedColumn<String> padraoOcorrencia = GeneratedColumn<String>(
+    'padrao_ocorrencia',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _evidenciaMeta = const VerificationMeta(
+    'evidencia',
+  );
+  @override
+  late final GeneratedColumn<String> evidencia = GeneratedColumn<String>(
+    'evidencia',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     createdAt,
@@ -3767,6 +4384,10 @@ class $ObservacoesTable extends Observacoes
     ditado,
     dispositivo,
     versaoApp,
+    bloco,
+    capCm,
+    padraoOcorrencia,
+    evidencia,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -3989,6 +4610,33 @@ class $ObservacoesTable extends Observacoes
         versaoApp.isAcceptableOrUnknown(data['versao_app']!, _versaoAppMeta),
       );
     }
+    if (data.containsKey('bloco')) {
+      context.handle(
+        _blocoMeta,
+        bloco.isAcceptableOrUnknown(data['bloco']!, _blocoMeta),
+      );
+    }
+    if (data.containsKey('cap_cm')) {
+      context.handle(
+        _capCmMeta,
+        capCm.isAcceptableOrUnknown(data['cap_cm']!, _capCmMeta),
+      );
+    }
+    if (data.containsKey('padrao_ocorrencia')) {
+      context.handle(
+        _padraoOcorrenciaMeta,
+        padraoOcorrencia.isAcceptableOrUnknown(
+          data['padrao_ocorrencia']!,
+          _padraoOcorrenciaMeta,
+        ),
+      );
+    }
+    if (data.containsKey('evidencia')) {
+      context.handle(
+        _evidenciaMeta,
+        evidencia.isAcceptableOrUnknown(data['evidencia']!, _evidenciaMeta),
+      );
+    }
     return context;
   }
 
@@ -4114,6 +4762,22 @@ class $ObservacoesTable extends Observacoes
         DriftSqlType.string,
         data['${effectivePrefix}versao_app'],
       ),
+      bloco: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}bloco'],
+      ),
+      capCm: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}cap_cm'],
+      ),
+      padraoOcorrencia: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}padrao_ocorrencia'],
+      ),
+      evidencia: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}evidencia'],
+      ),
     );
   }
 
@@ -4153,6 +4817,14 @@ class Observacao extends DataClass implements Insertable<Observacao> {
   final bool ditado;
   final String? dispositivo;
   final String? versaoApp;
+  final String? bloco;
+  final double? capCm;
+
+  /// Isolada · mancha/reboleira · contínua/densa.
+  final String? padraoOcorrencia;
+
+  /// Fauna: avistamento, vestígio, vocalização…
+  final String? evidencia;
   const Observacao({
     required this.createdAt,
     required this.updatedAt,
@@ -4183,6 +4855,10 @@ class Observacao extends DataClass implements Insertable<Observacao> {
     required this.ditado,
     this.dispositivo,
     this.versaoApp,
+    this.bloco,
+    this.capCm,
+    this.padraoOcorrencia,
+    this.evidencia,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -4245,6 +4921,18 @@ class Observacao extends DataClass implements Insertable<Observacao> {
     }
     if (!nullToAbsent || versaoApp != null) {
       map['versao_app'] = Variable<String>(versaoApp);
+    }
+    if (!nullToAbsent || bloco != null) {
+      map['bloco'] = Variable<String>(bloco);
+    }
+    if (!nullToAbsent || capCm != null) {
+      map['cap_cm'] = Variable<double>(capCm);
+    }
+    if (!nullToAbsent || padraoOcorrencia != null) {
+      map['padrao_ocorrencia'] = Variable<String>(padraoOcorrencia);
+    }
+    if (!nullToAbsent || evidencia != null) {
+      map['evidencia'] = Variable<String>(evidencia);
     }
     return map;
   }
@@ -4310,6 +4998,18 @@ class Observacao extends DataClass implements Insertable<Observacao> {
       versaoApp: versaoApp == null && nullToAbsent
           ? const Value.absent()
           : Value(versaoApp),
+      bloco: bloco == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bloco),
+      capCm: capCm == null && nullToAbsent
+          ? const Value.absent()
+          : Value(capCm),
+      padraoOcorrencia: padraoOcorrencia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(padraoOcorrencia),
+      evidencia: evidencia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(evidencia),
     );
   }
 
@@ -4350,6 +5050,10 @@ class Observacao extends DataClass implements Insertable<Observacao> {
       ditado: serializer.fromJson<bool>(json['ditado']),
       dispositivo: serializer.fromJson<String?>(json['dispositivo']),
       versaoApp: serializer.fromJson<String?>(json['versaoApp']),
+      bloco: serializer.fromJson<String?>(json['bloco']),
+      capCm: serializer.fromJson<double?>(json['capCm']),
+      padraoOcorrencia: serializer.fromJson<String?>(json['padraoOcorrencia']),
+      evidencia: serializer.fromJson<String?>(json['evidencia']),
     );
   }
   @override
@@ -4385,6 +5089,10 @@ class Observacao extends DataClass implements Insertable<Observacao> {
       'ditado': serializer.toJson<bool>(ditado),
       'dispositivo': serializer.toJson<String?>(dispositivo),
       'versaoApp': serializer.toJson<String?>(versaoApp),
+      'bloco': serializer.toJson<String?>(bloco),
+      'capCm': serializer.toJson<double?>(capCm),
+      'padraoOcorrencia': serializer.toJson<String?>(padraoOcorrencia),
+      'evidencia': serializer.toJson<String?>(evidencia),
     };
   }
 
@@ -4418,6 +5126,10 @@ class Observacao extends DataClass implements Insertable<Observacao> {
     bool? ditado,
     Value<String?> dispositivo = const Value.absent(),
     Value<String?> versaoApp = const Value.absent(),
+    Value<String?> bloco = const Value.absent(),
+    Value<double?> capCm = const Value.absent(),
+    Value<String?> padraoOcorrencia = const Value.absent(),
+    Value<String?> evidencia = const Value.absent(),
   }) => Observacao(
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -4454,6 +5166,12 @@ class Observacao extends DataClass implements Insertable<Observacao> {
     ditado: ditado ?? this.ditado,
     dispositivo: dispositivo.present ? dispositivo.value : this.dispositivo,
     versaoApp: versaoApp.present ? versaoApp.value : this.versaoApp,
+    bloco: bloco.present ? bloco.value : this.bloco,
+    capCm: capCm.present ? capCm.value : this.capCm,
+    padraoOcorrencia: padraoOcorrencia.present
+        ? padraoOcorrencia.value
+        : this.padraoOcorrencia,
+    evidencia: evidencia.present ? evidencia.value : this.evidencia,
   );
   Observacao copyWithCompanion(ObservacoesCompanion data) {
     return Observacao(
@@ -4500,6 +5218,12 @@ class Observacao extends DataClass implements Insertable<Observacao> {
           ? data.dispositivo.value
           : this.dispositivo,
       versaoApp: data.versaoApp.present ? data.versaoApp.value : this.versaoApp,
+      bloco: data.bloco.present ? data.bloco.value : this.bloco,
+      capCm: data.capCm.present ? data.capCm.value : this.capCm,
+      padraoOcorrencia: data.padraoOcorrencia.present
+          ? data.padraoOcorrencia.value
+          : this.padraoOcorrencia,
+      evidencia: data.evidencia.present ? data.evidencia.value : this.evidencia,
     );
   }
 
@@ -4534,7 +5258,11 @@ class Observacao extends DataClass implements Insertable<Observacao> {
           ..write('texto: $texto, ')
           ..write('ditado: $ditado, ')
           ..write('dispositivo: $dispositivo, ')
-          ..write('versaoApp: $versaoApp')
+          ..write('versaoApp: $versaoApp, ')
+          ..write('bloco: $bloco, ')
+          ..write('capCm: $capCm, ')
+          ..write('padraoOcorrencia: $padraoOcorrencia, ')
+          ..write('evidencia: $evidencia')
           ..write(')'))
         .toString();
   }
@@ -4570,6 +5298,10 @@ class Observacao extends DataClass implements Insertable<Observacao> {
     ditado,
     dispositivo,
     versaoApp,
+    bloco,
+    capCm,
+    padraoOcorrencia,
+    evidencia,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -4603,7 +5335,11 @@ class Observacao extends DataClass implements Insertable<Observacao> {
           other.texto == this.texto &&
           other.ditado == this.ditado &&
           other.dispositivo == this.dispositivo &&
-          other.versaoApp == this.versaoApp);
+          other.versaoApp == this.versaoApp &&
+          other.bloco == this.bloco &&
+          other.capCm == this.capCm &&
+          other.padraoOcorrencia == this.padraoOcorrencia &&
+          other.evidencia == this.evidencia);
 }
 
 class ObservacoesCompanion extends UpdateCompanion<Observacao> {
@@ -4636,6 +5372,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
   final Value<bool> ditado;
   final Value<String?> dispositivo;
   final Value<String?> versaoApp;
+  final Value<String?> bloco;
+  final Value<double?> capCm;
+  final Value<String?> padraoOcorrencia;
+  final Value<String?> evidencia;
   final Value<int> rowid;
   const ObservacoesCompanion({
     this.createdAt = const Value.absent(),
@@ -4667,6 +5407,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
     this.ditado = const Value.absent(),
     this.dispositivo = const Value.absent(),
     this.versaoApp = const Value.absent(),
+    this.bloco = const Value.absent(),
+    this.capCm = const Value.absent(),
+    this.padraoOcorrencia = const Value.absent(),
+    this.evidencia = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   ObservacoesCompanion.insert({
@@ -4699,6 +5443,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
     this.ditado = const Value.absent(),
     this.dispositivo = const Value.absent(),
     this.versaoApp = const Value.absent(),
+    this.bloco = const Value.absent(),
+    this.capCm = const Value.absent(),
+    this.padraoOcorrencia = const Value.absent(),
+    this.evidencia = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : createdAt = Value(createdAt),
        updatedAt = Value(updatedAt),
@@ -4740,6 +5488,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
     Expression<bool>? ditado,
     Expression<String>? dispositivo,
     Expression<String>? versaoApp,
+    Expression<String>? bloco,
+    Expression<double>? capCm,
+    Expression<String>? padraoOcorrencia,
+    Expression<String>? evidencia,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -4772,6 +5524,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
       if (ditado != null) 'ditado': ditado,
       if (dispositivo != null) 'dispositivo': dispositivo,
       if (versaoApp != null) 'versao_app': versaoApp,
+      if (bloco != null) 'bloco': bloco,
+      if (capCm != null) 'cap_cm': capCm,
+      if (padraoOcorrencia != null) 'padrao_ocorrencia': padraoOcorrencia,
+      if (evidencia != null) 'evidencia': evidencia,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -4806,6 +5562,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
     Value<bool>? ditado,
     Value<String?>? dispositivo,
     Value<String?>? versaoApp,
+    Value<String?>? bloco,
+    Value<double?>? capCm,
+    Value<String?>? padraoOcorrencia,
+    Value<String?>? evidencia,
     Value<int>? rowid,
   }) {
     return ObservacoesCompanion(
@@ -4838,6 +5598,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
       ditado: ditado ?? this.ditado,
       dispositivo: dispositivo ?? this.dispositivo,
       versaoApp: versaoApp ?? this.versaoApp,
+      bloco: bloco ?? this.bloco,
+      capCm: capCm ?? this.capCm,
+      padraoOcorrencia: padraoOcorrencia ?? this.padraoOcorrencia,
+      evidencia: evidencia ?? this.evidencia,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -4932,6 +5696,18 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
     if (versaoApp.present) {
       map['versao_app'] = Variable<String>(versaoApp.value);
     }
+    if (bloco.present) {
+      map['bloco'] = Variable<String>(bloco.value);
+    }
+    if (capCm.present) {
+      map['cap_cm'] = Variable<double>(capCm.value);
+    }
+    if (padraoOcorrencia.present) {
+      map['padrao_ocorrencia'] = Variable<String>(padraoOcorrencia.value);
+    }
+    if (evidencia.present) {
+      map['evidencia'] = Variable<String>(evidencia.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -4970,6 +5746,10 @@ class ObservacoesCompanion extends UpdateCompanion<Observacao> {
           ..write('ditado: $ditado, ')
           ..write('dispositivo: $dispositivo, ')
           ..write('versaoApp: $versaoApp, ')
+          ..write('bloco: $bloco, ')
+          ..write('capCm: $capCm, ')
+          ..write('padraoOcorrencia: $padraoOcorrencia, ')
+          ..write('evidencia: $evidencia, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -5260,6 +6040,24 @@ class $AcoesManejoTable extends AcoesManejo
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _blocoMeta = const VerificationMeta('bloco');
+  @override
+  late final GeneratedColumn<String> bloco = GeneratedColumn<String>(
+    'bloco',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _capCmMeta = const VerificationMeta('capCm');
+  @override
+  late final GeneratedColumn<double> capCm = GeneratedColumn<double>(
+    'cap_cm',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     createdAt,
@@ -5287,6 +6085,8 @@ class $AcoesManejoTable extends AcoesManejo
     epiUtilizado,
     condicaoTempo,
     texto,
+    bloco,
+    capCm,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -5503,6 +6303,18 @@ class $AcoesManejoTable extends AcoesManejo
         texto.isAcceptableOrUnknown(data['texto']!, _textoMeta),
       );
     }
+    if (data.containsKey('bloco')) {
+      context.handle(
+        _blocoMeta,
+        bloco.isAcceptableOrUnknown(data['bloco']!, _blocoMeta),
+      );
+    }
+    if (data.containsKey('cap_cm')) {
+      context.handle(
+        _capCmMeta,
+        capCm.isAcceptableOrUnknown(data['cap_cm']!, _capCmMeta),
+      );
+    }
     return context;
   }
 
@@ -5612,6 +6424,14 @@ class $AcoesManejoTable extends AcoesManejo
         DriftSqlType.string,
         data['${effectivePrefix}texto'],
       ),
+      bloco: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}bloco'],
+      ),
+      capCm: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}cap_cm'],
+      ),
     );
   }
 
@@ -5647,6 +6467,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
   final bool? epiUtilizado;
   final String? condicaoTempo;
   final String? texto;
+  final String? bloco;
+  final double? capCm;
   const AcaoManejo({
     required this.createdAt,
     required this.updatedAt,
@@ -5673,6 +6495,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
     this.epiUtilizado,
     this.condicaoTempo,
     this.texto,
+    this.bloco,
+    this.capCm,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -5725,6 +6549,12 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
     }
     if (!nullToAbsent || texto != null) {
       map['texto'] = Variable<String>(texto);
+    }
+    if (!nullToAbsent || bloco != null) {
+      map['bloco'] = Variable<String>(bloco);
+    }
+    if (!nullToAbsent || capCm != null) {
+      map['cap_cm'] = Variable<double>(capCm);
     }
     return map;
   }
@@ -5780,6 +6610,12 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
       texto: texto == null && nullToAbsent
           ? const Value.absent()
           : Value(texto),
+      bloco: bloco == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bloco),
+      capCm: capCm == null && nullToAbsent
+          ? const Value.absent()
+          : Value(capCm),
     );
   }
 
@@ -5818,6 +6654,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
       epiUtilizado: serializer.fromJson<bool?>(json['epiUtilizado']),
       condicaoTempo: serializer.fromJson<String?>(json['condicaoTempo']),
       texto: serializer.fromJson<String?>(json['texto']),
+      bloco: serializer.fromJson<String?>(json['bloco']),
+      capCm: serializer.fromJson<double?>(json['capCm']),
     );
   }
   @override
@@ -5851,6 +6689,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
       'epiUtilizado': serializer.toJson<bool?>(epiUtilizado),
       'condicaoTempo': serializer.toJson<String?>(condicaoTempo),
       'texto': serializer.toJson<String?>(texto),
+      'bloco': serializer.toJson<String?>(bloco),
+      'capCm': serializer.toJson<double?>(capCm),
     };
   }
 
@@ -5880,6 +6720,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
     Value<bool?> epiUtilizado = const Value.absent(),
     Value<String?> condicaoTempo = const Value.absent(),
     Value<String?> texto = const Value.absent(),
+    Value<String?> bloco = const Value.absent(),
+    Value<double?> capCm = const Value.absent(),
   }) => AcaoManejo(
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -5920,6 +6762,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
         ? condicaoTempo.value
         : this.condicaoTempo,
     texto: texto.present ? texto.value : this.texto,
+    bloco: bloco.present ? bloco.value : this.bloco,
+    capCm: capCm.present ? capCm.value : this.capCm,
   );
   AcaoManejo copyWithCompanion(AcoesManejoCompanion data) {
     return AcaoManejo(
@@ -5976,6 +6820,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
           ? data.condicaoTempo.value
           : this.condicaoTempo,
       texto: data.texto.present ? data.texto.value : this.texto,
+      bloco: data.bloco.present ? data.bloco.value : this.bloco,
+      capCm: data.capCm.present ? data.capCm.value : this.capCm,
     );
   }
 
@@ -6006,7 +6852,9 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
           ..write('destinacao: $destinacao, ')
           ..write('epiUtilizado: $epiUtilizado, ')
           ..write('condicaoTempo: $condicaoTempo, ')
-          ..write('texto: $texto')
+          ..write('texto: $texto, ')
+          ..write('bloco: $bloco, ')
+          ..write('capCm: $capCm')
           ..write(')'))
         .toString();
   }
@@ -6038,6 +6886,8 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
     epiUtilizado,
     condicaoTempo,
     texto,
+    bloco,
+    capCm,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -6067,7 +6917,9 @@ class AcaoManejo extends DataClass implements Insertable<AcaoManejo> {
           other.destinacao == this.destinacao &&
           other.epiUtilizado == this.epiUtilizado &&
           other.condicaoTempo == this.condicaoTempo &&
-          other.texto == this.texto);
+          other.texto == this.texto &&
+          other.bloco == this.bloco &&
+          other.capCm == this.capCm);
 }
 
 class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
@@ -6096,6 +6948,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
   final Value<bool?> epiUtilizado;
   final Value<String?> condicaoTempo;
   final Value<String?> texto;
+  final Value<String?> bloco;
+  final Value<double?> capCm;
   final Value<int> rowid;
   const AcoesManejoCompanion({
     this.createdAt = const Value.absent(),
@@ -6123,6 +6977,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
     this.epiUtilizado = const Value.absent(),
     this.condicaoTempo = const Value.absent(),
     this.texto = const Value.absent(),
+    this.bloco = const Value.absent(),
+    this.capCm = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AcoesManejoCompanion.insert({
@@ -6151,6 +7007,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
     this.epiUtilizado = const Value.absent(),
     this.condicaoTempo = const Value.absent(),
     this.texto = const Value.absent(),
+    this.bloco = const Value.absent(),
+    this.capCm = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : createdAt = Value(createdAt),
        updatedAt = Value(updatedAt),
@@ -6188,6 +7046,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
     Expression<bool>? epiUtilizado,
     Expression<String>? condicaoTempo,
     Expression<String>? texto,
+    Expression<String>? bloco,
+    Expression<double>? capCm,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -6218,6 +7078,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
       if (epiUtilizado != null) 'epi_utilizado': epiUtilizado,
       if (condicaoTempo != null) 'condicao_tempo': condicaoTempo,
       if (texto != null) 'texto': texto,
+      if (bloco != null) 'bloco': bloco,
+      if (capCm != null) 'cap_cm': capCm,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -6248,6 +7110,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
     Value<bool?>? epiUtilizado,
     Value<String?>? condicaoTempo,
     Value<String?>? texto,
+    Value<String?>? bloco,
+    Value<double?>? capCm,
     Value<int>? rowid,
   }) {
     return AcoesManejoCompanion(
@@ -6277,6 +7141,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
       epiUtilizado: epiUtilizado ?? this.epiUtilizado,
       condicaoTempo: condicaoTempo ?? this.condicaoTempo,
       texto: texto ?? this.texto,
+      bloco: bloco ?? this.bloco,
+      capCm: capCm ?? this.capCm,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -6361,6 +7227,12 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
     if (texto.present) {
       map['texto'] = Variable<String>(texto.value);
     }
+    if (bloco.present) {
+      map['bloco'] = Variable<String>(bloco.value);
+    }
+    if (capCm.present) {
+      map['cap_cm'] = Variable<double>(capCm.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -6395,6 +7267,8 @@ class AcoesManejoCompanion extends UpdateCompanion<AcaoManejo> {
           ..write('epiUtilizado: $epiUtilizado, ')
           ..write('condicaoTempo: $condicaoTempo, ')
           ..write('texto: $texto, ')
+          ..write('bloco: $bloco, ')
+          ..write('capCm: $capCm, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -8396,6 +9270,1087 @@ class ErrosSyncCompanion extends UpdateCompanion<ErroSync> {
   }
 }
 
+class $EspeciesUnidadeTable extends EspeciesUnidade
+    with TableInfo<$EspeciesUnidadeTable, EspecieUnidade> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EspeciesUnidadeTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _unidadeIdMeta = const VerificationMeta(
+    'unidadeId',
+  );
+  @override
+  late final GeneratedColumn<String> unidadeId = GeneratedColumn<String>(
+    'unidade_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _especieIdMeta = const VerificationMeta(
+    'especieId',
+  );
+  @override
+  late final GeneratedColumn<String> especieId = GeneratedColumn<String>(
+    'especie_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES especies (id)',
+    ),
+  );
+  static const VerificationMeta _cicloMeta = const VerificationMeta('ciclo');
+  @override
+  late final GeneratedColumn<int> ciclo = GeneratedColumn<int>(
+    'ciclo',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fonteMeta = const VerificationMeta('fonte');
+  @override
+  late final GeneratedColumn<String> fonte = GeneratedColumn<String>(
+    'fonte',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [unidadeId, especieId, ciclo, fonte];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'especies_unidade';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<EspecieUnidade> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('unidade_id')) {
+      context.handle(
+        _unidadeIdMeta,
+        unidadeId.isAcceptableOrUnknown(data['unidade_id']!, _unidadeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_unidadeIdMeta);
+    }
+    if (data.containsKey('especie_id')) {
+      context.handle(
+        _especieIdMeta,
+        especieId.isAcceptableOrUnknown(data['especie_id']!, _especieIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_especieIdMeta);
+    }
+    if (data.containsKey('ciclo')) {
+      context.handle(
+        _cicloMeta,
+        ciclo.isAcceptableOrUnknown(data['ciclo']!, _cicloMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cicloMeta);
+    }
+    if (data.containsKey('fonte')) {
+      context.handle(
+        _fonteMeta,
+        fonte.isAcceptableOrUnknown(data['fonte']!, _fonteMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {unidadeId, especieId};
+  @override
+  EspecieUnidade map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EspecieUnidade(
+      unidadeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unidade_id'],
+      )!,
+      especieId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}especie_id'],
+      )!,
+      ciclo: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ciclo'],
+      )!,
+      fonte: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fonte'],
+      ),
+    );
+  }
+
+  @override
+  $EspeciesUnidadeTable createAlias(String alias) {
+    return $EspeciesUnidadeTable(attachedDatabase, alias);
+  }
+}
+
+class EspecieUnidade extends DataClass implements Insertable<EspecieUnidade> {
+  final String unidadeId;
+  final String especieId;
+  final int ciclo;
+  final String? fonte;
+  const EspecieUnidade({
+    required this.unidadeId,
+    required this.especieId,
+    required this.ciclo,
+    this.fonte,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['unidade_id'] = Variable<String>(unidadeId);
+    map['especie_id'] = Variable<String>(especieId);
+    map['ciclo'] = Variable<int>(ciclo);
+    if (!nullToAbsent || fonte != null) {
+      map['fonte'] = Variable<String>(fonte);
+    }
+    return map;
+  }
+
+  EspeciesUnidadeCompanion toCompanion(bool nullToAbsent) {
+    return EspeciesUnidadeCompanion(
+      unidadeId: Value(unidadeId),
+      especieId: Value(especieId),
+      ciclo: Value(ciclo),
+      fonte: fonte == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fonte),
+    );
+  }
+
+  factory EspecieUnidade.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EspecieUnidade(
+      unidadeId: serializer.fromJson<String>(json['unidadeId']),
+      especieId: serializer.fromJson<String>(json['especieId']),
+      ciclo: serializer.fromJson<int>(json['ciclo']),
+      fonte: serializer.fromJson<String?>(json['fonte']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'unidadeId': serializer.toJson<String>(unidadeId),
+      'especieId': serializer.toJson<String>(especieId),
+      'ciclo': serializer.toJson<int>(ciclo),
+      'fonte': serializer.toJson<String?>(fonte),
+    };
+  }
+
+  EspecieUnidade copyWith({
+    String? unidadeId,
+    String? especieId,
+    int? ciclo,
+    Value<String?> fonte = const Value.absent(),
+  }) => EspecieUnidade(
+    unidadeId: unidadeId ?? this.unidadeId,
+    especieId: especieId ?? this.especieId,
+    ciclo: ciclo ?? this.ciclo,
+    fonte: fonte.present ? fonte.value : this.fonte,
+  );
+  EspecieUnidade copyWithCompanion(EspeciesUnidadeCompanion data) {
+    return EspecieUnidade(
+      unidadeId: data.unidadeId.present ? data.unidadeId.value : this.unidadeId,
+      especieId: data.especieId.present ? data.especieId.value : this.especieId,
+      ciclo: data.ciclo.present ? data.ciclo.value : this.ciclo,
+      fonte: data.fonte.present ? data.fonte.value : this.fonte,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EspecieUnidade(')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('especieId: $especieId, ')
+          ..write('ciclo: $ciclo, ')
+          ..write('fonte: $fonte')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(unidadeId, especieId, ciclo, fonte);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EspecieUnidade &&
+          other.unidadeId == this.unidadeId &&
+          other.especieId == this.especieId &&
+          other.ciclo == this.ciclo &&
+          other.fonte == this.fonte);
+}
+
+class EspeciesUnidadeCompanion extends UpdateCompanion<EspecieUnidade> {
+  final Value<String> unidadeId;
+  final Value<String> especieId;
+  final Value<int> ciclo;
+  final Value<String?> fonte;
+  final Value<int> rowid;
+  const EspeciesUnidadeCompanion({
+    this.unidadeId = const Value.absent(),
+    this.especieId = const Value.absent(),
+    this.ciclo = const Value.absent(),
+    this.fonte = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  EspeciesUnidadeCompanion.insert({
+    required String unidadeId,
+    required String especieId,
+    required int ciclo,
+    this.fonte = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : unidadeId = Value(unidadeId),
+       especieId = Value(especieId),
+       ciclo = Value(ciclo);
+  static Insertable<EspecieUnidade> custom({
+    Expression<String>? unidadeId,
+    Expression<String>? especieId,
+    Expression<int>? ciclo,
+    Expression<String>? fonte,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (unidadeId != null) 'unidade_id': unidadeId,
+      if (especieId != null) 'especie_id': especieId,
+      if (ciclo != null) 'ciclo': ciclo,
+      if (fonte != null) 'fonte': fonte,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  EspeciesUnidadeCompanion copyWith({
+    Value<String>? unidadeId,
+    Value<String>? especieId,
+    Value<int>? ciclo,
+    Value<String?>? fonte,
+    Value<int>? rowid,
+  }) {
+    return EspeciesUnidadeCompanion(
+      unidadeId: unidadeId ?? this.unidadeId,
+      especieId: especieId ?? this.especieId,
+      ciclo: ciclo ?? this.ciclo,
+      fonte: fonte ?? this.fonte,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (unidadeId.present) {
+      map['unidade_id'] = Variable<String>(unidadeId.value);
+    }
+    if (especieId.present) {
+      map['especie_id'] = Variable<String>(especieId.value);
+    }
+    if (ciclo.present) {
+      map['ciclo'] = Variable<int>(ciclo.value);
+    }
+    if (fonte.present) {
+      map['fonte'] = Variable<String>(fonte.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EspeciesUnidadeCompanion(')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('especieId: $especieId, ')
+          ..write('ciclo: $ciclo, ')
+          ..write('fonte: $fonte, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PriorizacoesTable extends Priorizacoes
+    with TableInfo<$PriorizacoesTable, Priorizacao> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PriorizacoesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _serverUpdatedAtMeta = const VerificationMeta(
+    'serverUpdatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> serverUpdatedAt =
+      GeneratedColumn<DateTime>(
+        'server_updated_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _syncStatusMeta = const VerificationMeta(
+    'syncStatus',
+  );
+  @override
+  late final GeneratedColumn<String> syncStatus = GeneratedColumn<String>(
+    'sync_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pendente'),
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unidadeIdMeta = const VerificationMeta(
+    'unidadeId',
+  );
+  @override
+  late final GeneratedColumn<String> unidadeId = GeneratedColumn<String>(
+    'unidade_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _especieIdMeta = const VerificationMeta(
+    'especieId',
+  );
+  @override
+  late final GeneratedColumn<String> especieId = GeneratedColumn<String>(
+    'especie_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES especies (id)',
+    ),
+  );
+  static const VerificationMeta _respostasMeta = const VerificationMeta(
+    'respostas',
+  );
+  @override
+  late final GeneratedColumn<String> respostas = GeneratedColumn<String>(
+    'respostas',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _indiceMeta = const VerificationMeta('indice');
+  @override
+  late final GeneratedColumn<int> indice = GeneratedColumn<int>(
+    'indice',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _usuarioIdMeta = const VerificationMeta(
+    'usuarioId',
+  );
+  @override
+  late final GeneratedColumn<String> usuarioId = GeneratedColumn<String>(
+    'usuario_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _observacaoMeta = const VerificationMeta(
+    'observacao',
+  );
+  @override
+  late final GeneratedColumn<String> observacao = GeneratedColumn<String>(
+    'observacao',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    createdAt,
+    updatedAt,
+    serverUpdatedAt,
+    deleted,
+    syncStatus,
+    version,
+    id,
+    unidadeId,
+    especieId,
+    respostas,
+    indice,
+    usuarioId,
+    observacao,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'priorizacoes';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Priorizacao> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('server_updated_at')) {
+      context.handle(
+        _serverUpdatedAtMeta,
+        serverUpdatedAt.isAcceptableOrUnknown(
+          data['server_updated_at']!,
+          _serverUpdatedAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
+    if (data.containsKey('sync_status')) {
+      context.handle(
+        _syncStatusMeta,
+        syncStatus.isAcceptableOrUnknown(data['sync_status']!, _syncStatusMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('unidade_id')) {
+      context.handle(
+        _unidadeIdMeta,
+        unidadeId.isAcceptableOrUnknown(data['unidade_id']!, _unidadeIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_unidadeIdMeta);
+    }
+    if (data.containsKey('especie_id')) {
+      context.handle(
+        _especieIdMeta,
+        especieId.isAcceptableOrUnknown(data['especie_id']!, _especieIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_especieIdMeta);
+    }
+    if (data.containsKey('respostas')) {
+      context.handle(
+        _respostasMeta,
+        respostas.isAcceptableOrUnknown(data['respostas']!, _respostasMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_respostasMeta);
+    }
+    if (data.containsKey('indice')) {
+      context.handle(
+        _indiceMeta,
+        indice.isAcceptableOrUnknown(data['indice']!, _indiceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_indiceMeta);
+    }
+    if (data.containsKey('usuario_id')) {
+      context.handle(
+        _usuarioIdMeta,
+        usuarioId.isAcceptableOrUnknown(data['usuario_id']!, _usuarioIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_usuarioIdMeta);
+    }
+    if (data.containsKey('observacao')) {
+      context.handle(
+        _observacaoMeta,
+        observacao.isAcceptableOrUnknown(data['observacao']!, _observacaoMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Priorizacao map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Priorizacao(
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      serverUpdatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}server_updated_at'],
+      ),
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
+      syncStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_status'],
+      )!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      unidadeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unidade_id'],
+      )!,
+      especieId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}especie_id'],
+      )!,
+      respostas: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}respostas'],
+      )!,
+      indice: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}indice'],
+      )!,
+      usuarioId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}usuario_id'],
+      )!,
+      observacao: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}observacao'],
+      ),
+    );
+  }
+
+  @override
+  $PriorizacoesTable createAlias(String alias) {
+    return $PriorizacoesTable(attachedDatabase, alias);
+  }
+}
+
+class Priorizacao extends DataClass implements Insertable<Priorizacao> {
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? serverUpdatedAt;
+  final bool deleted;
+  final String syncStatus;
+  final int version;
+  final String id;
+  final String unidadeId;
+  final String especieId;
+
+  /// Resposta de cada critério: {"1": "alguns_locais…", …} (JSON).
+  final String respostas;
+  final int indice;
+  final String usuarioId;
+  final String? observacao;
+  const Priorizacao({
+    required this.createdAt,
+    required this.updatedAt,
+    this.serverUpdatedAt,
+    required this.deleted,
+    required this.syncStatus,
+    required this.version,
+    required this.id,
+    required this.unidadeId,
+    required this.especieId,
+    required this.respostas,
+    required this.indice,
+    required this.usuarioId,
+    this.observacao,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || serverUpdatedAt != null) {
+      map['server_updated_at'] = Variable<DateTime>(serverUpdatedAt);
+    }
+    map['deleted'] = Variable<bool>(deleted);
+    map['sync_status'] = Variable<String>(syncStatus);
+    map['version'] = Variable<int>(version);
+    map['id'] = Variable<String>(id);
+    map['unidade_id'] = Variable<String>(unidadeId);
+    map['especie_id'] = Variable<String>(especieId);
+    map['respostas'] = Variable<String>(respostas);
+    map['indice'] = Variable<int>(indice);
+    map['usuario_id'] = Variable<String>(usuarioId);
+    if (!nullToAbsent || observacao != null) {
+      map['observacao'] = Variable<String>(observacao);
+    }
+    return map;
+  }
+
+  PriorizacoesCompanion toCompanion(bool nullToAbsent) {
+    return PriorizacoesCompanion(
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      serverUpdatedAt: serverUpdatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(serverUpdatedAt),
+      deleted: Value(deleted),
+      syncStatus: Value(syncStatus),
+      version: Value(version),
+      id: Value(id),
+      unidadeId: Value(unidadeId),
+      especieId: Value(especieId),
+      respostas: Value(respostas),
+      indice: Value(indice),
+      usuarioId: Value(usuarioId),
+      observacao: observacao == null && nullToAbsent
+          ? const Value.absent()
+          : Value(observacao),
+    );
+  }
+
+  factory Priorizacao.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Priorizacao(
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      serverUpdatedAt: serializer.fromJson<DateTime?>(json['serverUpdatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+      syncStatus: serializer.fromJson<String>(json['syncStatus']),
+      version: serializer.fromJson<int>(json['version']),
+      id: serializer.fromJson<String>(json['id']),
+      unidadeId: serializer.fromJson<String>(json['unidadeId']),
+      especieId: serializer.fromJson<String>(json['especieId']),
+      respostas: serializer.fromJson<String>(json['respostas']),
+      indice: serializer.fromJson<int>(json['indice']),
+      usuarioId: serializer.fromJson<String>(json['usuarioId']),
+      observacao: serializer.fromJson<String?>(json['observacao']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'serverUpdatedAt': serializer.toJson<DateTime?>(serverUpdatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
+      'syncStatus': serializer.toJson<String>(syncStatus),
+      'version': serializer.toJson<int>(version),
+      'id': serializer.toJson<String>(id),
+      'unidadeId': serializer.toJson<String>(unidadeId),
+      'especieId': serializer.toJson<String>(especieId),
+      'respostas': serializer.toJson<String>(respostas),
+      'indice': serializer.toJson<int>(indice),
+      'usuarioId': serializer.toJson<String>(usuarioId),
+      'observacao': serializer.toJson<String?>(observacao),
+    };
+  }
+
+  Priorizacao copyWith({
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Value<DateTime?> serverUpdatedAt = const Value.absent(),
+    bool? deleted,
+    String? syncStatus,
+    int? version,
+    String? id,
+    String? unidadeId,
+    String? especieId,
+    String? respostas,
+    int? indice,
+    String? usuarioId,
+    Value<String?> observacao = const Value.absent(),
+  }) => Priorizacao(
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    serverUpdatedAt: serverUpdatedAt.present
+        ? serverUpdatedAt.value
+        : this.serverUpdatedAt,
+    deleted: deleted ?? this.deleted,
+    syncStatus: syncStatus ?? this.syncStatus,
+    version: version ?? this.version,
+    id: id ?? this.id,
+    unidadeId: unidadeId ?? this.unidadeId,
+    especieId: especieId ?? this.especieId,
+    respostas: respostas ?? this.respostas,
+    indice: indice ?? this.indice,
+    usuarioId: usuarioId ?? this.usuarioId,
+    observacao: observacao.present ? observacao.value : this.observacao,
+  );
+  Priorizacao copyWithCompanion(PriorizacoesCompanion data) {
+    return Priorizacao(
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      serverUpdatedAt: data.serverUpdatedAt.present
+          ? data.serverUpdatedAt.value
+          : this.serverUpdatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
+      syncStatus: data.syncStatus.present
+          ? data.syncStatus.value
+          : this.syncStatus,
+      version: data.version.present ? data.version.value : this.version,
+      id: data.id.present ? data.id.value : this.id,
+      unidadeId: data.unidadeId.present ? data.unidadeId.value : this.unidadeId,
+      especieId: data.especieId.present ? data.especieId.value : this.especieId,
+      respostas: data.respostas.present ? data.respostas.value : this.respostas,
+      indice: data.indice.present ? data.indice.value : this.indice,
+      usuarioId: data.usuarioId.present ? data.usuarioId.value : this.usuarioId,
+      observacao: data.observacao.present
+          ? data.observacao.value
+          : this.observacao,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Priorizacao(')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('serverUpdatedAt: $serverUpdatedAt, ')
+          ..write('deleted: $deleted, ')
+          ..write('syncStatus: $syncStatus, ')
+          ..write('version: $version, ')
+          ..write('id: $id, ')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('especieId: $especieId, ')
+          ..write('respostas: $respostas, ')
+          ..write('indice: $indice, ')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('observacao: $observacao')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    createdAt,
+    updatedAt,
+    serverUpdatedAt,
+    deleted,
+    syncStatus,
+    version,
+    id,
+    unidadeId,
+    especieId,
+    respostas,
+    indice,
+    usuarioId,
+    observacao,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Priorizacao &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.serverUpdatedAt == this.serverUpdatedAt &&
+          other.deleted == this.deleted &&
+          other.syncStatus == this.syncStatus &&
+          other.version == this.version &&
+          other.id == this.id &&
+          other.unidadeId == this.unidadeId &&
+          other.especieId == this.especieId &&
+          other.respostas == this.respostas &&
+          other.indice == this.indice &&
+          other.usuarioId == this.usuarioId &&
+          other.observacao == this.observacao);
+}
+
+class PriorizacoesCompanion extends UpdateCompanion<Priorizacao> {
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> serverUpdatedAt;
+  final Value<bool> deleted;
+  final Value<String> syncStatus;
+  final Value<int> version;
+  final Value<String> id;
+  final Value<String> unidadeId;
+  final Value<String> especieId;
+  final Value<String> respostas;
+  final Value<int> indice;
+  final Value<String> usuarioId;
+  final Value<String?> observacao;
+  final Value<int> rowid;
+  const PriorizacoesCompanion({
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.serverUpdatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.syncStatus = const Value.absent(),
+    this.version = const Value.absent(),
+    this.id = const Value.absent(),
+    this.unidadeId = const Value.absent(),
+    this.especieId = const Value.absent(),
+    this.respostas = const Value.absent(),
+    this.indice = const Value.absent(),
+    this.usuarioId = const Value.absent(),
+    this.observacao = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PriorizacoesCompanion.insert({
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.serverUpdatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
+    this.syncStatus = const Value.absent(),
+    this.version = const Value.absent(),
+    required String id,
+    required String unidadeId,
+    required String especieId,
+    required String respostas,
+    required int indice,
+    required String usuarioId,
+    this.observacao = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt),
+       id = Value(id),
+       unidadeId = Value(unidadeId),
+       especieId = Value(especieId),
+       respostas = Value(respostas),
+       indice = Value(indice),
+       usuarioId = Value(usuarioId);
+  static Insertable<Priorizacao> custom({
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? serverUpdatedAt,
+    Expression<bool>? deleted,
+    Expression<String>? syncStatus,
+    Expression<int>? version,
+    Expression<String>? id,
+    Expression<String>? unidadeId,
+    Expression<String>? especieId,
+    Expression<String>? respostas,
+    Expression<int>? indice,
+    Expression<String>? usuarioId,
+    Expression<String>? observacao,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (serverUpdatedAt != null) 'server_updated_at': serverUpdatedAt,
+      if (deleted != null) 'deleted': deleted,
+      if (syncStatus != null) 'sync_status': syncStatus,
+      if (version != null) 'version': version,
+      if (id != null) 'id': id,
+      if (unidadeId != null) 'unidade_id': unidadeId,
+      if (especieId != null) 'especie_id': especieId,
+      if (respostas != null) 'respostas': respostas,
+      if (indice != null) 'indice': indice,
+      if (usuarioId != null) 'usuario_id': usuarioId,
+      if (observacao != null) 'observacao': observacao,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PriorizacoesCompanion copyWith({
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<DateTime?>? serverUpdatedAt,
+    Value<bool>? deleted,
+    Value<String>? syncStatus,
+    Value<int>? version,
+    Value<String>? id,
+    Value<String>? unidadeId,
+    Value<String>? especieId,
+    Value<String>? respostas,
+    Value<int>? indice,
+    Value<String>? usuarioId,
+    Value<String?>? observacao,
+    Value<int>? rowid,
+  }) {
+    return PriorizacoesCompanion(
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      serverUpdatedAt: serverUpdatedAt ?? this.serverUpdatedAt,
+      deleted: deleted ?? this.deleted,
+      syncStatus: syncStatus ?? this.syncStatus,
+      version: version ?? this.version,
+      id: id ?? this.id,
+      unidadeId: unidadeId ?? this.unidadeId,
+      especieId: especieId ?? this.especieId,
+      respostas: respostas ?? this.respostas,
+      indice: indice ?? this.indice,
+      usuarioId: usuarioId ?? this.usuarioId,
+      observacao: observacao ?? this.observacao,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (serverUpdatedAt.present) {
+      map['server_updated_at'] = Variable<DateTime>(serverUpdatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    if (syncStatus.present) {
+      map['sync_status'] = Variable<String>(syncStatus.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (unidadeId.present) {
+      map['unidade_id'] = Variable<String>(unidadeId.value);
+    }
+    if (especieId.present) {
+      map['especie_id'] = Variable<String>(especieId.value);
+    }
+    if (respostas.present) {
+      map['respostas'] = Variable<String>(respostas.value);
+    }
+    if (indice.present) {
+      map['indice'] = Variable<int>(indice.value);
+    }
+    if (usuarioId.present) {
+      map['usuario_id'] = Variable<String>(usuarioId.value);
+    }
+    if (observacao.present) {
+      map['observacao'] = Variable<String>(observacao.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PriorizacoesCompanion(')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('serverUpdatedAt: $serverUpdatedAt, ')
+          ..write('deleted: $deleted, ')
+          ..write('syncStatus: $syncStatus, ')
+          ..write('version: $version, ')
+          ..write('id: $id, ')
+          ..write('unidadeId: $unidadeId, ')
+          ..write('especieId: $especieId, ')
+          ..write('respostas: $respostas, ')
+          ..write('indice: $indice, ')
+          ..write('usuarioId: $usuarioId, ')
+          ..write('observacao: $observacao, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -8408,6 +10363,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ListaValoresTable listaValores = $ListaValoresTable(this);
   late final $ConfigsTable configs = $ConfigsTable(this);
   late final $ErrosSyncTable errosSync = $ErrosSyncTable(this);
+  late final $EspeciesUnidadeTable especiesUnidade = $EspeciesUnidadeTable(
+    this,
+  );
+  late final $PriorizacoesTable priorizacoes = $PriorizacoesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -8422,6 +10381,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     listaValores,
     configs,
     errosSync,
+    especiesUnidade,
+    priorizacoes,
   ];
   @override
   DriftDatabaseOptions get options =>
@@ -8788,6 +10749,15 @@ typedef $$EspeciesTableCreateCompanionBuilder = EspeciesCompanion Function({
   Value<bool?> naListaOficialIcmbio,
   Value<bool> ativa,
   Value<int> ordem,
+  Value<String?> origemNativa,
+  Value<String?> ambientesInvasao,
+  Value<String?> impactos,
+  Value<String?> controleLiteratura,
+  Value<bool> nativaBrasil,
+  Value<String?> fonte,
+  Value<String?> criadoPor,
+  Value<String?> unidadeOrigem,
+  Value<String> reino,
   Value<int> rowid,
 });
 typedef $$EspeciesTableUpdateCompanionBuilder = EspeciesCompanion Function({
@@ -8812,6 +10782,15 @@ typedef $$EspeciesTableUpdateCompanionBuilder = EspeciesCompanion Function({
   Value<bool?> naListaOficialIcmbio,
   Value<bool> ativa,
   Value<int> ordem,
+  Value<String?> origemNativa,
+  Value<String?> ambientesInvasao,
+  Value<String?> impactos,
+  Value<String?> controleLiteratura,
+  Value<bool> nativaBrasil,
+  Value<String?> fonte,
+  Value<String?> criadoPor,
+  Value<String?> unidadeOrigem,
+  Value<String> reino,
   Value<int> rowid,
 });
 
@@ -8833,6 +10812,44 @@ final class $$EspeciesTableReferences
     ).filter((f) => f.especieId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_focosRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$EspeciesUnidadeTable, List<EspecieUnidade>>
+  _especiesUnidadeRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.especiesUnidade,
+    aliasName: 'especies__id__especies_unidade__especie_id',
+  );
+
+  $$EspeciesUnidadeTableProcessedTableManager get especiesUnidadeRefs {
+    final manager = $$EspeciesUnidadeTableTableManager(
+      $_db,
+      $_db.especiesUnidade,
+    ).filter((f) => f.especieId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _especiesUnidadeRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PriorizacoesTable, List<Priorizacao>>
+  _priorizacoesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.priorizacoes,
+    aliasName: 'especies__id__priorizacoes__especie_id',
+  );
+
+  $$PriorizacoesTableProcessedTableManager get priorizacoesRefs {
+    final manager = $$PriorizacoesTableTableManager(
+      $_db,
+      $_db.priorizacoes,
+    ).filter((f) => f.especieId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_priorizacoesRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -8956,6 +10973,51 @@ class $$EspeciesTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get origemNativa => $composableBuilder(
+    column: $table.origemNativa,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ambientesInvasao => $composableBuilder(
+    column: $table.ambientesInvasao,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get impactos => $composableBuilder(
+    column: $table.impactos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get controleLiteratura => $composableBuilder(
+    column: $table.controleLiteratura,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get nativaBrasil => $composableBuilder(
+    column: $table.nativaBrasil,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fonte => $composableBuilder(
+    column: $table.fonte,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get criadoPor => $composableBuilder(
+    column: $table.criadoPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unidadeOrigem => $composableBuilder(
+    column: $table.unidadeOrigem,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reino => $composableBuilder(
+    column: $table.reino,
+    builder: (column) => ColumnFilters(column),
+  );
+
   Expression<bool> focosRefs(
     Expression<bool> Function($$FocosTableFilterComposer f) f,
   ) {
@@ -8972,6 +11034,56 @@ class $$EspeciesTableFilterComposer
           }) => $$FocosTableFilterComposer(
             $db: $db,
             $table: $db.focos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> especiesUnidadeRefs(
+    Expression<bool> Function($$EspeciesUnidadeTableFilterComposer f) f,
+  ) {
+    final $$EspeciesUnidadeTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.especiesUnidade,
+      getReferencedColumn: (t) => t.especieId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesUnidadeTableFilterComposer(
+            $db: $db,
+            $table: $db.especiesUnidade,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> priorizacoesRefs(
+    Expression<bool> Function($$PriorizacoesTableFilterComposer f) f,
+  ) {
+    final $$PriorizacoesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.priorizacoes,
+      getReferencedColumn: (t) => t.especieId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PriorizacoesTableFilterComposer(
+            $db: $db,
+            $table: $db.priorizacoes,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9095,6 +11207,51 @@ class $$EspeciesTableOrderingComposer
     column: $table.ordem,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get origemNativa => $composableBuilder(
+    column: $table.origemNativa,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ambientesInvasao => $composableBuilder(
+    column: $table.ambientesInvasao,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get impactos => $composableBuilder(
+    column: $table.impactos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get controleLiteratura => $composableBuilder(
+    column: $table.controleLiteratura,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get nativaBrasil => $composableBuilder(
+    column: $table.nativaBrasil,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fonte => $composableBuilder(
+    column: $table.fonte,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get criadoPor => $composableBuilder(
+    column: $table.criadoPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unidadeOrigem => $composableBuilder(
+    column: $table.unidadeOrigem,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reino => $composableBuilder(
+    column: $table.reino,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$EspeciesTableAnnotationComposer
@@ -9194,6 +11351,43 @@ class $$EspeciesTableAnnotationComposer
   GeneratedColumn<int> get ordem =>
       $composableBuilder(column: $table.ordem, builder: (column) => column);
 
+  GeneratedColumn<String> get origemNativa => $composableBuilder(
+    column: $table.origemNativa,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get ambientesInvasao => $composableBuilder(
+    column: $table.ambientesInvasao,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get impactos =>
+      $composableBuilder(column: $table.impactos, builder: (column) => column);
+
+  GeneratedColumn<String> get controleLiteratura => $composableBuilder(
+    column: $table.controleLiteratura,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get nativaBrasil => $composableBuilder(
+    column: $table.nativaBrasil,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get fonte =>
+      $composableBuilder(column: $table.fonte, builder: (column) => column);
+
+  GeneratedColumn<String> get criadoPor =>
+      $composableBuilder(column: $table.criadoPor, builder: (column) => column);
+
+  GeneratedColumn<String> get unidadeOrigem => $composableBuilder(
+    column: $table.unidadeOrigem,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reino =>
+      $composableBuilder(column: $table.reino, builder: (column) => column);
+
   Expression<T> focosRefs<T extends Object>(
     Expression<T> Function($$FocosTableAnnotationComposer a) f,
   ) {
@@ -9218,6 +11412,56 @@ class $$EspeciesTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> especiesUnidadeRefs<T extends Object>(
+    Expression<T> Function($$EspeciesUnidadeTableAnnotationComposer a) f,
+  ) {
+    final $$EspeciesUnidadeTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.especiesUnidade,
+      getReferencedColumn: (t) => t.especieId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesUnidadeTableAnnotationComposer(
+            $db: $db,
+            $table: $db.especiesUnidade,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> priorizacoesRefs<T extends Object>(
+    Expression<T> Function($$PriorizacoesTableAnnotationComposer a) f,
+  ) {
+    final $$PriorizacoesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.priorizacoes,
+      getReferencedColumn: (t) => t.especieId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PriorizacoesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.priorizacoes,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$EspeciesTableTableManager
@@ -9233,7 +11477,11 @@ class $$EspeciesTableTableManager
           $$EspeciesTableUpdateCompanionBuilder,
           (Especie, $$EspeciesTableReferences),
           Especie,
-          PrefetchHooks Function({bool focosRefs})
+          PrefetchHooks Function({
+            bool focosRefs,
+            bool especiesUnidadeRefs,
+            bool priorizacoesRefs,
+          })
         > {
   $$EspeciesTableTableManager(_$AppDatabase db, $EspeciesTable table)
     : super(
@@ -9269,6 +11517,15 @@ class $$EspeciesTableTableManager
                 Value<bool?> naListaOficialIcmbio = const Value.absent(),
                 Value<bool> ativa = const Value.absent(),
                 Value<int> ordem = const Value.absent(),
+                Value<String?> origemNativa = const Value.absent(),
+                Value<String?> ambientesInvasao = const Value.absent(),
+                Value<String?> impactos = const Value.absent(),
+                Value<String?> controleLiteratura = const Value.absent(),
+                Value<bool> nativaBrasil = const Value.absent(),
+                Value<String?> fonte = const Value.absent(),
+                Value<String?> criadoPor = const Value.absent(),
+                Value<String?> unidadeOrigem = const Value.absent(),
+                Value<String> reino = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => EspeciesCompanion(
                 createdAt: createdAt,
@@ -9292,6 +11549,15 @@ class $$EspeciesTableTableManager
                 naListaOficialIcmbio: naListaOficialIcmbio,
                 ativa: ativa,
                 ordem: ordem,
+                origemNativa: origemNativa,
+                ambientesInvasao: ambientesInvasao,
+                impactos: impactos,
+                controleLiteratura: controleLiteratura,
+                nativaBrasil: nativaBrasil,
+                fonte: fonte,
+                criadoPor: criadoPor,
+                unidadeOrigem: unidadeOrigem,
+                reino: reino,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -9317,6 +11583,15 @@ class $$EspeciesTableTableManager
                 Value<bool?> naListaOficialIcmbio = const Value.absent(),
                 Value<bool> ativa = const Value.absent(),
                 Value<int> ordem = const Value.absent(),
+                Value<String?> origemNativa = const Value.absent(),
+                Value<String?> ambientesInvasao = const Value.absent(),
+                Value<String?> impactos = const Value.absent(),
+                Value<String?> controleLiteratura = const Value.absent(),
+                Value<bool> nativaBrasil = const Value.absent(),
+                Value<String?> fonte = const Value.absent(),
+                Value<String?> criadoPor = const Value.absent(),
+                Value<String?> unidadeOrigem = const Value.absent(),
+                Value<String> reino = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => EspeciesCompanion.insert(
                 createdAt: createdAt,
@@ -9340,6 +11615,15 @@ class $$EspeciesTableTableManager
                 naListaOficialIcmbio: naListaOficialIcmbio,
                 ativa: ativa,
                 ordem: ordem,
+                origemNativa: origemNativa,
+                ambientesInvasao: ambientesInvasao,
+                impactos: impactos,
+                controleLiteratura: controleLiteratura,
+                nativaBrasil: nativaBrasil,
+                fonte: fonte,
+                criadoPor: criadoPor,
+                unidadeOrigem: unidadeOrigem,
+                reino: reino,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -9350,28 +11634,89 @@ class $$EspeciesTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({focosRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (focosRefs) db.focos],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (focosRefs)
-                    await $_getPrefetchedData<Especie, $EspeciesTable, Foco>(
-                      currentTable: table,
-                      referencedTable: $$EspeciesTableReferences
-                          ._focosRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$EspeciesTableReferences(db, table, p0).focosRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.especieId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+          prefetchHooksCallback:
+              ({
+                focosRefs = false,
+                especiesUnidadeRefs = false,
+                priorizacoesRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (focosRefs) db.focos,
+                    if (especiesUnidadeRefs) db.especiesUnidade,
+                    if (priorizacoesRefs) db.priorizacoes,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (focosRefs)
+                        await $_getPrefetchedData<
+                          Especie,
+                          $EspeciesTable,
+                          Foco
+                        >(
+                          currentTable: table,
+                          referencedTable: $$EspeciesTableReferences
+                              ._focosRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$EspeciesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).focosRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.especieId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (especiesUnidadeRefs)
+                        await $_getPrefetchedData<
+                          Especie,
+                          $EspeciesTable,
+                          EspecieUnidade
+                        >(
+                          currentTable: table,
+                          referencedTable: $$EspeciesTableReferences
+                              ._especiesUnidadeRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$EspeciesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).especiesUnidadeRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.especieId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (priorizacoesRefs)
+                        await $_getPrefetchedData<
+                          Especie,
+                          $EspeciesTable,
+                          Priorizacao
+                        >(
+                          currentTable: table,
+                          referencedTable: $$EspeciesTableReferences
+                              ._priorizacoesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$EspeciesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).priorizacoesRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.especieId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -9388,7 +11733,11 @@ typedef $$EspeciesTableProcessedTableManager =
       $$EspeciesTableUpdateCompanionBuilder,
       (Especie, $$EspeciesTableReferences),
       Especie,
-      PrefetchHooks Function({bool focosRefs})
+      PrefetchHooks Function({
+        bool focosRefs,
+        bool especiesUnidadeRefs,
+        bool priorizacoesRefs,
+      })
     >;
 typedef $$FocosTableCreateCompanionBuilder = FocosCompanion Function({
   required DateTime createdAt,
@@ -9398,6 +11747,8 @@ typedef $$FocosTableCreateCompanionBuilder = FocosCompanion Function({
   Value<String> syncStatus,
   Value<int> version,
   required String id,
+  Value<String> unidadeId,
+  Value<String?> chaveExterna,
   required String especieId,
   Value<String?> especieTexto,
   required String codigo,
@@ -9428,6 +11779,8 @@ typedef $$FocosTableUpdateCompanionBuilder = FocosCompanion Function({
   Value<String> syncStatus,
   Value<int> version,
   Value<String> id,
+  Value<String> unidadeId,
+  Value<String?> chaveExterna,
   Value<String> especieId,
   Value<String?> especieTexto,
   Value<String> codigo,
@@ -9549,6 +11902,16 @@ class $$FocosTableFilterComposer extends Composer<_$AppDatabase, $FocosTable> {
 
   ColumnFilters<String> get id => $composableBuilder(
     column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get chaveExterna => $composableBuilder(
+    column: $table.chaveExterna,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -9766,6 +12129,16 @@ class $$FocosTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get chaveExterna => $composableBuilder(
+    column: $table.chaveExterna,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get especieTexto => $composableBuilder(
     column: $table.especieTexto,
     builder: (column) => ColumnOrderings(column),
@@ -9918,6 +12291,14 @@ class $$FocosTableAnnotationComposer
 
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get unidadeId =>
+      $composableBuilder(column: $table.unidadeId, builder: (column) => column);
+
+  GeneratedColumn<String> get chaveExterna => $composableBuilder(
+    column: $table.chaveExterna,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get especieTexto => $composableBuilder(
     column: $table.especieTexto,
@@ -10112,6 +12493,8 @@ class $$FocosTableTableManager
                 Value<String> syncStatus = const Value.absent(),
                 Value<int> version = const Value.absent(),
                 Value<String> id = const Value.absent(),
+                Value<String> unidadeId = const Value.absent(),
+                Value<String?> chaveExterna = const Value.absent(),
                 Value<String> especieId = const Value.absent(),
                 Value<String?> especieTexto = const Value.absent(),
                 Value<String> codigo = const Value.absent(),
@@ -10141,6 +12524,8 @@ class $$FocosTableTableManager
                 syncStatus: syncStatus,
                 version: version,
                 id: id,
+                unidadeId: unidadeId,
+                chaveExterna: chaveExterna,
                 especieId: especieId,
                 especieTexto: especieTexto,
                 codigo: codigo,
@@ -10172,6 +12557,8 @@ class $$FocosTableTableManager
                 Value<String> syncStatus = const Value.absent(),
                 Value<int> version = const Value.absent(),
                 required String id,
+                Value<String> unidadeId = const Value.absent(),
+                Value<String?> chaveExterna = const Value.absent(),
                 required String especieId,
                 Value<String?> especieTexto = const Value.absent(),
                 required String codigo,
@@ -10201,6 +12588,8 @@ class $$FocosTableTableManager
                 syncStatus: syncStatus,
                 version: version,
                 id: id,
+                unidadeId: unidadeId,
+                chaveExterna: chaveExterna,
                 especieId: especieId,
                 especieTexto: especieTexto,
                 codigo: codigo,
@@ -10374,6 +12763,10 @@ typedef $$ObservacoesTableCreateCompanionBuilder =
       Value<bool> ditado,
       Value<String?> dispositivo,
       Value<String?> versaoApp,
+      Value<String?> bloco,
+      Value<double?> capCm,
+      Value<String?> padraoOcorrencia,
+      Value<String?> evidencia,
       Value<int> rowid,
     });
 typedef $$ObservacoesTableUpdateCompanionBuilder =
@@ -10407,6 +12800,10 @@ typedef $$ObservacoesTableUpdateCompanionBuilder =
       Value<bool> ditado,
       Value<String?> dispositivo,
       Value<String?> versaoApp,
+      Value<String?> bloco,
+      Value<double?> capCm,
+      Value<String?> padraoOcorrencia,
+      Value<String?> evidencia,
       Value<int> rowid,
     });
 
@@ -10578,6 +12975,26 @@ class $$ObservacoesTableFilterComposer
 
   ColumnFilters<String> get versaoApp => $composableBuilder(
     column: $table.versaoApp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get bloco => $composableBuilder(
+    column: $table.bloco,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get capCm => $composableBuilder(
+    column: $table.capCm,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get padraoOcorrencia => $composableBuilder(
+    column: $table.padraoOcorrencia,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get evidencia => $composableBuilder(
+    column: $table.evidencia,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -10754,6 +13171,26 @@ class $$ObservacoesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get bloco => $composableBuilder(
+    column: $table.bloco,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get capCm => $composableBuilder(
+    column: $table.capCm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get padraoOcorrencia => $composableBuilder(
+    column: $table.padraoOcorrencia,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get evidencia => $composableBuilder(
+    column: $table.evidencia,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$FocosTableOrderingComposer get focoId {
     final $$FocosTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -10885,6 +13322,20 @@ class $$ObservacoesTableAnnotationComposer
   GeneratedColumn<String> get versaoApp =>
       $composableBuilder(column: $table.versaoApp, builder: (column) => column);
 
+  GeneratedColumn<String> get bloco =>
+      $composableBuilder(column: $table.bloco, builder: (column) => column);
+
+  GeneratedColumn<double> get capCm =>
+      $composableBuilder(column: $table.capCm, builder: (column) => column);
+
+  GeneratedColumn<String> get padraoOcorrencia => $composableBuilder(
+    column: $table.padraoOcorrencia,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get evidencia =>
+      $composableBuilder(column: $table.evidencia, builder: (column) => column);
+
   $$FocosTableAnnotationComposer get focoId {
     final $$FocosTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -10966,6 +13417,10 @@ class $$ObservacoesTableTableManager
                 Value<bool> ditado = const Value.absent(),
                 Value<String?> dispositivo = const Value.absent(),
                 Value<String?> versaoApp = const Value.absent(),
+                Value<String?> bloco = const Value.absent(),
+                Value<double?> capCm = const Value.absent(),
+                Value<String?> padraoOcorrencia = const Value.absent(),
+                Value<String?> evidencia = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ObservacoesCompanion(
                 createdAt: createdAt,
@@ -10997,6 +13452,10 @@ class $$ObservacoesTableTableManager
                 ditado: ditado,
                 dispositivo: dispositivo,
                 versaoApp: versaoApp,
+                bloco: bloco,
+                capCm: capCm,
+                padraoOcorrencia: padraoOcorrencia,
+                evidencia: evidencia,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -11030,6 +13489,10 @@ class $$ObservacoesTableTableManager
                 Value<bool> ditado = const Value.absent(),
                 Value<String?> dispositivo = const Value.absent(),
                 Value<String?> versaoApp = const Value.absent(),
+                Value<String?> bloco = const Value.absent(),
+                Value<double?> capCm = const Value.absent(),
+                Value<String?> padraoOcorrencia = const Value.absent(),
+                Value<String?> evidencia = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ObservacoesCompanion.insert(
                 createdAt: createdAt,
@@ -11061,6 +13524,10 @@ class $$ObservacoesTableTableManager
                 ditado: ditado,
                 dispositivo: dispositivo,
                 versaoApp: versaoApp,
+                bloco: bloco,
+                capCm: capCm,
+                padraoOcorrencia: padraoOcorrencia,
+                evidencia: evidencia,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -11155,6 +13622,8 @@ typedef $$AcoesManejoTableCreateCompanionBuilder =
       Value<bool?> epiUtilizado,
       Value<String?> condicaoTempo,
       Value<String?> texto,
+      Value<String?> bloco,
+      Value<double?> capCm,
       Value<int> rowid,
     });
 typedef $$AcoesManejoTableUpdateCompanionBuilder =
@@ -11184,6 +13653,8 @@ typedef $$AcoesManejoTableUpdateCompanionBuilder =
       Value<bool?> epiUtilizado,
       Value<String?> condicaoTempo,
       Value<String?> texto,
+      Value<String?> bloco,
+      Value<double?> capCm,
       Value<int> rowid,
     });
 
@@ -11335,6 +13806,16 @@ class $$AcoesManejoTableFilterComposer
 
   ColumnFilters<String> get texto => $composableBuilder(
     column: $table.texto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get bloco => $composableBuilder(
+    column: $table.bloco,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get capCm => $composableBuilder(
+    column: $table.capCm,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -11491,6 +13972,16 @@ class $$AcoesManejoTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get bloco => $composableBuilder(
+    column: $table.bloco,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get capCm => $composableBuilder(
+    column: $table.capCm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$FocosTableOrderingComposer get focoId {
     final $$FocosTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -11624,6 +14115,12 @@ class $$AcoesManejoTableAnnotationComposer
   GeneratedColumn<String> get texto =>
       $composableBuilder(column: $table.texto, builder: (column) => column);
 
+  GeneratedColumn<String> get bloco =>
+      $composableBuilder(column: $table.bloco, builder: (column) => column);
+
+  GeneratedColumn<double> get capCm =>
+      $composableBuilder(column: $table.capCm, builder: (column) => column);
+
   $$FocosTableAnnotationComposer get focoId {
     final $$FocosTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -11701,6 +14198,8 @@ class $$AcoesManejoTableTableManager
                 Value<bool?> epiUtilizado = const Value.absent(),
                 Value<String?> condicaoTempo = const Value.absent(),
                 Value<String?> texto = const Value.absent(),
+                Value<String?> bloco = const Value.absent(),
+                Value<double?> capCm = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AcoesManejoCompanion(
                 createdAt: createdAt,
@@ -11728,6 +14227,8 @@ class $$AcoesManejoTableTableManager
                 epiUtilizado: epiUtilizado,
                 condicaoTempo: condicaoTempo,
                 texto: texto,
+                bloco: bloco,
+                capCm: capCm,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -11757,6 +14258,8 @@ class $$AcoesManejoTableTableManager
                 Value<bool?> epiUtilizado = const Value.absent(),
                 Value<String?> condicaoTempo = const Value.absent(),
                 Value<String?> texto = const Value.absent(),
+                Value<String?> bloco = const Value.absent(),
+                Value<double?> capCm = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AcoesManejoCompanion.insert(
                 createdAt: createdAt,
@@ -11784,6 +14287,8 @@ class $$AcoesManejoTableTableManager
                 epiUtilizado: epiUtilizado,
                 condicaoTempo: condicaoTempo,
                 texto: texto,
+                bloco: bloco,
+                capCm: capCm,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -12887,6 +15392,782 @@ typedef $$ErrosSyncTableProcessedTableManager =
       ErroSync,
       PrefetchHooks Function()
     >;
+typedef $$EspeciesUnidadeTableCreateCompanionBuilder =
+    EspeciesUnidadeCompanion Function({
+      required String unidadeId,
+      required String especieId,
+      required int ciclo,
+      Value<String?> fonte,
+      Value<int> rowid,
+    });
+typedef $$EspeciesUnidadeTableUpdateCompanionBuilder =
+    EspeciesUnidadeCompanion Function({
+      Value<String> unidadeId,
+      Value<String> especieId,
+      Value<int> ciclo,
+      Value<String?> fonte,
+      Value<int> rowid,
+    });
+
+final class $$EspeciesUnidadeTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $EspeciesUnidadeTable, EspecieUnidade> {
+  $$EspeciesUnidadeTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $EspeciesTable _especieIdTable(_$AppDatabase db) =>
+      db.especies.createAlias('especies_unidade__especie_id__especies__id');
+
+  $$EspeciesTableProcessedTableManager get especieId {
+    final $_column = $_itemColumn<String>('especie_id')!;
+
+    final manager = $$EspeciesTableTableManager(
+      $_db,
+      $_db.especies,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_especieIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$EspeciesUnidadeTableFilterComposer
+    extends Composer<_$AppDatabase, $EspeciesUnidadeTable> {
+  $$EspeciesUnidadeTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get ciclo => $composableBuilder(
+    column: $table.ciclo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fonte => $composableBuilder(
+    column: $table.fonte,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$EspeciesTableFilterComposer get especieId {
+    final $$EspeciesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableFilterComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EspeciesUnidadeTableOrderingComposer
+    extends Composer<_$AppDatabase, $EspeciesUnidadeTable> {
+  $$EspeciesUnidadeTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get ciclo => $composableBuilder(
+    column: $table.ciclo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fonte => $composableBuilder(
+    column: $table.fonte,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$EspeciesTableOrderingComposer get especieId {
+    final $$EspeciesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableOrderingComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EspeciesUnidadeTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EspeciesUnidadeTable> {
+  $$EspeciesUnidadeTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get unidadeId =>
+      $composableBuilder(column: $table.unidadeId, builder: (column) => column);
+
+  GeneratedColumn<int> get ciclo =>
+      $composableBuilder(column: $table.ciclo, builder: (column) => column);
+
+  GeneratedColumn<String> get fonte =>
+      $composableBuilder(column: $table.fonte, builder: (column) => column);
+
+  $$EspeciesTableAnnotationComposer get especieId {
+    final $$EspeciesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EspeciesUnidadeTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EspeciesUnidadeTable,
+          EspecieUnidade,
+          $$EspeciesUnidadeTableFilterComposer,
+          $$EspeciesUnidadeTableOrderingComposer,
+          $$EspeciesUnidadeTableAnnotationComposer,
+          $$EspeciesUnidadeTableCreateCompanionBuilder,
+          $$EspeciesUnidadeTableUpdateCompanionBuilder,
+          (EspecieUnidade, $$EspeciesUnidadeTableReferences),
+          EspecieUnidade,
+          PrefetchHooks Function({bool especieId})
+        > {
+  $$EspeciesUnidadeTableTableManager(
+    _$AppDatabase db,
+    $EspeciesUnidadeTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EspeciesUnidadeTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EspeciesUnidadeTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EspeciesUnidadeTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> unidadeId = const Value.absent(),
+                Value<String> especieId = const Value.absent(),
+                Value<int> ciclo = const Value.absent(),
+                Value<String?> fonte = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => EspeciesUnidadeCompanion(
+                unidadeId: unidadeId,
+                especieId: especieId,
+                ciclo: ciclo,
+                fonte: fonte,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String unidadeId,
+                required String especieId,
+                required int ciclo,
+                Value<String?> fonte = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => EspeciesUnidadeCompanion.insert(
+                unidadeId: unidadeId,
+                especieId: especieId,
+                ciclo: ciclo,
+                fonte: fonte,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$EspeciesUnidadeTable, EspecieUnidade>(table),
+                  $$EspeciesUnidadeTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({especieId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (especieId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.especieId,
+                        referencedTable: $$EspeciesUnidadeTableReferences
+                            ._especieIdTable(db),
+                        referencedColumn: $$EspeciesUnidadeTableReferences
+                            ._especieIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$EspeciesUnidadeTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EspeciesUnidadeTable,
+      EspecieUnidade,
+      $$EspeciesUnidadeTableFilterComposer,
+      $$EspeciesUnidadeTableOrderingComposer,
+      $$EspeciesUnidadeTableAnnotationComposer,
+      $$EspeciesUnidadeTableCreateCompanionBuilder,
+      $$EspeciesUnidadeTableUpdateCompanionBuilder,
+      (EspecieUnidade, $$EspeciesUnidadeTableReferences),
+      EspecieUnidade,
+      PrefetchHooks Function({bool especieId})
+    >;
+typedef $$PriorizacoesTableCreateCompanionBuilder =
+    PriorizacoesCompanion Function({
+      required DateTime createdAt,
+      required DateTime updatedAt,
+      Value<DateTime?> serverUpdatedAt,
+      Value<bool> deleted,
+      Value<String> syncStatus,
+      Value<int> version,
+      required String id,
+      required String unidadeId,
+      required String especieId,
+      required String respostas,
+      required int indice,
+      required String usuarioId,
+      Value<String?> observacao,
+      Value<int> rowid,
+    });
+typedef $$PriorizacoesTableUpdateCompanionBuilder =
+    PriorizacoesCompanion Function({
+      Value<DateTime> createdAt,
+      Value<DateTime> updatedAt,
+      Value<DateTime?> serverUpdatedAt,
+      Value<bool> deleted,
+      Value<String> syncStatus,
+      Value<int> version,
+      Value<String> id,
+      Value<String> unidadeId,
+      Value<String> especieId,
+      Value<String> respostas,
+      Value<int> indice,
+      Value<String> usuarioId,
+      Value<String?> observacao,
+      Value<int> rowid,
+    });
+
+final class $$PriorizacoesTableReferences
+    extends BaseReferences<_$AppDatabase, $PriorizacoesTable, Priorizacao> {
+  $$PriorizacoesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $EspeciesTable _especieIdTable(_$AppDatabase db) =>
+      db.especies.createAlias('priorizacoes__especie_id__especies__id');
+
+  $$EspeciesTableProcessedTableManager get especieId {
+    final $_column = $_itemColumn<String>('especie_id')!;
+
+    final manager = $$EspeciesTableTableManager(
+      $_db,
+      $_db.especies,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_especieIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PriorizacoesTableFilterComposer
+    extends Composer<_$AppDatabase, $PriorizacoesTable> {
+  $$PriorizacoesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get serverUpdatedAt => $composableBuilder(
+    column: $table.serverUpdatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get respostas => $composableBuilder(
+    column: $table.respostas,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get indice => $composableBuilder(
+    column: $table.indice,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get usuarioId => $composableBuilder(
+    column: $table.usuarioId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get observacao => $composableBuilder(
+    column: $table.observacao,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$EspeciesTableFilterComposer get especieId {
+    final $$EspeciesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableFilterComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PriorizacoesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PriorizacoesTable> {
+  $$PriorizacoesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get serverUpdatedAt => $composableBuilder(
+    column: $table.serverUpdatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unidadeId => $composableBuilder(
+    column: $table.unidadeId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get respostas => $composableBuilder(
+    column: $table.respostas,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get indice => $composableBuilder(
+    column: $table.indice,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get usuarioId => $composableBuilder(
+    column: $table.usuarioId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get observacao => $composableBuilder(
+    column: $table.observacao,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$EspeciesTableOrderingComposer get especieId {
+    final $$EspeciesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableOrderingComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PriorizacoesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PriorizacoesTable> {
+  $$PriorizacoesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get serverUpdatedAt => $composableBuilder(
+    column: $table.serverUpdatedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
+
+  GeneratedColumn<String> get syncStatus => $composableBuilder(
+    column: $table.syncStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get unidadeId =>
+      $composableBuilder(column: $table.unidadeId, builder: (column) => column);
+
+  GeneratedColumn<String> get respostas =>
+      $composableBuilder(column: $table.respostas, builder: (column) => column);
+
+  GeneratedColumn<int> get indice =>
+      $composableBuilder(column: $table.indice, builder: (column) => column);
+
+  GeneratedColumn<String> get usuarioId =>
+      $composableBuilder(column: $table.usuarioId, builder: (column) => column);
+
+  GeneratedColumn<String> get observacao => $composableBuilder(
+    column: $table.observacao,
+    builder: (column) => column,
+  );
+
+  $$EspeciesTableAnnotationComposer get especieId {
+    final $$EspeciesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.especieId,
+      referencedTable: $db.especies,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EspeciesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.especies,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PriorizacoesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PriorizacoesTable,
+          Priorizacao,
+          $$PriorizacoesTableFilterComposer,
+          $$PriorizacoesTableOrderingComposer,
+          $$PriorizacoesTableAnnotationComposer,
+          $$PriorizacoesTableCreateCompanionBuilder,
+          $$PriorizacoesTableUpdateCompanionBuilder,
+          (Priorizacao, $$PriorizacoesTableReferences),
+          Priorizacao,
+          PrefetchHooks Function({bool especieId})
+        > {
+  $$PriorizacoesTableTableManager(_$AppDatabase db, $PriorizacoesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PriorizacoesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PriorizacoesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PriorizacoesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<DateTime?> serverUpdatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<String> syncStatus = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String> id = const Value.absent(),
+                Value<String> unidadeId = const Value.absent(),
+                Value<String> especieId = const Value.absent(),
+                Value<String> respostas = const Value.absent(),
+                Value<int> indice = const Value.absent(),
+                Value<String> usuarioId = const Value.absent(),
+                Value<String?> observacao = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PriorizacoesCompanion(
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                serverUpdatedAt: serverUpdatedAt,
+                deleted: deleted,
+                syncStatus: syncStatus,
+                version: version,
+                id: id,
+                unidadeId: unidadeId,
+                especieId: especieId,
+                respostas: respostas,
+                indice: indice,
+                usuarioId: usuarioId,
+                observacao: observacao,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<DateTime?> serverUpdatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
+                Value<String> syncStatus = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                required String id,
+                required String unidadeId,
+                required String especieId,
+                required String respostas,
+                required int indice,
+                required String usuarioId,
+                Value<String?> observacao = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PriorizacoesCompanion.insert(
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                serverUpdatedAt: serverUpdatedAt,
+                deleted: deleted,
+                syncStatus: syncStatus,
+                version: version,
+                id: id,
+                unidadeId: unidadeId,
+                especieId: especieId,
+                respostas: respostas,
+                indice: indice,
+                usuarioId: usuarioId,
+                observacao: observacao,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PriorizacoesTable, Priorizacao>(table),
+                  $$PriorizacoesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({especieId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (especieId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.especieId,
+                        referencedTable: $$PriorizacoesTableReferences
+                            ._especieIdTable(db),
+                        referencedColumn: $$PriorizacoesTableReferences
+                            ._especieIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PriorizacoesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PriorizacoesTable,
+      Priorizacao,
+      $$PriorizacoesTableFilterComposer,
+      $$PriorizacoesTableOrderingComposer,
+      $$PriorizacoesTableAnnotationComposer,
+      $$PriorizacoesTableCreateCompanionBuilder,
+      $$PriorizacoesTableUpdateCompanionBuilder,
+      (Priorizacao, $$PriorizacoesTableReferences),
+      Priorizacao,
+      PrefetchHooks Function({bool especieId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -12909,4 +16190,8 @@ class $AppDatabaseManager {
       $$ConfigsTableTableManager(_db, _db.configs);
   $$ErrosSyncTableTableManager get errosSync =>
       $$ErrosSyncTableTableManager(_db, _db.errosSync);
+  $$EspeciesUnidadeTableTableManager get especiesUnidade =>
+      $$EspeciesUnidadeTableTableManager(_db, _db.especiesUnidade);
+  $$PriorizacoesTableTableManager get priorizacoes =>
+      $$PriorizacoesTableTableManager(_db, _db.priorizacoes);
 }

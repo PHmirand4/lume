@@ -1,12 +1,12 @@
-# Lume
+# BioLume
 
 **Ilumine o que ameaça a floresta.**
 
-App Android (Flutter), offline-first, para a equipe da Floresta Nacional de Pacotuba (ICMBio) registrar em campo espécies exóticas invasoras, ações de manejo e revisitas, com foto, GPS e mapa.
+App Android (Flutter), offline-first, para as equipes das Florestas Nacionais do ICMBio registrarem em campo espécies exóticas invasoras, ações de manejo e revisitas, com foto, GPS e mapa. Ao abrir, a pessoa escolhe a sua Flona (68 unidades, com os limites oficiais); a Floresta Nacional de Pacotuba é o projeto piloto. O guia traz o catálogo nacional de plantas exóticas invasoras, com foto e quantas ocorrências cada espécie tem na unidade. Cada Flona traz a Lista oficial de EEI do ICMBio (flora e fauna), atualizável importando a planilha de cada ciclo; espécies registradas fora da lista viram alerta e entram no informe de novos registros para a CMEEI. Há também a priorização de EEI para controle (12 critérios da ferramenta do ICMBio). A versão PWA para iPhone vem depois do APK.
 
 Projeto de Inovação da equipe de robótica do SESI Cachoeiro de Itapemirim — FIRST LEGO League, temporada BIOGLOW (2026/2027).
 
-A fonte de verdade do produto é o [`CONTEXTO_APP_EEI_PACOTUBA.md`](CONTEXTO_APP_EEI_PACOTUBA.md). A identidade visual está em [`lume-logo-kit/`](lume-logo-kit/LEIA-ME.md).
+A fonte de verdade do produto é o [`CONTEXTO_APP_EEI_PACOTUBA.md`](CONTEXTO_APP_EEI_PACOTUBA.md). A identidade visual está em [`biolume-logo-kit/`](biolume-logo-kit/LEIA-ME.md).
 
 ## Como rodar
 

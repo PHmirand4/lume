@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../app/theme.dart';
-import '../core/fotos.dart';
 import '../core/formato.dart';
+import '../core/fotos.dart';
 import '../core/gps.dart';
 import '../data/repositories/catalogo_repository.dart';
 import '../data/repositories/foco_repository.dart';
@@ -228,11 +228,20 @@ class QuantidadeValor {
 }
 
 class CampoQuantidade extends StatefulWidget {
-  const CampoQuantidade({super.key, required this.valor, required this.vocab, required this.aoMudar});
+  const CampoQuantidade({
+    super.key,
+    required this.valor,
+    required this.vocab,
+    required this.aoMudar,
+    this.soContagem = false,
+  });
 
   final QuantidadeValor valor;
   final Vocabulario vocab;
   final VoidCallback aoMudar;
+
+  /// Fauna: só contagem ou classe de abundância.
+  final bool soContagem;
 
   @override
   State<CampoQuantidade> createState() => _CampoQuantidadeState();
@@ -264,7 +273,10 @@ class _CampoQuantidadeState extends State<CampoQuantidade> {
   @override
   Widget build(BuildContext context) {
     final v = widget.valor;
-    final tipos = widget.vocab.itens(Listas.quantificacaoTipo);
+    final tipos = widget.vocab
+        .itens(Listas.quantificacaoTipo)
+        .where((t) => !widget.soContagem || t.codigo == 'contagem' || t.codigo == 'classe')
+        .toList();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -343,7 +355,20 @@ class _CampoQuantidadeState extends State<CampoQuantidade> {
               widget.aoMudar();
             },
           ),
-        _ => Row(children: [
+        _ => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            // Faixas da ficha de campo do ICMBio (gramíneas/rasteiras).
+            Wrap(spacing: 8, children: [
+              for (final (rotulo, pct) in [('< 25%', 12), ('25–50%', 37), ('50–75%', 62), ('> 75%', 88)])
+                ChoiceChip(
+                  label: Text(rotulo),
+                  selected: v.cobertura == pct,
+                  onSelected: (_) {
+                    v.cobertura = pct;
+                    _mudou();
+                  },
+                ),
+            ]),
+            Row(children: [
             Expanded(
               child: Slider(
                 value: (v.cobertura ?? 0).toDouble(),
@@ -360,6 +385,7 @@ class _CampoQuantidadeState extends State<CampoQuantidade> {
               width: 64,
               child: Text('${v.cobertura ?? 0}%', style: estiloMono(tamanho: 18), textAlign: TextAlign.end),
             ),
+          ]),
           ]),
       },
     ]);

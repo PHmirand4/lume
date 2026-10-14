@@ -30,8 +30,8 @@ class SobreScreen extends StatelessWidget {
           const Center(child: LogoLume(altura: 110)),
           const SizedBox(height: 16),
           Text(
-            'Monitoramento de espécies exóticas invasoras da Floresta Nacional de Pacotuba (ICMBio), '
-            'Cachoeiro de Itapemirim/ES.',
+            'Monitoramento de espécies exóticas invasoras nas Florestas Nacionais do ICMBio. '
+            'Projeto piloto na Floresta Nacional de Pacotuba, Cachoeiro de Itapemirim/ES.',
             style: t.bodyLarge,
             textAlign: TextAlign.center,
           ),
@@ -47,15 +47,19 @@ class SobreScreen extends StatelessWidget {
           const TituloSecao('Dados e atribuições'),
           Text('Mapa base: © colaboradores do OpenStreetMap (ODbL).', style: t.bodyMedium),
           link('openstreetmap.org/copyright', 'https://www.openstreetmap.org/copyright'),
-          Text('Limite da Flona: ICMBio (arquivo oficial KMZ).', style: t.bodyMedium),
+          Text('Limites das Florestas Nacionais: ICMBio (Limites das UCs federais, via INDE), simplificados.',
+              style: t.bodyMedium),
           const SizedBox(height: 6),
-          Text('Catálogo de espécies: Costa et al. (2024), cap. 3 — Floresta Nacional de Pacotuba.', style: t.bodyMedium),
+          Text('Catálogo de espécies: Base de Dados Nacional de Espécies Exóticas Invasoras (Instituto Hórus, '
+              'consulta em out/2026) e Costa et al. (2024), cap. 3 — Floresta Nacional de Pacotuba.',
+              style: t.bodyMedium),
+          link('bd.institutohorus.org.br', 'https://bd.institutohorus.org.br'),
           const SizedBox(height: 6),
           Text('Estrutura de registro: Guia de Orientação do ICMBio para o manejo de EEI em UCs federais; '
               'exportação no padrão Darwin Core (TDWG).', style: t.bodyMedium),
           const TituloSecao('Privacidade (LGPD)'),
           Text(
-            'O Lume guarda só nome, e-mail e função de quem registra. A localização gravada é a do foco, '
+            'O BioLume guarda só nome, e-mail e função de quem registra. A localização gravada é a do foco, '
             'não um rastreamento da pessoa. A exportação Darwin Core pode ser anonimizada.',
             style: t.bodyMedium,
           ),
@@ -63,7 +67,7 @@ class SobreScreen extends StatelessWidget {
           Text('Archivo e IBM Plex — SIL Open Font License 1.1.', style: t.bodyMedium),
           const SizedBox(height: 12),
           OutlinedButton(
-            onPressed: () => showLicensePage(context: context, applicationName: 'Lume', applicationVersion: versaoApp),
+            onPressed: () => showLicensePage(context: context, applicationName: 'BioLume', applicationVersion: versaoApp),
             child: const Text('Licenças de software'),
           ),
         ],

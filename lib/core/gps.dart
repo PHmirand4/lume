@@ -43,7 +43,7 @@ Future<ProblemaGps?> prepararGps() async {
 
 String mensagemProblemaGps(ProblemaGps p) => switch (p) {
       ProblemaGps.servicoDesligado => 'A localização do aparelho está desligada.',
-      ProblemaGps.semPermissao => 'O Lume não tem permissão para usar a localização.',
+      ProblemaGps.semPermissao => 'O BioLume não tem permissão para usar a localização.',
       ProblemaGps.permissaoNegadaSempre =>
         'A permissão de localização foi negada. Libere nas configurações do aparelho.',
     };
